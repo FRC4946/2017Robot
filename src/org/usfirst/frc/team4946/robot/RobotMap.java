@@ -16,7 +16,7 @@ public class RobotMap {
 	public static final int DIO_DRIVETRAIN_RIGHTENCB = 5;
 	public static final int DIO_DRIVETRAIN_LEFTENCA = 6;
 	public static final int DIO_DRIVETRAIN_LEFTENCB = 7;
-	public static final int ANALOG_DRIVETRAIN_GYRO = 8;
+
 	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
