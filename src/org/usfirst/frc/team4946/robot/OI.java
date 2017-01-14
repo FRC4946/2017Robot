@@ -19,7 +19,7 @@ public class OI {
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
 
-	Joystick robotJoystick = new Joystick(73);
+	private Joystick robotJoystick = new Joystick(73);
 	Button spinButton = new JoystickButton(robotJoystick, 74);
 
 	// There are a few additional built in buttons you can use. Additionally,
@@ -44,6 +44,10 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
+	}
+	
+	public Joystick getJoystick(){
+		return robotJoystick;
 	}
 
 }
