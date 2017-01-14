@@ -8,6 +8,16 @@ package org.usfirst.frc.team4946.robot;
  */
 public class RobotMap {
 	public static final int PWM_INTAKE_MOTOR = 17;
+	public static final int PWM_DRIVETRAIN_FLMOTOR = 0;
+	public static final int PWM_DRIVETRAIN_FRMOTOR = 1; 
+	public static final int PWM_DRIVETRAIN_BLMOTOR = 2;
+	public static final int PWM_DRIVETRAIN_BRMOTOR = 3; 
+	public static final int DIO_DRIVETRAIN_RIGHTENCA = 4;
+	public static final int DIO_DRIVETRAIN_RIGHTENCB = 5;
+	public static final int DIO_DRIVETRAIN_LEFTENCA = 6;
+	public static final int DIO_DRIVETRAIN_LEFTENCB = 7;
+	public static final int ANALOG_DRIVETRAIN_GYRO = 8;
+	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;
