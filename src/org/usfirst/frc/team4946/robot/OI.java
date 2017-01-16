@@ -1,6 +1,9 @@
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.commands.GetEncAndGyroValues;
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
+import org.usfirst.frc.team4946.robot.commands.ResetEncAndGyro;
+import org.usfirst.frc.team4946.robot.commands.driveRobot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,6 +24,12 @@ public class OI {
 
 	private Joystick robotJoystick = new Joystick(73);
 	Button spinButton = new JoystickButton(robotJoystick, 74);
+	Button driveRobot = new JoystickButton(robotJoystick, 1);
+	Button exampleCommand = new JoystickButton(robotJoystick, 2);
+	Button getEncAndGyroValues = new JoystickButton(robotJoystick, 3);
+	Button resetEncAndGyroValues = new JoystickButton(robotJoystick, 4);
+	
+	 
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
@@ -44,11 +53,15 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
+		driveRobot.whileHeld(new driveRobot());
+		getEncAndGyroValues.whileHeld(new GetEncAndGyroValues());
+		resetEncAndGyroValues.whileHeld(new ResetEncAndGyro());
 
 	}
 	
 	public Joystick getJoystick(){
 		return robotJoystick;
+
 	}
 
 }
