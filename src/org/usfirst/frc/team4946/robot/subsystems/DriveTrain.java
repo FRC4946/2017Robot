@@ -83,5 +83,9 @@ public class DriveTrain extends Subsystem {
     	m_driveGyro.calibrate();
     }
     
+    public void setGyroValue(){
+    
+    }
+    
 }
 
