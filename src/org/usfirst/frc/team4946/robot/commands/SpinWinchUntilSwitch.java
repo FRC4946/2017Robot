@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class WinchCommand extends Command {
+public class SpinWinchUntilSwitch extends Command {
 
-    public WinchCommand() {
+    public SpinWinchUntilSwitch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.winchSubsystem);
