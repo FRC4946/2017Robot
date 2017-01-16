@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
+import org.usfirst.frc.team4946.robot.commands.WinchCommand;
+
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,7 +23,7 @@ public class OI {
 
 	Joystick robotJoystick = new Joystick(73);
 	Button spinButton = new JoystickButton(robotJoystick, 74);
-
+	Button winchButton = new JoystickButton (robotJoystick,50);
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
@@ -44,6 +46,7 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
+		winchButton.whileHeld(new WinchCommand());
 	}
 
 }
