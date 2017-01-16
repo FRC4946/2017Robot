@@ -2,6 +2,7 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4946.robot.subsystems.Agitator;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
 import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
 
@@ -22,7 +23,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static final BallIntake ballSubsystem = new BallIntake(); 
+	public static final BallIntake ballSubsystem = new BallIntake();
+	public static final Agitator agitatorSubsystem = new Agitator();
 	public static OI oi;
 
 	Command autonomousCommand;
