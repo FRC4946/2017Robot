@@ -2,7 +2,6 @@ package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
 
 
@@ -27,13 +26,8 @@ public class WinchCommand extends Command {
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished (DigitalInput winchSwitch) {
-        if(winchSwitch.get()){
-        	return true;
-        }
-        else{
-    	return false;
-        }
+    protected boolean isFinished () {
+        return Robot.winchSubsystem.getWinchSwitch();
     }
 
     // Called once after isFinished returns true
