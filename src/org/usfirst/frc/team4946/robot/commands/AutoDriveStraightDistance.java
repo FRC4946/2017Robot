@@ -14,6 +14,7 @@ public class AutoDriveStraightDistance extends Command {
 	double m_distanceTraveled;
 	double m_gyroAngle;
 	double m_maxSpeed;
+	final double k_p = 0.03;
 	
     public AutoDriveStraightDistance(double distInches, double maxSpeed) {
     	requires(Robot.driveSubsystem);
@@ -31,7 +32,7 @@ public class AutoDriveStraightDistance extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
        	m_gyroAngle = Robot.driveSubsystem.getGyroValues();
-    	Robot.driveSubsystem.drive(m_maxSpeed/2, m_gyroAngle, 0.0);
+    	Robot.driveSubsystem.drive(m_maxSpeed/2, m_gyroAngle*k_p, 0.0);
     	m_distanceTraveled = Robot.driveSubsystem.getEncoderDistance() - m_startingDistance;
     }
 
