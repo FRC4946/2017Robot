@@ -28,7 +28,7 @@ public class AutoDriveDistancePID extends Command {
     	Robot.driveSubsystem.enableEncoders();
 		m_startingDistance = Robot.driveSubsystem.getEncoderDistance();
 		Robot.driveSubsystem.setGyroSetpoint(Robot.driveSubsystem.getGyroValue());
-		Robot.driveSubsystem.setEncoderSetpoint(m_distanceToDrive);
+		Robot.driveSubsystem.setEncoderSetpoint(m_distanceToDrive + m_startingDistance);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
