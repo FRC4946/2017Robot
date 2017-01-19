@@ -1,41 +1,44 @@
-package org.usfirst.frc.team4946.robot.commands;
+package DriveTrainCommands;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class DriveRobot extends Command {
+public class AutoDriveStraightDistance extends Command {
 
-    public DriveRobot() {
+	double m_distanceToDrive;
+	double m_startingDistance;
+	double m_distanceTraveled;
+	double m_gyroAngle;
+	double m_maxSpeed;
+	final double k_p = 0.03;
+	
+    public AutoDriveStraightDistance(double distInches, double maxSpeed) {
+    	requires(Robot.driveSubsystem);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveSubsystem);
-    	
+    	m_distanceToDrive = distInches;
+    	m_maxSpeed = maxSpeed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-
+    	m_startingDistance = Robot.driveSubsystem.getEncoderDistance();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Joystick stick = Robot.oi.getJoystick();
-    	double drive = stick.getRawAxis(0);
-    	double curve = stick.getRawAxis(1);
-    	double throttle = stick.getRawAxis(3);
-    	Robot.driveSubsystem.drive(drive, curve, throttle);
-
+       	m_gyroAngle = Robot.driveSubsystem.getGyroValue();
+    	Robot.driveSubsystem.drive(m_maxSpeed/2, m_gyroAngle*k_p, 0.0);
+    	m_distanceTraveled = Robot.driveSubsystem.getEncoderDistance() - m_startingDistance;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return (m_distanceTraveled >= m_distanceToDrive);
     }
 
     // Called once after isFinished returns true

@@ -1,9 +1,9 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
-import org.usfirst.frc.team4946.robot.commands.ResetEncAndGyro;
-import org.usfirst.frc.team4946.robot.commands.DriveRobot;
 
+import DriveTrainCommands.DriveRobot;
+import DriveTrainCommands.ResetEncAndGyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
