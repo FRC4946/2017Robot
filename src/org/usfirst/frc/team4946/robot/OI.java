@@ -1,9 +1,8 @@
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.GetEncAndGyroValues;
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
 import org.usfirst.frc.team4946.robot.commands.ResetEncAndGyro;
-import org.usfirst.frc.team4946.robot.commands.driveRobot;
+import org.usfirst.frc.team4946.robot.commands.DriveRobot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -53,8 +52,7 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
-		driveRobot.whileHeld(new driveRobot());
-		getEncAndGyroValues.whileHeld(new GetEncAndGyroValues());
+		driveRobot.whileHeld(new DriveRobot());
 		resetEncAndGyroValues.whileHeld(new ResetEncAndGyro());
 
 	}

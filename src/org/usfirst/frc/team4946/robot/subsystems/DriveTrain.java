@@ -3,7 +3,7 @@ package org.usfirst.frc.team4946.robot.subsystems;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.SimplePIController;
-import org.usfirst.frc.team4946.robot.commands.driveRobot;
+import org.usfirst.frc.team4946.robot.commands.DriveRobot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
@@ -42,7 +42,7 @@ public class DriveTrain extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new driveRobot());
+    	setDefaultCommand(new DriveRobot());
     }
     
     public DriveTrain(){
