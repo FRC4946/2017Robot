@@ -40,6 +40,16 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		
+	    SendableChooser m_autoPosition = new SendableChooser();
+	    m_autoPosition.addObject("Left Position - With Shoot", 1);
+	    m_autoPosition.addObject("Left Position -  No Shoot", 2);
+	    m_autoPosition.addObject("Middle Position Breach Left - with Shoot", 4);
+	    m_autoPosition.addObject("Middle Position Breach Right - No Shoot", 5);
+	    m_autoPosition.addObject("Middle Position No Breach - With Shoot", 6);
+	    m_autoPosition.addObject("Right Position- No Shoot", 3);
+	    SmartDashboard.putData("Autonomous - Script", m_autoPosition);
+	    
 	}
 
 	/**

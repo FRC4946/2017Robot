@@ -9,12 +9,15 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TurnPID extends Command {
 
-	double m_turn; 
-    public TurnPID(double turnValue) {
+	double m_currentAngle;
+	double m_curve;
+	
+    public TurnPID(double turnAngle, double curveValue) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveSubsystem);
-    	m_turn = turnValue;
+    	Robot.driveSubsystem.setGyroSetpoint(turnAngle);
+    	m_curve = curveValue;
     }
 
     // Called just before this Command runs the first time
@@ -23,12 +26,13 @@ public class TurnPID extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveSubsystem.drive(0.0, m_turn);
+    	m_currentAngle = Robot.driveSubsystem.getGyroOutput();
+    	Robot.driveSubsystem.drive(0.0, m_curve);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return m_currentAngle == Robot.driveSubsystem.getGyroOutput();
     }
 
     // Called once after isFinished returns true

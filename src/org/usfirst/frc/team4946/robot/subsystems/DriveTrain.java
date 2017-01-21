@@ -46,8 +46,8 @@ public class DriveTrain extends Subsystem {
     }
     
     public DriveTrain(){
-		m_driveEncoderRight.setDistancePerPulse(RobotConstants.wheelDia*Math.PI / RobotConstants.encoderPPR*(50/24));
-		m_driveEncoderLeft.setDistancePerPulse(RobotConstants.wheelDia*Math.PI / RobotConstants.encoderPPR*(50/24));
+		m_driveEncoderRight.setDistancePerPulse(RobotConstants.WHEEL_DIA*Math.PI / RobotConstants.ENCODER_PPR*(50/24));
+		m_driveEncoderLeft.setDistancePerPulse(RobotConstants.WHEEL_DIA*Math.PI / RobotConstants.ENCODER_PPR*(50/24));
 		m_driveEncoderRight.setReverseDirection(true);
 		m_driveEncoderLeft.setReverseDirection(true);
 		m_driveEncoderRight.reset();
