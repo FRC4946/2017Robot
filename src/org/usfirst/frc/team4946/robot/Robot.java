@@ -110,8 +110,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putDouble("Encoder Distance", driveSubsystem.getEncoderDistance());
-		SmartDashboard.putDouble("Gyro", driveSubsystem.getGyroValue());
+		SmartDashboard.putNumber("Encoder Distance", driveSubsystem.getOneEncoderValue());
+		SmartDashboard.putNumber("Gyro", driveSubsystem.getGyroValue());
 	}
 
 	/**

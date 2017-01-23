@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
+import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.SimplePIController;
@@ -96,6 +97,10 @@ public class DriveTrain extends Subsystem {
     	
     	double robotAngle = m_driveGyro.getAngle();
     	return robotAngle;
+    }
+    
+    public double getOneEncoderValue(){
+    	return m_driveEncoderLeft.getDistance();
     }
     
     public void resetEncoders(){

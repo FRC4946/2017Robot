@@ -21,8 +21,8 @@ public class OI {
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
 
-	private Joystick robotJoystick = new Joystick(73);
-	Button spinButton = new JoystickButton(robotJoystick, 74);
+	private Joystick robotJoystick = new Joystick(0);
+	Button spinButton = new JoystickButton(robotJoystick, 5);
 	Button driveRobot = new JoystickButton(robotJoystick, 1);
 	Button exampleCommand = new JoystickButton(robotJoystick, 2);
 	Button getEncAndGyroValues = new JoystickButton(robotJoystick, 3);
