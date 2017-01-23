@@ -11,5 +11,4 @@ public class RobotConstants {
 	public static final int MIDDLE_POSITION_BREACH_LEFT_SHOOT = 4;
 	public static final int MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT = 5;
 	public static final int MIDDLE_POSITION_NO_BREACH_SHOOT = 6;
-	
 }
