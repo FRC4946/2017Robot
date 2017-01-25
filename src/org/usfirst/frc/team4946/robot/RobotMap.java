@@ -12,10 +12,11 @@ public class RobotMap {
 	public static final int PWM_DRIVETRAIN_FRMOTOR = 1; 
 	public static final int PWM_DRIVETRAIN_BLMOTOR = 2;
 	public static final int PWM_DRIVETRAIN_BRMOTOR = 3; 
-	public static final int DIO_DRIVETRAIN_RIGHTENCA = 4;
-	public static final int DIO_DRIVETRAIN_RIGHTENCB = 5;
 	public static final int DIO_DRIVETRAIN_LEFTENCA = 6;
 	public static final int DIO_DRIVETRAIN_LEFTENCB = 7;
+	public static final int DIO_DRIVETRAIN_RIGHTENCA = 8;
+	public static final int DIO_DRIVETRAIN_RIGHTENCB = 9;
+
 
 	
 	// For example to map the left and right motors, you could define the
