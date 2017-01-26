@@ -1,4 +1,4 @@
-package DriveTrainCommands;
+package org.usfirst.frc.team4946.robot.commands.driveTrain;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -7,17 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TurnPID extends Command {
+public class ResetEncAndGyro extends Command {
 
-	double m_currentAngle;
-	double m_curve;
-	
-    public TurnPID(double turnAngle, double curveValue) {
+    public ResetEncAndGyro() {
+    	requires(Robot.driveSubsystem);
+    	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveSubsystem);
-    	Robot.driveSubsystem.setGyroSetpoint(turnAngle);
-    	m_curve = curveValue;
     }
 
     // Called just before this Command runs the first time
@@ -26,13 +22,13 @@ public class TurnPID extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	m_currentAngle = Robot.driveSubsystem.getGyroOutput();
-    	Robot.driveSubsystem.drive(0.0, m_curve);
+    	Robot.driveSubsystem.calibrateGyroscope();
+    	Robot.driveSubsystem.resetEncoders();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return m_currentAngle == Robot.driveSubsystem.getGyroOutput();
+        return true;
     }
 
     // Called once after isFinished returns true

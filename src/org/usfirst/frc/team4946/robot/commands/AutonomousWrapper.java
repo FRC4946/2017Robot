@@ -1,10 +1,10 @@
 package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
+import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistance;
+import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
+import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
 
-import DriveTrainCommands.AutoDriveDistance;
-import DriveTrainCommands.AutoDriveDistancePID;
-import DriveTrainCommands.TurnPID;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 
