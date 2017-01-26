@@ -24,10 +24,13 @@ public class DriveRobot extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Joystick stick = Robot.oi.getDriverJoystick();
-    	double drive = stick.getRawAxis(0);
-    	double curve = stick.getRawAxis(1);
+    	Joystick stick = Robot.oi.getDriveJoystick();
+    	double drive = stick.getRawAxis(1);
+    	double curve = stick.getRawAxis(0);
     	double throttle = stick.getRawAxis(3);
+    	
+    	throttle = 1;
+    	
     	Robot.driveSubsystem.drive(drive, curve, throttle);
     }
 

@@ -50,9 +50,12 @@ public class DriveTrain extends Subsystem {
 		m_driveEncoderLeft.reset();
 		m_driveGyro.calibrate();
 
-		m_drivePID = new SimplePIController(0.01, 0.001, new AvgPIDSource(
-				m_driveEncoderLeft, m_driveEncoderLeft)); // TODO: CHANGE THIS TO LEFT AND RIGHT
+		m_drivePID = new SimplePIController(0.055, 0.000001, new AvgPIDSource(
+				m_driveEncoderLeft, m_driveEncoderLeft)); // TODO: CHANGE THIS
+															// TO LEFT AND RIGHT
 		m_drivePID.setContinuous(false);
+		m_drivePID.setDirection(false);
+		m_drivePID.setTolerence(1.5);
 		m_gyroPID = new SimplePIController(0.1, 0.01, m_driveGyro);
 		m_gyroPID.setContinuous(true);
 		m_gyroPID.setInputRange(0, 359);
@@ -61,10 +64,9 @@ public class DriveTrain extends Subsystem {
 	public void drive(double drive, double curve) {
 		drive(drive, curve, 1.0);
 	}
+	
 
 	public void drive(double drive, double curve, double throttle) {
-
-		throttle = (throttle - 1.0) / -2.0;
 
 		drive *= (0.5 + (0.5 * throttle));
 		curve *= (0.5 + (0.5 * throttle));
@@ -82,7 +84,6 @@ public class DriveTrain extends Subsystem {
 
 		double totalDistance = (leftDistance + rightDistance) / 2.0;
 		return getOneEncoderValue();
-
 	}
 
 	public double getGyroValue() {
@@ -102,14 +103,6 @@ public class DriveTrain extends Subsystem {
 
 	public void calibrateGyroscope() {
 		m_driveGyro.calibrate();
-	}
-
-	public void enableEncoders() {
-		// Allows the Encoders to start computing w/ PID; the Gyro, because it's
-		// a SimplePIController,
-		// Probably already has this property
-		// m_PIDEncoderLeft.enable();
-		// m_PIDEncoderRight.enable();
 	}
 
 	public void setGyroSetpoint(double newSetpoint) {

@@ -57,7 +57,7 @@ public class OI {
 		return operatorStick;
 	}
 
-	public Joystick getDriverJoystick() {
+	public Joystick getDriveJoystick() {
 		return driveStick;
 	}
 

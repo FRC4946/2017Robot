@@ -25,21 +25,24 @@ public class AutoDriveDistancePID extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-    	Robot.driveSubsystem.enableEncoders();
 		m_startingDistance = Robot.driveSubsystem.getEncoderDistance();
 		Robot.driveSubsystem.setGyroSetpoint(Robot.driveSubsystem.getGyroValue());
-		Robot.driveSubsystem.setEncoderSetpoint(m_distanceToDrive + m_startingDistance);
+		Robot.driveSubsystem.setDrivePIDSetpoint(m_distanceToDrive + m_startingDistance);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.driveSubsystem.drive(m_maxSpeed, Robot.driveSubsystem.getGyroOutput());
+		double magnitude = Robot.driveSubsystem.getDrivePIDOutput();
+		double curve = 0;//Robot.driveSubsystem.getGyroOutput();
+		
+		Robot.driveSubsystem.drive(magnitude, curve);
+		
 		m_distanceTraveled = Robot.driveSubsystem.getEncoderDistance();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.driveSubsystem.;
+		return Robot.driveSubsystem.getDrivePIDIsOnTarget();
 	}
 
 	// Called once after isFinished returns true
