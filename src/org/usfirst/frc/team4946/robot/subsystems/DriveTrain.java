@@ -62,6 +62,8 @@ public class DriveTrain extends Subsystem {
 		m_gyroPID = new SimplePIController(0.1, 0.01, m_driveGyro);
 		m_gyroPID.setContinuous(true);
 		m_gyroPID.setInputRange(0, 359);
+		
+		setDefaultCommand(new DriveRobot());
 
     }
     

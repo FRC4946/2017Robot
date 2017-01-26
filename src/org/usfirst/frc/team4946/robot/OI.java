@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
-import org.usfirst.frc.team4946.robot.commands.driveTrain.DriveRobot;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.ResetEncAndGyro;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -21,12 +20,13 @@ public class OI {
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
 
-	private Joystick robotJoystick = new Joystick(0);
-	Button spinButton = new JoystickButton(robotJoystick, 5);
-	Button driveRobot = new JoystickButton(robotJoystick, 1);
-	Button exampleCommand = new JoystickButton(robotJoystick, 2);
-	Button getEncAndGyroValues = new JoystickButton(robotJoystick, 3);
-	Button resetEncAndGyroValues = new JoystickButton(robotJoystick, 4);
+	private Joystick operatorStick = new Joystick(0);
+	private Joystick driverStick = new Joystick(1);
+
+	Button spinButton = new JoystickButton(operatorStick, 5);
+	Button exampleCommand = new JoystickButton(operatorStick, 2);
+	Button getEncAndGyroValues = new JoystickButton(operatorStick, 3);
+	Button resetEncAndGyroValues = new JoystickButton(operatorStick, 4);
 	
 	 
 
@@ -52,14 +52,17 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
-		driveRobot.whileHeld(new DriveRobot());
 		resetEncAndGyroValues.whileHeld(new ResetEncAndGyro());
 
 	}
 	
-	public Joystick getJoystick(){
-		return robotJoystick;
-
+	public Joystick getOperatorJoystick(){
+		return operatorStick;
 	}
+	
+	public Joystick getDriverJoystick(){
+		return driverStick;
+	}
+
 
 }

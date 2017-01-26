@@ -7,7 +7,7 @@ package org.usfirst.frc.team4946.robot;
  * floating around.
  */
 public class RobotMap {
-	public static final int PWM_INTAKE_MOTOR = 17;
+	public static final int PWM_INTAKE_MOTOR = 4;
 	public static final int PWM_DRIVETRAIN_FLMOTOR = 0;
 	public static final int PWM_DRIVETRAIN_FRMOTOR = 1; 
 	public static final int PWM_DRIVETRAIN_BLMOTOR = 2;
