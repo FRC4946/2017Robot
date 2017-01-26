@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
+import org.usfirst.frc.team4946.robot.AvgPIDSource;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.SimplePIController;
@@ -7,7 +8,6 @@ import org.usfirst.frc.team4946.robot.commands.driveTrain.DriveRobot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,8 +30,7 @@ public class DriveTrain extends Subsystem {
 			RobotMap.DIO_DRIVETRAIN_RIGHTENCB);
 
 	ADXRS450_Gyro m_driveGyro = new ADXRS450_Gyro();
-	PIDController m_PIDEncoderLeft;
-	PIDController m_PIDEncoderRight;
+	SimplePIController m_drivePID;
 	SimplePIController m_gyroPID;
 
 	public void initDefaultCommand() {
@@ -51,12 +50,9 @@ public class DriveTrain extends Subsystem {
 		m_driveEncoderLeft.reset();
 		m_driveGyro.calibrate();
 
-		// m_PIDEncoderLeft = new PIDController(0.01, 0.001, 0.0,
-		// m_driveEncoderLeft);
-		// m_PIDEncoderRight = new PIDController(0.01, 0.001, 0.0,
-		// m_driveEncoderRight, m_driveTrainFR);
-		// m_PIDEncoderLeft.setContinuous(false);
-		// m_PIDEncoderRight.setContinuous(false);
+		m_drivePID = new SimplePIController(0.01, 0.001, new AvgPIDSource(
+				m_driveEncoderLeft, m_driveEncoderLeft)); // TODO: CHANGE THIS TO LEFT AND RIGHT
+		m_drivePID.setContinuous(false);
 		m_gyroPID = new SimplePIController(0.1, 0.01, m_driveGyro);
 		m_gyroPID.setContinuous(true);
 		m_gyroPID.setInputRange(0, 359);
@@ -112,8 +108,8 @@ public class DriveTrain extends Subsystem {
 		// Allows the Encoders to start computing w/ PID; the Gyro, because it's
 		// a SimplePIController,
 		// Probably already has this property
-		m_PIDEncoderLeft.enable();
-		m_PIDEncoderRight.enable();
+		// m_PIDEncoderLeft.enable();
+		// m_PIDEncoderRight.enable();
 	}
 
 	public void setGyroSetpoint(double newSetpoint) {
@@ -126,14 +122,16 @@ public class DriveTrain extends Subsystem {
 		return m_gyroPID.getOutput();
 	}
 
-	public void setEncoderSetpoint(double newSetpoint) {
+	public void setDrivePIDSetpoint(double newSetpoint) {
 		// PID; Setpoint is in inches
-		m_PIDEncoderLeft.setSetpoint(newSetpoint);
-		m_PIDEncoderRight.setSetpoint(newSetpoint);
+		m_drivePID.setSetpoint(newSetpoint);
 	}
 
-	public double getEncoderOutput() {
-		// PID
-		return ((m_PIDEncoderLeft.get() + m_PIDEncoderRight.get()) / 2);
+	public double getDrivePIDOutput() {
+		return m_drivePID.getOutput();
+	}
+
+	public boolean getDrivePIDIsOnTarget() {
+		return m_drivePID.onTarget();
 	}
 }

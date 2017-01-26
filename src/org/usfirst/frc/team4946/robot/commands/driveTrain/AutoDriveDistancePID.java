@@ -34,12 +34,12 @@ public class AutoDriveDistancePID extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		Robot.driveSubsystem.drive(m_maxSpeed, Robot.driveSubsystem.getGyroOutput());
-		m_distanceTraveled = Robot.driveSubsystem.getEncoderOutput();
+		m_distanceTraveled = Robot.driveSubsystem.getEncoderDistance();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return (m_distanceTraveled >= m_distanceToDrive);
+		return Robot.driveSubsystem.;
 	}
 
 	// Called once after isFinished returns true

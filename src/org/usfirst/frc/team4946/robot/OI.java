@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
-import org.usfirst.frc.team4946.robot.commands.driveTrain.ResetEncAndGyro;
+import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -12,29 +12,27 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	//// CREATING BUTTONS
+	// // CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
-	//// joystick.
+	// // joystick.
 	// You create one by telling it which joystick it's on and which button
 	// number it is.
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
 
 	private Joystick operatorStick = new Joystick(0);
-	private Joystick driverStick = new Joystick(1);
+	private Joystick driveStick = new Joystick(1);
 
 	Button spinButton = new JoystickButton(operatorStick, 5);
-	Button exampleCommand = new JoystickButton(operatorStick, 2);
 	Button getEncAndGyroValues = new JoystickButton(operatorStick, 3);
 	Button resetEncAndGyroValues = new JoystickButton(operatorStick, 4);
-	
-	 
+	Button drive48in = new JoystickButton(driveStick, 4);
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
 
-	//// TRIGGERING COMMANDS WITH BUTTONS
+	// // TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
 	// three ways:
 
@@ -52,17 +50,15 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
-//		resetEncAndGyroValues.whileHeld(new ResetEncAndGyro());
-
+		drive48in.whenPressed(new AutoDriveDistancePID(48, 0.8));
 	}
-	
-	public Joystick getOperatorJoystick(){
+
+	public Joystick getOperatorJoystick() {
 		return operatorStick;
 	}
-	
-	public Joystick getDriverJoystick(){
-		return driverStick;
-	}
 
+	public Joystick getDriverJoystick() {
+		return driveStick;
+	}
 
 }
