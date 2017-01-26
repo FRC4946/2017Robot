@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
-import org.usfirst.frc.team4946.robot.Robot;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.SimplePIController;
@@ -9,11 +8,8 @@ import org.usfirst.frc.team4946.robot.commands.driveTrain.DriveRobot;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -23,12 +19,10 @@ public class DriveTrain extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	RobotDrive m_driveTrain = new RobotDrive(RobotMap.PWM_DRIVETRAIN_BLMOTOR, 
-			RobotMap.PWM_DRIVETRAIN_BRMOTOR, RobotMap.PWM_DRIVETRAIN_FLMOTOR, 
-			RobotMap.PWM_DRIVETRAIN_FRMOTOR); 
+	RobotDrive m_driveTrain = new RobotDrive(RobotMap.PWM_DRIVETRAIN_FLMOTOR, 
+			RobotMap.PWM_DRIVETRAIN_BLMOTOR, RobotMap.PWM_DRIVETRAIN_FRMOTOR, 
+			RobotMap.PWM_DRIVETRAIN_BRMOTOR); 
 	
-	VictorSP m_driveTrainFL = new VictorSP(RobotMap.PWM_DRIVETRAIN_FLMOTOR);
-	VictorSP m_driveTrainFR = new VictorSP(RobotMap.PWM_DRIVETRAIN_FRMOTOR);
 	
 	
 	Encoder m_driveEncoderLeft = new Encoder(RobotMap.DIO_DRIVETRAIN_LEFTENCA, RobotMap.DIO_DRIVETRAIN_LEFTENCB);
@@ -47,24 +41,21 @@ public class DriveTrain extends Subsystem {
     }
     
     public DriveTrain(){
-		m_driveEncoderRight.setDistancePerPulse(RobotConstants.WHEEL_DIA*Math.PI / RobotConstants.ENCODER_PPR*(50/24));
-		m_driveEncoderLeft.setDistancePerPulse(RobotConstants.WHEEL_DIA*Math.PI / RobotConstants.ENCODER_PPR*(50/24));
+		m_driveEncoderRight.setDistancePerPulse(RobotConstants.WHEEL_DIA*Math.PI / RobotConstants.ENCODER_PPR*(24.0/50.0));
+		m_driveEncoderLeft.setDistancePerPulse(RobotConstants.WHEEL_DIA*Math.PI / RobotConstants.ENCODER_PPR*(24.0/50.0));
 		m_driveEncoderRight.setReverseDirection(true);
 		m_driveEncoderLeft.setReverseDirection(true);
 		m_driveEncoderRight.reset();
 		m_driveEncoderLeft.reset();
 		m_driveGyro.calibrate();
 		
-		m_PIDEncoderLeft = new PIDController(0.01, 0.001, 0.0, m_driveEncoderLeft, m_driveTrainFL);
-		m_PIDEncoderRight = new PIDController(0.01, 0.001, 0.0, m_driveEncoderRight, m_driveTrainFR);
-		m_PIDEncoderLeft.setContinuous(false);
-		m_PIDEncoderRight.setContinuous(false);
+//		m_PIDEncoderLeft = new PIDController(0.01, 0.001, 0.0, m_driveEncoderLeft);
+//		m_PIDEncoderRight = new PIDController(0.01, 0.001, 0.0, m_driveEncoderRight, m_driveTrainFR);
+//		m_PIDEncoderLeft.setContinuous(false);
+//		m_PIDEncoderRight.setContinuous(false);
 		m_gyroPID = new SimplePIController(0.1, 0.01, m_driveGyro);
 		m_gyroPID.setContinuous(true);
 		m_gyroPID.setInputRange(0, 359);
-		
-		setDefaultCommand(new DriveRobot());
-
     }
     
     public void drive(double drive, double curve){
@@ -82,7 +73,7 @@ public class DriveTrain extends Subsystem {
     	m_driveTrain.arcadeDrive(drive, curve);
     	
     	SmartDashboard.putNumber("gyro", m_driveGyro.getAngle());
-		SmartDashboard.putNumber("Dist", this.getEncoderDistance());
+		SmartDashboard.putNumber("Dist", getEncoderDistance());
     }
     
     public double getEncoderDistance(){
@@ -91,8 +82,8 @@ public class DriveTrain extends Subsystem {
     	double rightDistance = m_driveEncoderRight.getDistance();
     	
     	double totalDistance = (leftDistance + rightDistance)/2.0;
-    	return totalDistance;
-    			
+    	return getOneEncoderValue();
+    	    			
     }
     
     public double getGyroValue(){

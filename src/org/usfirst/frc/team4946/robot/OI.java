@@ -52,7 +52,7 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
-		resetEncAndGyroValues.whileHeld(new ResetEncAndGyro());
+//		resetEncAndGyroValues.whileHeld(new ResetEncAndGyro());
 
 	}
 	

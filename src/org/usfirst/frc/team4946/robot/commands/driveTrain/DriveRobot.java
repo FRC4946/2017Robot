@@ -4,7 +4,6 @@ import org.usfirst.frc.team4946.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -30,7 +29,6 @@ public class DriveRobot extends Command {
     	double curve = stick.getRawAxis(1);
     	double throttle = stick.getRawAxis(3);
     	Robot.driveSubsystem.drive(drive, curve, throttle);
-
     }
 
     // Make this return true when this Command no longer needs to run execute()

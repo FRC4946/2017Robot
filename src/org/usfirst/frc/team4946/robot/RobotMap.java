@@ -11,7 +11,8 @@ public class RobotMap {
 	public static final int PWM_DRIVETRAIN_FLMOTOR = 0;
 	public static final int PWM_DRIVETRAIN_FRMOTOR = 1; 
 	public static final int PWM_DRIVETRAIN_BLMOTOR = 2;
-	public static final int PWM_DRIVETRAIN_BRMOTOR = 3; 
+	public static final int PWM_DRIVETRAIN_BRMOTOR = 3;
+	
 	public static final int DIO_DRIVETRAIN_LEFTENCA = 6;
 	public static final int DIO_DRIVETRAIN_LEFTENCB = 7;
 	public static final int DIO_DRIVETRAIN_RIGHTENCA = 8;
