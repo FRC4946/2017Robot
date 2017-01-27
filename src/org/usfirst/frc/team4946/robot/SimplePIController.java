@@ -27,22 +27,26 @@ public class SimplePIController {
 	}
 
 	public void setOutputRange(double minimumOutput, double maximumOutput) {
-		if (minimumOutput > maximumOutput) return; // If the lower boundary is greater than the upper boundary, return
+		if (minimumOutput > maximumOutput)
+			return; // If the lower boundary is greater than the upper boundary,
+					// return
 		m_minimumOutput = minimumOutput;
 		m_maximumOutput = maximumOutput;
 	}
 
 	public void setInputRange(double minimumInput, double maximumInput) {
-		if (minimumInput > maximumInput) return; // If the lower boundary is greater than the upper boundary, return
+		if (minimumInput > maximumInput)
+			return; // If the lower boundary is greater than the upper boundary,
+					// return
 		m_minimumInput = minimumInput;
 		m_maximumInput = maximumInput;
 		this.setSetpoint(m_setpoint);
 	}
-	
+
 	public void setTolerence(double tolerence) {
 		m_tolerance = tolerence;
 	}
-	
+
 	public void setContinuous(boolean isContinuous) {
 		m_isContinuous = isContinuous;
 	}
@@ -83,7 +87,9 @@ public class SimplePIController {
 
 		// Calculate the elapsed time since the function was last called
 		double now = System.currentTimeMillis();
-		double timeChange = (double) (now - lastTime); // Should hopefully always be 20ms, but we can't be sure
+		double timeChange = (double) (now - lastTime); // Should hopefully
+														// always be 20ms, but
+														// we can't be sure
 		lastTime = now;
 
 		// Compute all the working error variables
@@ -100,14 +106,19 @@ public class SimplePIController {
 			}
 		}
 
-		// Limit the integral, to prevent huge buildup after we exceed the maximum output
-		if (integralTerm > m_maximumOutput) integralTerm = m_maximumOutput;
-		else if (integralTerm < m_minimumOutput) integralTerm = m_minimumOutput;
+		// Limit the integral, to prevent huge buildup after we exceed the
+		// maximum output
+		if (integralTerm > m_maximumOutput)
+			integralTerm = m_maximumOutput;
+		else if (integralTerm < m_minimumOutput)
+			integralTerm = m_minimumOutput;
 
 		// Compute the output, limiting it to the boundaries
 		m_output = (kp * error) + integralTerm;
-		if (m_output > m_maximumOutput) m_output = m_maximumOutput;
-		else if (m_output < m_minimumOutput) m_output = m_minimumOutput;
+		if (m_output > m_maximumOutput)
+			m_output = m_maximumOutput;
+		else if (m_output < m_minimumOutput)
+			m_output = m_minimumOutput;
 	}
 
 	public double getOutput() {
@@ -135,14 +146,15 @@ public class SimplePIController {
 
 		// If need be, adjust the input to fit in the input range.
 		// Rather than saying "If it's too big, set it to the biggest allowed,"
-		// We want the controller to be able to utilize its continuous functionality.
-		// Therefore, we just re-map the input to fit into the input range using the modulus operator.
-		if(m_isContinuous){
-			if(m_inputVal > m_maximumInput){
+		// We want the controller to be able to utilize its continuous
+		// functionality.
+		// Therefore, we just re-map the input to fit into the input range using
+		// the modulus operator.
+		if (m_isContinuous) {
+			if (m_inputVal > m_maximumInput) {
 				m_inputVal = m_inputVal % m_maximumInput;
-			}
-			else if (m_inputVal < m_minimumInput){
-				while (m_inputVal < m_minimumInput){
+			} else if (m_inputVal < m_minimumInput) {
+				while (m_inputVal < m_minimumInput) {
 					m_inputVal += m_maximumInput;
 				}
 				m_inputVal = m_inputVal % m_maximumInput;
@@ -152,10 +164,16 @@ public class SimplePIController {
 
 	public boolean onTarget() {
 		this.updateInputVal();
-		return (Math.abs(m_setpoint - m_inputVal) < m_tolerance / 100 * (m_maximumInput - m_minimumInput));
+		if (m_isContinuous)
+			return (Math.abs(m_setpoint - m_inputVal) < m_tolerance / 100
+					* (m_maximumInput - m_minimumInput));
+
+		
+		return (Math.abs(m_setpoint - m_inputVal) < m_tolerance); // If the setpoint is in the right spot
+				//&& integralTerm < ((m_maximumInput - m_minimumInput) / 2.0) / 100.0; // And the I term is less than 1/100 of the output
 	}
-	
-	public double getError(){
+
+	public double getError() {
 		this.updateInputVal();
 		return m_setpoint - m_inputVal;
 	}

@@ -27,6 +27,8 @@ public class OI {
 	Button getEncAndGyroValues = new JoystickButton(operatorStick, 3);
 	Button resetEncAndGyroValues = new JoystickButton(operatorStick, 4);
 	Button drive48in = new JoystickButton(driveStick, 4);
+	Button maintain0deg = new JoystickButton(driveStick, 1);
+
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
@@ -50,7 +52,7 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
-		drive48in.whenPressed(new AutoDriveDistancePID(48, 0.8));
+		drive48in.whenPressed(new AutoDriveDistancePID(48, 0.6));
 	}
 
 	public Joystick getOperatorJoystick() {

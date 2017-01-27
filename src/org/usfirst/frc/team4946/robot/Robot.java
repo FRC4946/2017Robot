@@ -5,6 +5,8 @@ import org.usfirst.frc.team4946.robot.commands.AutonomousWrapper;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -27,6 +29,8 @@ public class Robot extends IterativeRobot {
 
 	Command auto;
 	SendableChooser<Integer> m_autoMode;
+	SendableChooser<Integer> m_autoSide;
+
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -41,14 +45,15 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 
 		m_autoMode = new SendableChooser<Integer>();
-		m_autoMode.addObject("Left Position - With Shoot", RobotConstants.LEFT_POSITION_SHOOT);
-		m_autoMode.addObject("Left Position -  No Shoot", 2);
-		m_autoMode.addObject("Middle Position Breach Left - with Shoot", 4);
-		m_autoMode.addObject("Middle Position Breach Right - No Shoot", 5);
-		m_autoMode.addObject("Middle Position No Breach - With Shoot", 6);
-		m_autoMode.addObject("Right Position- No Shoot", 3);
+		m_autoMode.addObject("Left Position - With Shoot", RobotConstants.Auto.LEFT_POSITION_SHOOT);
+		m_autoMode.addObject("Left Position -  No Shoot", RobotConstants.Auto.LEFT_POSITION_NO_SHOOT);
+		m_autoMode.addObject("Middle Position Breach Left - with Shoot", RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT_SHOOT);
+		m_autoMode.addObject("Middle Position Breach Right - No Shoot", RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT);
+		m_autoMode.addObject("Middle Position No Breach - With Shoot", RobotConstants.Auto.MIDDLE_POSITION_NO_BREACH_SHOOT);
+		m_autoMode.addObject("Right Position- No Shoot", RobotConstants.Auto.RIGHT_POSITION_NO_SHOOT);
 		SmartDashboard.putData("Autonomous - Script", m_autoMode);
-
+		
+	
 	}
 
 	/**
@@ -79,9 +84,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		
+		boolean isRed = DriverStation.getInstance().getAlliance()==Alliance.Red;
 		int autoMode = m_autoMode.getSelected();
 
-		auto = new AutonomousWrapper(autoMode);
+		auto = new AutonomousWrapper(autoMode, isRed);
 		auto.start();
 
 	}
@@ -113,6 +120,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Encoder Distance: ", driveSubsystem.getEncoderDistance());
 		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());
+		SmartDashboard.putData("Drive: ", driveSubsystem.getCurrentCommand());
+
 	}
 
 	/**

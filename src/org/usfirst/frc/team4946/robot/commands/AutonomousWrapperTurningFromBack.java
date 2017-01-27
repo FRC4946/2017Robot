@@ -33,23 +33,23 @@ public class AutonomousWrapperTurningFromBack extends CommandGroup {
     	int position = 0;
     	
     	switch (position){
-    		case RobotConstants.LEFT_POSITION_SHOOT: 
+    		case RobotConstants.Auto.LEFT_POSITION_SHOOT: 
     			addSequential(new AutoDriveDistancePID (80.062, 1.0));
     			addSequential(new TurnPID (60.0, 0.5));
     			
     			break;
-    		case RobotConstants.LEFT_POSITION_NO_SHOOT: 
+    		case RobotConstants.Auto.LEFT_POSITION_NO_SHOOT: 
     			addSequential(new AutoDriveDistancePID(80.062, 1.0));
     			addSequential(new TurnPID(60.0, 0.5));
     			
     			break;
-    		case RobotConstants.RIGHT_POSITION_NO_SHOOT:
+    		case RobotConstants.Auto.RIGHT_POSITION_NO_SHOOT:
     			//Drives 
     			addSequential(new AutoDriveDistancePID(80.062, 1.0));
     			addSequential(new TurnPID(-60.0, 0.5));
     			addSequential(new AutoDriveDistancePID(46.536, 1.0));
     			break;
-    		case RobotConstants.MIDDLE_POSITION_BREACH_LEFT_SHOOT:
+    		case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT_SHOOT:
     			addSequential(new AutoDriveDistancePID(70.6, 1.0));
     			addSequential(new AutoDriveDistancePID(-20, 1.0));
     			addSequential(new TurnPID (-90, 0.5));
@@ -58,7 +58,7 @@ public class AutonomousWrapperTurningFromBack extends CommandGroup {
     			addSequential(new AutoDriveDistance(25, 1.0));
     			//addSequential(new facegoal) 
     			break;
-    		case RobotConstants.MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT:
+    		case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT:
     			addSequential(new AutoDriveDistancePID(70.6, 1.0));
     			addSequential(new AutoDriveDistancePID(-20, 1.0));
     			addSequential(new TurnPID (90, 0.5));
@@ -66,7 +66,7 @@ public class AutonomousWrapperTurningFromBack extends CommandGroup {
     			addSequential(new TurnPID(-90,0.5));
     			addSequential(new AutoDriveDistance(25, 1.0));
     			break;
-    		case RobotConstants.MIDDLE_POSITION_NO_BREACH_SHOOT:
+    		case RobotConstants.Auto.MIDDLE_POSITION_NO_BREACH_SHOOT:
     			addSequential(new AutoDriveDistancePID(70.6, 1.0));
     			addSequential(new AutoDriveDistancePID(-20, 1.0));
     			addSequential(new TurnPID (-90, 0.5));

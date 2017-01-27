@@ -44,15 +44,14 @@ public class DriveTrain extends Subsystem {
 				.setDistancePerPulse(RobotConstants.ENCODER_DISTANCE_PER_PULSE);
 		m_driveEncoderLeft
 				.setDistancePerPulse(RobotConstants.ENCODER_DISTANCE_PER_PULSE);
-		m_driveEncoderRight.setReverseDirection(true);
+		m_driveEncoderRight.setReverseDirection(false);
 		m_driveEncoderLeft.setReverseDirection(true);
 		m_driveEncoderRight.reset();
 		m_driveEncoderLeft.reset();
 		m_driveGyro.calibrate();
 
-		m_drivePID = new SimplePIController(0.055, 0.000001, new AvgPIDSource(
-				m_driveEncoderLeft, m_driveEncoderLeft)); // TODO: CHANGE THIS
-															// TO LEFT AND RIGHT
+		m_drivePID = new SimplePIController(0.1, 0.0000000000000/*1*/, new AvgPIDSource(
+				m_driveEncoderLeft, m_driveEncoderRight)); 
 		m_drivePID.setContinuous(false);
 		m_drivePID.setDirection(false);
 		m_drivePID.setTolerence(1.5);
@@ -83,7 +82,7 @@ public class DriveTrain extends Subsystem {
 		double rightDistance = m_driveEncoderRight.getDistance();
 
 		double totalDistance = (leftDistance + rightDistance) / 2.0;
-		return getOneEncoderValue();
+		return totalDistance;
 	}
 
 	public double getGyroValue() {
@@ -103,6 +102,11 @@ public class DriveTrain extends Subsystem {
 
 	public void calibrateGyroscope() {
 		m_driveGyro.calibrate();
+	}
+	
+	public void setDrivePIDMultiplier(double speed) {
+		speed = Math.abs(speed);
+		m_drivePID.setOutputRange(-speed, speed);
 	}
 
 	public void setGyroSetpoint(double newSetpoint) {
