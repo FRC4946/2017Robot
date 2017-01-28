@@ -32,7 +32,7 @@ public class AutonomousWrapper extends CommandGroup {
 				// drop gear
 				addSequential(new AutoDriveDistance(30, -1.0));
 				break;
-			case RobotConstants.Auto.LEFT_POSITION_NO_SHOOT:
+			case RobotConstants.Auto.LEFT_POSITION:
 				// Drives
 				addSequential(new AutoDriveDistancePID(67.662, 1.0));
 				addSequential(new TurnPID(60.0));
@@ -40,7 +40,7 @@ public class AutonomousWrapper extends CommandGroup {
 				// drop gear
 				addSequential(new AutoDriveDistancePID(30, -1.0));
 				break;
-			case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT_SHOOT:
+			case RobotConstants.Auto.MIDDLE_POSITION_BREACH_SHOOT:
 				addSequential(new AutoDriveDistancePID(70.6, 1.0));
 				// drop gear
 				addSequential(new AutoDriveDistancePID(20, -1.0));
@@ -51,7 +51,7 @@ public class AutonomousWrapper extends CommandGroup {
 				addSequential(new TurnPID(110));
 				// addSequential(new facegoal)
 				break;
-			case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT_NO_SHOOT:
+			case RobotConstants.Auto.MIDDLE_POSITION_BREACH_NO_SHOOT:
 				addSequential(new AutoDriveDistancePID(70.6, 1.0));
 				// Drop Gear
 				addSequential(new AutoDriveDistancePID(20, -1.0));
