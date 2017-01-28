@@ -55,9 +55,12 @@ public class DriveTrain extends Subsystem {
 		m_drivePID.setContinuous(false);
 		m_drivePID.setDirection(false);
 		m_drivePID.setTolerence(1.5);
+		m_drivePID.setOutputRange(-0.6, 0.6);
 		m_gyroPID = new SimplePIController(0.05, 0.00, m_driveGyro);
 		m_gyroPID.setContinuous(true);
 		m_gyroPID.setInputRange(0, 359);
+		m_gyroPID.setTolerence(3.0);
+		m_gyroPID.setOutputRange(-0.475, 0.475);
 	}
 
 	public void drive(double drive, double curve) {

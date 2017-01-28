@@ -12,11 +12,19 @@ public class RobotConstants {
 	public static final double AUTO_MAX_SPEED = 0.6;
 
 	public static final class Auto {
-		public static final int RIGHT_POSITION_NO_SHOOT = 3;
-		public static final int LEFT_POSITION_SHOOT = 1;
-		public static final int LEFT_POSITION_NO_SHOOT = 2;
-		public static final int MIDDLE_POSITION_BREACH_LEFT_SHOOT = 4;
-		public static final int MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT = 5;
-		public static final int MIDDLE_POSITION_NO_BREACH_SHOOT = 6;
+		//Blue
+		public static final int BLUE_LEFT_POSITION_SHOOT = 1;
+		public static final int BLUE_LEFT_POSITION_NO_SHOOT = 2;
+		public static final int BLUE_RIGHT_POSITION_NO_SHOOT = 3;
+		public static final int BLUE_MIDDLE_POSITION_BREACH_LEFT_SHOOT = 4;
+		public static final int BLUE_MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT = 5;
+		public static final int BLUE_MIDDLE_POSITION_NO_BREACH_SHOOT = 6;
+		//Red
+		public static final int RED_RIGHT_POSITION_SHOOT = 7;
+		public static final int RED_RIGHT_POSITION_NO_SHOOT = 8;
+		public static final int RED_LEFT_POSITION_NO_SHOOT = 9;
+		public static final int RED_MIDDLE_POSITION_BREACH_RIGHT_SHOOT = 10;
+		public static final int RED_MIDDLE_POSITION_BREACH_LEFT_NO_SHOOT = 11;
+		public static final int RED_MIDDLE_POSITION_NO_BREACH_SHOOT = 12;
 	}
 }

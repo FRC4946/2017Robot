@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.AutonomousWrapper;
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapper;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 
@@ -29,7 +29,6 @@ public class Robot extends IterativeRobot {
 
 	Command auto;
 	SendableChooser<Integer> m_autoMode;
-	SendableChooser<Integer> m_autoSide;
 
 
 	/**
@@ -107,9 +106,12 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (auto != null)
-			auto.cancel();
 		
+		
+		driveSubsystem.calibrateGyroscope();
+		
+		if (auto != null)
+			auto.cancel();		
 	}
 
 	/**

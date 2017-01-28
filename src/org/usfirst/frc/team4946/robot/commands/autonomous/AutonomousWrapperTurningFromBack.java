@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands;
+package org.usfirst.frc.team4946.robot.commands.autonomous;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistance;
@@ -35,41 +35,41 @@ public class AutonomousWrapperTurningFromBack extends CommandGroup {
     	switch (position){
     		case RobotConstants.Auto.LEFT_POSITION_SHOOT: 
     			addSequential(new AutoDriveDistancePID (80.062, 1.0));
-    			addSequential(new TurnPID (60.0, 0.5));
+    			addSequential(new TurnPID (60.0));
     			
     			break;
     		case RobotConstants.Auto.LEFT_POSITION_NO_SHOOT: 
     			addSequential(new AutoDriveDistancePID(80.062, 1.0));
-    			addSequential(new TurnPID(60.0, 0.5));
+    			addSequential(new TurnPID(60.0));
     			
     			break;
     		case RobotConstants.Auto.RIGHT_POSITION_NO_SHOOT:
     			//Drives 
     			addSequential(new AutoDriveDistancePID(80.062, 1.0));
-    			addSequential(new TurnPID(-60.0, 0.5));
+    			addSequential(new TurnPID(-60.0));
     			addSequential(new AutoDriveDistancePID(46.536, 1.0));
     			break;
     		case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT_SHOOT:
     			addSequential(new AutoDriveDistancePID(70.6, 1.0));
     			addSequential(new AutoDriveDistancePID(-20, 1.0));
-    			addSequential(new TurnPID (-90, 0.5));
+    			addSequential(new TurnPID (-90));
     			addSequential(new AutoDriveDistance (35, 1.0));
-    			addSequential(new TurnPID(90,0.5));
+    			addSequential(new TurnPID(90));
     			addSequential(new AutoDriveDistance(25, 1.0));
     			//addSequential(new facegoal) 
     			break;
     		case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT:
     			addSequential(new AutoDriveDistancePID(70.6, 1.0));
     			addSequential(new AutoDriveDistancePID(-20, 1.0));
-    			addSequential(new TurnPID (90, 0.5));
+    			addSequential(new TurnPID (90));
     			addSequential(new AutoDriveDistance (35, 1.0));
-    			addSequential(new TurnPID(-90,0.5));
+    			addSequential(new TurnPID(-90));
     			addSequential(new AutoDriveDistance(25, 1.0));
     			break;
     		case RobotConstants.Auto.MIDDLE_POSITION_NO_BREACH_SHOOT:
     			addSequential(new AutoDriveDistancePID(70.6, 1.0));
     			addSequential(new AutoDriveDistancePID(-20, 1.0));
-    			addSequential(new TurnPID (-90, 0.5));
+    			addSequential(new TurnPID (-90));
     			addSequential(new AutoDriveDistance (35, 1.0));
     			break;
     	
