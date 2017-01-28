@@ -24,7 +24,7 @@ public class OI {
 	private Joystick operatorStick = new Joystick(0);
 	private Joystick driveStick = new Joystick(1);
 
-	Button turnButton = new JoystickButton(operatorStick, 6);
+	Button turnButton = new JoystickButton(driveStick, 6);
 	Button spinButton = new JoystickButton(operatorStick, 5);
 	Button getEncAndGyroValues = new JoystickButton(operatorStick, 3);
 	Button resetEncAndGyroValues = new JoystickButton(operatorStick, 4);
