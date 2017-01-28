@@ -55,7 +55,7 @@ public class DriveTrain extends Subsystem {
 		m_drivePID.setContinuous(false);
 		m_drivePID.setDirection(false);
 		m_drivePID.setTolerence(1.5);
-		m_gyroPID = new SimplePIController(0.1, 0.01, m_driveGyro);
+		m_gyroPID = new SimplePIController(0.05, 0.00, m_driveGyro);
 		m_gyroPID.setContinuous(true);
 		m_gyroPID.setInputRange(0, 359);
 	}
@@ -130,5 +130,9 @@ public class DriveTrain extends Subsystem {
 
 	public boolean getDrivePIDIsOnTarget() {
 		return m_drivePID.onTarget();
+	}
+	
+	public boolean getGyroPIDIsOnTarget() {
+		return m_gyroPID.onTarget();
 	}
 }

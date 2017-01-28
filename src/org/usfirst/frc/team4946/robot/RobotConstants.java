@@ -9,6 +9,7 @@ public class RobotConstants {
 			/ ENCODER_PPR * GEARBOX_REDUCTION;
 	public static final double AIRSHIP_SIDELENGTH = ((Math.sin(30) * 101) / Math
 			.sin(120)); // 58.31237719 inches
+	public static final double AUTO_MAX_SPEED = 0.6;
 
 	public static final class Auto {
 		public static final int RIGHT_POSITION_NO_SHOOT = 3;

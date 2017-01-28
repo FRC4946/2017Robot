@@ -2,6 +2,7 @@ package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
+import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -23,6 +24,7 @@ public class OI {
 	private Joystick operatorStick = new Joystick(0);
 	private Joystick driveStick = new Joystick(1);
 
+	Button turnButton = new JoystickButton(operatorStick, 6);
 	Button spinButton = new JoystickButton(operatorStick, 5);
 	Button getEncAndGyroValues = new JoystickButton(operatorStick, 3);
 	Button resetEncAndGyroValues = new JoystickButton(operatorStick, 4);
@@ -53,6 +55,7 @@ public class OI {
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
 		drive48in.whenPressed(new AutoDriveDistancePID(48, 0.6));
+		turnButton.whileHeld(new TurnPID(0.0));
 	}
 
 	public Joystick getOperatorJoystick() {
