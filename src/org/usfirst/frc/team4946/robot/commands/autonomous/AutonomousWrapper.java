@@ -143,6 +143,8 @@ public class AutonomousWrapper extends CommandGroup {
 				addSequential(new TurnPID(-20));
 				// shoot
 				break;
+			case RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING:
+				break;
 			}
 		}
 
