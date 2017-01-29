@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -56,9 +55,10 @@ public class DriveTrain extends Subsystem {
 		m_drivePID.setDirection(false);
 		m_drivePID.setTolerence(1.5);
 		m_drivePID.setOutputRange(-0.6, 0.6);
+		
 		m_gyroPID = new SimplePIController(0.05, 0.00, m_driveGyro);
 		m_gyroPID.setContinuous(true);
-		m_gyroPID.setInputRange(0, 359);
+		m_gyroPID.setInputRange(0, 360);
 		m_gyroPID.setTolerence(3.0);
 		m_gyroPID.setOutputRange(-0.475, 0.475);
 	}
@@ -75,8 +75,6 @@ public class DriveTrain extends Subsystem {
 
 		m_driveTrain.arcadeDrive(drive, curve);
 
-		SmartDashboard.putNumber("gyro", m_driveGyro.getAngle());
-		SmartDashboard.putNumber("Dist", getEncoderDistance());
 	}
 
 	public double getEncoderDistance() {
@@ -94,6 +92,10 @@ public class DriveTrain extends Subsystem {
 		return robotAngle;
 	}
 
+	public double getGyroPIDInput() {
+		return m_gyroPID.getInputValue();
+	}
+	
 	public double getOneEncoderValue() {
 		return m_driveEncoderLeft.getDistance();
 	}
@@ -101,6 +103,10 @@ public class DriveTrain extends Subsystem {
 	public void resetEncoders() {
 		m_driveEncoderRight.reset();
 		m_driveEncoderLeft.reset();
+	}
+	
+	public void resetGyro() {
+		m_driveGyro.reset();
 	}
 
 	public void calibrateGyroscope() {
@@ -120,6 +126,11 @@ public class DriveTrain extends Subsystem {
 	public double getGyroOutput() {
 		// PID
 		return m_gyroPID.getOutput();
+	}
+	
+	public double getGyroSetpoint() {
+		// PID
+		return m_gyroPID.getSetpoint();
 	}
 
 	public void setDrivePIDSetpoint(double newSetpoint) {

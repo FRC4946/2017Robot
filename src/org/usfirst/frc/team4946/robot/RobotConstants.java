@@ -14,12 +14,13 @@ public class RobotConstants {
 		// Blue
 		public static final int LEFT_POSITION = 1;
 		public static final int RIGHT_POSITION = 2;
-		public static final int BREACH_NO_SHOOT = 3;
-		public static final int MIDDLE_POSITION_BREACH_SHOOT = 4;
-		public static final int MIDDLE_POSITION_BREACH_LEFT = 5;
-		public static final int MIDDLE_POSITION_BREACH_RIGHT = 6;
-		public static final int MIDDLE_POSITION_JUST_SHOOT = 7;
-		public static final int MIDDLE_POSITION_DO_NOTHING = 8;
+		public static final int SIDE_GEAR_AND_SHOOT = 3;
+		public static final int BREACH_NO_SHOOT = 4;
+		public static final int MIDDLE_POSITION_BREACH_SHOOT = 5;
+		public static final int MIDDLE_POSITION_BREACH_LEFT = 6;
+		public static final int MIDDLE_POSITION_BREACH_RIGHT = 7;
+		public static final int MIDDLE_POSITION_JUST_SHOOT = 8;
+		public static final int MIDDLE_POSITION_DO_NOTHING = 9;
 
 	}
 }

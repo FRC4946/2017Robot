@@ -1,7 +1,6 @@
-
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapper;
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperTurningFromBack;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 
@@ -30,29 +29,35 @@ public class Robot extends IterativeRobot {
 	Command auto;
 	SendableChooser<Integer> m_autoMode;
 
-
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-		
+
 		ballSubsystem = new BallIntake();
 		driveSubsystem = new DriveTrain();
-		
+
 		oi = new OI();
 
 		m_autoMode = new SendableChooser<Integer>();
-		m_autoMode.addObject("Left Position - With Shoot", RobotConstants.Auto.LEFT_POSITION_SHOOT);
-		m_autoMode.addObject("Left Position -  No Shoot", RobotConstants.Auto.LEFT_POSITION_NO_SHOOT);
-		m_autoMode.addObject("Middle Position Breach Left - with Shoot", RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT_SHOOT);
-		m_autoMode.addObject("Middle Position Breach Right - No Shoot", RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT);
-		m_autoMode.addObject("Middle Position No Breach - With Shoot", RobotConstants.Auto.MIDDLE_POSITION_NO_BREACH_SHOOT);
-		m_autoMode.addObject("Right Position- No Shoot", RobotConstants.Auto.RIGHT_POSITION_NO_SHOOT);
+		m_autoMode.addDefault("Left Position",
+				RobotConstants.Auto.LEFT_POSITION);
+		m_autoMode.addObject("Right Position",
+				RobotConstants.Auto.RIGHT_POSITION);
+		// m_autoMode.addObject("Middle Position Breach Left - with Shoot",
+		// RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT_SHOOT);
+		// m_autoMode.addObject("Middle Position Breach Right - No Shoot",
+		// RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT);
+		// m_autoMode.addObject("Middle Position No Breach - With Shoot",
+		// RobotConstants.Auto.MIDDLE_POSITION_NO_BREACH_SHOOT);
+		// m_autoMode.addObject("Right Position- No Shoot",
+		// RobotConstants.Auto.RIGHT_POSITION_NO_SHOOT);
 		SmartDashboard.putData("Autonomous - Script", m_autoMode);
+
 		
-	
+		driveSubsystem.calibrateGyroscope();
 	}
 
 	/**
@@ -83,11 +88,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		
-		boolean isRed = DriverStation.getInstance().getAlliance()==Alliance.Red;
+
+		boolean isRed = DriverStation.getInstance().getAlliance() == Alliance.Red;
 		int autoMode = m_autoMode.getSelected();
 
-		auto = new AutonomousWrapper(autoMode, isRed);
+		auto = new AutonomousWrapperTurningFromBack(autoMode, isRed);
 		auto.start();
 
 	}
@@ -98,6 +103,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+
+		SmartDashboard.putNumber("Encoder Distance: ",
+				driveSubsystem.getEncoderDistance());
+		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());
 	}
 
 	@Override
@@ -106,12 +115,12 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		
-		
-		driveSubsystem.calibrateGyroscope();
-		
+
+		driveSubsystem.resetEncoders();
+		driveSubsystem.resetGyro();
+
 		if (auto != null)
-			auto.cancel();		
+			auto.cancel();
 	}
 
 	/**
@@ -120,9 +129,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Encoder Distance: ", driveSubsystem.getEncoderDistance());
+		SmartDashboard.putNumber("Encoder Distance: ",
+				driveSubsystem.getEncoderDistance());
 		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());
-		SmartDashboard.putData("Drive: ", driveSubsystem.getCurrentCommand());
 
 	}
 

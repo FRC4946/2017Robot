@@ -127,12 +127,19 @@ public class SimplePIController {
 	}
 
 	public void setSetpoint(double newSetpoint) {
+
 		// Make sure that the setPoint is within the input limits
-		if (m_maximumInput > m_minimumInput) {
+		if (m_maximumInput > m_minimumInput && m_isContinuous) {
+			double range = (m_maximumInput - m_minimumInput);
+
 			if (newSetpoint > m_maximumInput) {
-				m_setpoint = m_maximumInput;
+				m_setpoint = newSetpoint%range;
+				// m_setpoint = m_maximumInput;
 			} else if (newSetpoint < m_minimumInput) {
-				m_setpoint = m_minimumInput;
+				while (newSetpoint < m_minimumInput)
+					newSetpoint += range;
+				m_setpoint = newSetpoint;
+				// m_setpoint = m_minimumInput;
 			} else {
 				m_setpoint = newSetpoint;
 			}
@@ -144,6 +151,8 @@ public class SimplePIController {
 	public void updateInputVal() {
 		m_inputVal = m_inputSource.pidGet();
 
+		double range = m_maximumInput - m_minimumInput;
+
 		// If need be, adjust the input to fit in the input range.
 		// Rather than saying "If it's too big, set it to the biggest allowed,"
 		// We want the controller to be able to utilize its continuous
@@ -151,14 +160,12 @@ public class SimplePIController {
 		// Therefore, we just re-map the input to fit into the input range using
 		// the modulus operator.
 		if (m_isContinuous) {
-			if (m_inputVal > m_maximumInput) {
-				m_inputVal = m_inputVal % m_maximumInput;
-			} else if (m_inputVal < m_minimumInput) {
-				while (m_inputVal < m_minimumInput) {
-					m_inputVal += m_maximumInput;
-				}
-				m_inputVal = m_inputVal % m_maximumInput;
-			}
+
+			while (m_inputVal < m_minimumInput)
+				m_inputVal += range;
+
+			m_inputVal %= m_maximumInput;
+
 		}
 	}
 
@@ -168,9 +175,13 @@ public class SimplePIController {
 			return (Math.abs(m_setpoint - m_inputVal) < m_tolerance / 100
 					* (m_maximumInput - m_minimumInput));
 
-		
-		return (Math.abs(m_setpoint - m_inputVal) < m_tolerance); // If the setpoint is in the right spot
-				//&& integralTerm < ((m_maximumInput - m_minimumInput) / 2.0) / 100.0; // And the I term is less than 1/100 of the output
+		return (Math.abs(m_setpoint - m_inputVal) < m_tolerance); // If the
+																	// setpoint
+																	// is in the
+																	// right
+																	// spot
+		// && integralTerm < ((m_maximumInput - m_minimumInput) / 2.0) / 100.0;
+		// // And the I term is less than 1/100 of the output
 	}
 
 	public double getError() {

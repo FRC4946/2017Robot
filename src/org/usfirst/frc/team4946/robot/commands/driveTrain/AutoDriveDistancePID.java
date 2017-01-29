@@ -18,14 +18,14 @@ public class AutoDriveDistancePID extends Command {
 
 	double m_onTargetCounter = 0;
 
-	public AutoDriveDistancePID(double distInches, double maxSpeed) {
+	public AutoDriveDistancePID(double distInches) {
 		requires(Robot.driveSubsystem);
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
-		m_distanceToDrive = distInches;
-		m_maxSpeed = maxSpeed;
 
-		Robot.driveSubsystem.setDrivePIDMultiplier(maxSpeed);
+		m_distanceToDrive = distInches;
+	}
+
+	public AutoDriveDistancePID(double distInches, double maxSpeed) {
+		this(distInches);
 	}
 
 	// Called just before this Command runs the first time
@@ -40,7 +40,7 @@ public class AutoDriveDistancePID extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		double magnitude = Robot.driveSubsystem.getDrivePIDOutput();
-		double curve = 0;// Robot.driveSubsystem.getGyroOutput();
+		double curve = Robot.driveSubsystem.getGyroOutput();
 
 		Robot.driveSubsystem.drive(magnitude, curve);
 

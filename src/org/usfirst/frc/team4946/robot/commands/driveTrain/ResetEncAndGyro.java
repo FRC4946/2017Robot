@@ -22,7 +22,7 @@ public class ResetEncAndGyro extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveSubsystem.calibrateGyroscope();
+    	Robot.driveSubsystem.resetGyro();
     	Robot.driveSubsystem.resetEncoders();
     }
 

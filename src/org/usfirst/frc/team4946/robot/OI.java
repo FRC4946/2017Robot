@@ -26,9 +26,7 @@ public class OI {
 
 	Button turn0Button = new JoystickButton(driveStick, 6);
 	Button turn90Button = new JoystickButton(driveStick, 7);
-	Button spinButton = new JoystickButton(operatorStick, 5);
-	Button getEncAndGyroValues = new JoystickButton(operatorStick, 3);
-	Button resetEncAndGyroValues = new JoystickButton(operatorStick, 4);
+//	Button spinButton = new JoystickButton(operatorStick, 5);
 	Button drive48in = new JoystickButton(driveStick, 4);
 	Button maintain0deg = new JoystickButton(driveStick, 1);
 
@@ -54,10 +52,10 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 
 	public OI() {
-		spinButton.whileHeld(new IntakeForward());
+//		spinButton.whileHeld(new IntakeForward());
 		drive48in.whenPressed(new AutoDriveDistancePID(48, 0.6));
-		turn0Button.whileHeld(new TurnPID(0.0));
-		turn90Button.whileHeld(new TurnPID(90.0));
+		turn0Button.whenPressed(new TurnPID(0.0));
+		turn90Button.whenPressed(new TurnPID(90.0));
 	}
 
 	public Joystick getOperatorJoystick() {
