@@ -13,12 +13,12 @@ public class Wait extends Command {
 	Timer m_waitTimer = new Timer();
 	double m_timeToWait; //seconds
 	
-    public Wait(double waitTimeSeconds) {
+    public Wait(double waitTime) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.ballSubsystem);
     	requires(Robot.driveSubsystem);
-    	m_timeToWait = waitTimeSeconds;
+    	m_timeToWait = waitTime;
     }
 
     // Called just before this Command runs the first time
