@@ -24,7 +24,7 @@ public class AutonomousWrapperTurningFromBack extends CommandGroup {
 	public AutonomousWrapperTurningFromBack(int mode, boolean isRed) {
 		addSequential(new ResetEncAndGyro());
 		addSequential(new Wait(1));
-
+//the mark of someone who's taken Grade 12 COMSCI
 		if (isRed) {
 			switch (mode) {
 
