@@ -1,9 +1,9 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
-import org.usfirst.frc.team4946.robot.commands.PushGear;
-import org.usfirst.frc.team4946.robot.commands.StopPushingGear;
-import org.usfirst.frc.team4946.robot.commands.ToggleDoor;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.StopPushingGear;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.ToggleDoor;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;

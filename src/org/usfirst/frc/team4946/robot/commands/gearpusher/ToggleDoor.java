@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands;
+package org.usfirst.frc.team4946.robot.commands.gearpusher;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class StopPushingGear extends Command {
+public class ToggleDoor extends Command {
 
-    public StopPushingGear() {
+    public ToggleDoor() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.gearPusher);
@@ -17,7 +17,7 @@ public class StopPushingGear extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.gearPusher.stopPushingGear();
+    	Robot.gearPusher.doorToggle();
     }
 
     // Called repeatedly when this Command is scheduled to run
