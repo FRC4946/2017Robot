@@ -21,7 +21,7 @@ public class OI {
 
 	Joystick robotJoystick = new Joystick(73);
 	Button spinButton = new JoystickButton(robotJoystick, 74);
-
+	
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
