@@ -1,6 +1,9 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
+import org.usfirst.frc.team4946.robot.commands.PushGear;
+import org.usfirst.frc.team4946.robot.commands.StopPushingGear;
+import org.usfirst.frc.team4946.robot.commands.ToggleDoor;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,6 +24,8 @@ public class OI {
 
 	Joystick robotJoystick = new Joystick(73);
 	Button spinButton = new JoystickButton(robotJoystick, 74);
+	Button gearDoorButton = new JoystickButton(robotJoystick, 76);
+	Button gearPusherButton = new JoystickButton(robotJoystick, 78);
 	
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
@@ -44,6 +49,9 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
+		gearDoorButton.whenPressed(new ToggleDoor());
+		gearPusherButton.whileHeld(new PushGear());
+		gearPusherButton.whenReleased(new StopPushingGear());
 	}
 
 }
