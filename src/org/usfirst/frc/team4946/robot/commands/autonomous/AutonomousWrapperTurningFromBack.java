@@ -115,13 +115,24 @@ public class AutonomousWrapperTurningFromBack extends CommandGroup {
 				break;
 			}
 		} else {
+			
 			switch (mode) {
 			case RobotConstants.Auto.RIGHT_POSITION:
+			case RobotConstants.Auto.SIDE_GEAR_AND_SHOOT:
 				addSequential(new AutoDriveDistancePID(FEEDER_DIST_A));
 				addSequential(new TurnPID(300.0));
 				addSequential(new AutoDriveDistancePID(FEEDER_DIST_A));
 				// addSequential(new shoot)
+				if (mode == RobotConstants.Auto.SIDE_GEAR_AND_SHOOT) {
+					// drop gear
+					// addSequential(new AutoDriveDistancePID(96));
+				}
 				break;
+				
+			case RobotConstants.Auto.BREACH_NO_SHOOT:
+				addSequential(new AutoDriveDistancePID(20 * 12));
+				break;
+				
 			case RobotConstants.Auto.LEFT_POSITION:
 				addSequential(new AutoDriveDistancePID(BOILER_DIST_A));
 				addSequential(new TurnPID(60.0));
@@ -129,126 +140,47 @@ public class AutonomousWrapperTurningFromBack extends CommandGroup {
 				// drop gear
 				// addSequential(new AutoDriveDistance(30));
 				break;
-			// case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT_SHOOT:
-			// addSequential(new AutoDriveDistancePID(70.6));
-			// // drop gear
-			// addSequential(new AutoDriveDistancePID(20));
-			// addSequential(new TurnPID(-90));
-			// addSequential(new AutoDriveDistance(35));
-			// addSequential(new TurnPID(90));
-			// addSequential(new AutoDriveDistance(35));
-			// addSequential(new TurnPID(-110));
-			// // addSequential(new facegoal)
-			// break;
-			// case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT:
-			// addSequential(new AutoDriveDistancePID(70.6));
-			// // Drop Gear
-			// addSequential(new AutoDriveDistancePID(20));
-			// addSequential(new TurnPID(90));
-			// addSequential(new AutoDriveDistance(35));
-			// addSequential(new TurnPID(-90));
-			// addSequential(new AutoDriveDistance(35));
-			// break;
-			// case RobotConstants.Auto.MIDDLE_POSITION_NO_BREACH_SHOOT:
-			// addSequential(new AutoDriveDistancePID(70.6));
-			// // drop gear
-			// addSequential(new AutoDriveDistancePID(20));
-			// addSequential(new TurnPID(-90));
-			// addSequential(new AutoDriveDistancePID(50));
-			// addSequential(new TurnPID(-20));
-			// // shoot
-			// break;
-			// }
+				
+			case RobotConstants.Auto.MIDDLE_POSITION_BREACH_SHOOT:
+			case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT:
+			case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT:
+			case RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT:
+			case RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING:
+				
+				addSequential(new AutoDriveDistancePID(MIDDLE_DIST));
+				// drop gear
+				addSequential(new AutoDriveDistancePID(-20.0));
+				
+				switch (mode) {
+				case RobotConstants.Auto.MIDDLE_POSITION_BREACH_SHOOT:
+					addSequential(new TurnPID(-90));
+					addSequential(new AutoDriveDistance(35, 1.0));
+					addSequential(new TurnPID(90));
+					addSequential(new AutoDriveDistance(35, 1.0));
+					addSequential(new TurnPID(-110));
+					// addSequential(new facegoal)
+					break;
+			    case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT:
+					addSequential(new TurnPID(90));
+					addSequential(new AutoDriveDistance(35, 1.0));
+					addSequential(new TurnPID(-90));
+					addSequential(new AutoDriveDistance(35, 1.0));
+					break;
+			    case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT:
+					addSequential(new TurnPID(-90));
+					addSequential(new AutoDriveDistance(35, 1.0));
+					addSequential(new TurnPID(90));
+					addSequential(new AutoDriveDistance(35, 1.0));
+			    case RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT:
+					addSequential(new TurnPID(-90));
+					addSequential(new AutoDriveDistancePID(50, 1.0));
+					addSequential(new TurnPID(-20));
+					// shoot
+					break;
+			    case RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING:
+					break;	
+				}
 			}
-
-			// 2 dairy ave, L4E4X5 Richmond Hill
-			// (647) 274-3148
-
-			// if (isRed) {
-			// switch (mode) {
-			// case RobotConstants.Auto.RIGHT_POSITION:
-			// addSequential(new AutoDriveDistancePID(80.062));
-			// addSequential(new TurnPID(60.0));
-			//
-			// break;
-			// case RobotConstants.Auto.LEFT_POSITION_NO_SHOOT:
-			// addSequential(new AutoDriveDistancePID(80.062));
-			// addSequential(new TurnPID(60.0));
-			//
-			// break;
-			// case RobotConstants.Auto.RIGHT_POSITION_NO_SHOOT:
-			// // Drives
-			// addSequential(new AutoDriveDistancePID(80.062));
-			// addSequential(new TurnPID(-60.0));
-			// addSequential(new AutoDriveDistancePID(46.536));
-			// break;
-			// case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT_SHOOT:
-			// addSequential(new AutoDriveDistancePID(70.6));
-			// addSequential(new AutoDriveDistancePID(-20));
-			// addSequential(new TurnPID(-90));
-			// addSequential(new AutoDriveDistance(35));
-			// addSequential(new TurnPID(90));
-			// addSequential(new AutoDriveDistance(25));
-			// // addSequential(new facegoal)
-			// break;
-			// case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT:
-			// addSequential(new AutoDriveDistancePID(70.6));
-			// addSequential(new AutoDriveDistancePID(-20));
-			// addSequential(new TurnPID(90));
-			// addSequential(new AutoDriveDistance(35));
-			// addSequential(new TurnPID(-90));
-			// addSequential(new AutoDriveDistance(25));
-			// break;
-			// case RobotConstants.Auto.MIDDLE_POSITION_NO_BREACH_SHOOT:
-			// addSequential(new AutoDriveDistancePID(70.6));
-			// addSequential(new AutoDriveDistancePID(-20));
-			// addSequential(new TurnPID(-90));
-			// addSequential(new AutoDriveDistance(35));
-			// break;
-			// }
-			// } else {
-			// switch (mode) {
-			// case RobotConstants.Auto.LEFT_POSITION_SHOOT:
-			// addSequential(new AutoDriveDistancePID(80.062));
-			// addSequential(new TurnPID(60.0));
-			//
-			// break;
-			// case RobotConstants.Auto.LEFT_POSITION_NO_SHOOT:
-			// addSequential(new AutoDriveDistancePID(80.062));
-			// addSequential(new TurnPID(60.0));
-			//
-			// break;
-			// case RobotConstants.Auto.RIGHT_POSITION_NO_SHOOT:
-			// // Drives
-			// addSequential(new AutoDriveDistancePID(80.062));
-			// addSequential(new TurnPID(-60.0));
-			// addSequential(new AutoDriveDistancePID(46.536));
-			// break;
-			// case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT_SHOOT:
-			// addSequential(new AutoDriveDistancePID(70.6));
-			// addSequential(new AutoDriveDistancePID(-20));
-			// addSequential(new TurnPID(-90));
-			// addSequential(new AutoDriveDistance(35));
-			// addSequential(new TurnPID(90));
-			// addSequential(new AutoDriveDistance(25));
-			// // addSequential(new facegoal)
-			// break;
-			// case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT_NO_SHOOT:
-			// addSequential(new AutoDriveDistancePID(70.6));
-			// addSequential(new AutoDriveDistancePID(-20));
-			// addSequential(new TurnPID(90));
-			// addSequential(new AutoDriveDistance(35));
-			// addSequential(new TurnPID(-90));
-			// addSequential(new AutoDriveDistance(25));
-			// break;
-			// case RobotConstants.Auto.MIDDLE_POSITION_NO_BREACH_SHOOT:
-			// addSequential(new AutoDriveDistancePID(70.6));
-			// addSequential(new AutoDriveDistancePID(-20));
-			// addSequential(new TurnPID(-90));
-			// addSequential(new AutoDriveDistance(35));
-			// break;
-			// }
 		}
-
 	}
 }
