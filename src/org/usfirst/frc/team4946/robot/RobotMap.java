@@ -19,6 +19,7 @@ public class RobotMap {
 	// public static int rangefinderModule = 1;
 	public static final int CAN_TALON_SHOOTER = 1;
 	public static final int CAN_TALON_WINCH = 6;
+	public static final int CAN_TALON_WINCH_1=5;
 
 	public static final int DIO_SHOOTER_SENSOR = 7;
 	public static final int DIO_LIMIT_SWITCH_WINCH = 8;
