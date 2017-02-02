@@ -4,7 +4,10 @@ package org.usfirst.frc.team4946.robot;
 import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
 import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
 import org.usfirst.frc.team4946.robot.subsystems.Winch;
+import org.usfirst.frc.team4946.robot.util.RateCounter;
+import org.usfirst.frc.team4946.robot.util.SimplePIFController;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,6 +28,7 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static final BallIntake ballSubsystem = new BallIntake(); 
 	public static final Winch winchSubsystem = new Winch();
+	public static final ShooterMotor shooterSubsystem=new ShooterMotor();
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -108,6 +112,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		
+		
+		SmartDashboard.putNumber("RPM", shooterSubsystem.getRPM());
+		SmartDashboard.putNumber("Set", shooterSubsystem.getSetRPM());
+
 	}
 
 	/**

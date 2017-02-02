@@ -1,8 +1,9 @@
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.commands.AddRpm;
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
-import org.usfirst.frc.team4946.robot.commands.WinchCommand;
-
+import org.usfirst.frc.team4946.robot.commands.SpinWinchUntilSwitch;
+import org.usfirst.frc.team4946.robot.commands.SubtractRpm;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,9 +22,11 @@ public class OI {
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
 
-	Joystick robotJoystick = new Joystick(73);
-	Button spinButton = new JoystickButton(robotJoystick, 74);
-	Button winchButton = new JoystickButton (robotJoystick,50);
+	Joystick robotJoystick = new Joystick(0);
+	Button spinButton = new JoystickButton(robotJoystick, 1);
+	Button winchButton = new JoystickButton (robotJoystick,2);
+	Button addRpmTest = new JoystickButton (robotJoystick, 5);
+	Button subtractRpmTest = new JoystickButton (robotJoystick, 4);
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
@@ -46,7 +49,10 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
-		winchButton.whileHeld(new WinchCommand());
+		winchButton.whileHeld(new SpinWinchUntilSwitch());
+		addRpmTest.whenPressed(new AddRpm());
+		subtractRpmTest.whenPressed(new SubtractRpm());
+		
 	}
 
 }
