@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.commands.IndexerCommand;
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -21,6 +22,7 @@ public class OI {
 
 	Joystick robotJoystick = new Joystick(73);
 	Button spinButton = new JoystickButton(robotJoystick, 74);
+	Button spinIndexer = new JoystickButton(robotJoystick, 3);
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
@@ -44,6 +46,7 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
+		spinIndexer.whileHeld(new IndexerCommand());
 	}
 
 }
