@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team4946.robot.commands.autonomous;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
@@ -11,17 +12,17 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutonomousWrapper extends CommandGroup {
+public class AutonomousWrapperGearFirst extends CommandGroup {
 	
-	static final double FEEDER_DIST_A = 81.18; //Distance traveled when going from the side with feeder
-	static final double FEEDER_DIST_B = 32.036;
+	final double FEEDER_DIST_A = 81.18; //Distance traveled when going from the side with feeder
+	final double FEEDER_DIST_B = 32.036;
 
-	static final double BOILER_DIST_A = 67.662; //Distance traveled when going from the side with boiler
-	static final double BOILER_DIST_B = 58.936;
+	final double BOILER_DIST_A = 67.662; //Distance traveled when going from the side with boiler
+	final double BOILER_DIST_B = 58.936;
 
-	static final double MIDDLE_DIST = 70.6; //PLS MEAUSRE
+	final double MIDDLE_DIST = 70.6; //PLS MEAUSRE
 
-	public AutonomousWrapper(int mode, boolean isRed) {
+	public AutonomousWrapperGearFirst(int mode, boolean isRed) {
 		addSequential(new ResetEncAndGyro());
 		addSequential(new Wait(1));
 //the mark of someone who's taken Grade 12 COMSCI
@@ -146,7 +147,6 @@ public class AutonomousWrapper extends CommandGroup {
 			case RobotConstants.Auto.MIDDLE_POSITION_BREACH_SHOOT:
 			case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT:
 			case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT:
-			case RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT:
 			case RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING:
 				
 				addSequential(new AutoDriveDistancePID(MIDDLE_DIST));
@@ -173,12 +173,6 @@ public class AutonomousWrapper extends CommandGroup {
 					addSequential(new AutoDriveDistance(35, 1.0));
 					addSequential(new TurnPID(90));
 					addSequential(new AutoDriveDistance(35, 1.0));
-			    case RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT:
-					addSequential(new TurnPID(-90));
-					addSequential(new AutoDriveDistancePID(50, 1.0));
-					addSequential(new TurnPID(-20));
-					// shoot
-					break;
 			    case RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING:
 					break;
 			// 2 dairy ave, L4E4X5 Richmond Hill

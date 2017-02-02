@@ -1,10 +1,10 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
-import org.usfirst.frc.team4946.robot.AvgPIDSource;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.SimplePIController;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.DriveRobot;
+import org.usfirst.frc.team4946.robot.util.AvgPIDSource;
+import org.usfirst.frc.team4946.robot.util.SimplePIController;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;

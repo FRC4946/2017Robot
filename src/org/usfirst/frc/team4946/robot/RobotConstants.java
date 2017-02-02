@@ -21,6 +21,8 @@ public class RobotConstants {
 		public static final int MIDDLE_POSITION_BREACH_RIGHT = 7;
 		public static final int MIDDLE_POSITION_JUST_SHOOT = 8;
 		public static final int MIDDLE_POSITION_DO_NOTHING = 9;
-
+		public static final int IF_GEAR_FIRST = 10;
+		public static final int IF_SHOOT_FIRST = 11; 
+		
 	}
 }

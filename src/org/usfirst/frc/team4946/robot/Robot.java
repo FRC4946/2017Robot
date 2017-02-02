@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperGearFirst;
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperShootFirst;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperTurningFromBack;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
@@ -28,6 +30,7 @@ public class Robot extends IterativeRobot {
 
 	Command auto;
 	SendableChooser<Integer> m_autoMode;
+	SendableChooser<Integer> m_gearOrShoot; 
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -40,19 +43,28 @@ public class Robot extends IterativeRobot {
 		driveSubsystem = new DriveTrain();
 
 		oi = new OI();
-
+		
+		m_gearOrShoot = new SendableChooser<Integer>();
+		m_gearOrShoot.addObject("Gear First", RobotConstants.Auto.IF_GEAR_FIRST); 
+		m_gearOrShoot.addObject("Shoot First", RobotConstants.Auto.IF_SHOOT_FIRST); 
+		SmartDashboard.putData("Auto Order", m_gearOrShoot);
+		
+		int order = m_gearOrShoot.getSelected();
 		m_autoMode = new SendableChooser<Integer>();
-		m_autoMode.addDefault("Left Position",
-				RobotConstants.Auto.LEFT_POSITION);
-		m_autoMode.addObject("Right Position", RobotConstants.Auto.RIGHT_POSITION);
-		m_autoMode.addObject("Breach - No Shoot", RobotConstants.Auto.BREACH_NO_SHOOT);
-		m_autoMode.addObject("Middle Position - Breach & Shoot", RobotConstants.Auto.MIDDLE_POSITION_BREACH_SHOOT);
-		m_autoMode.addObject("Middle Position - Breach Left", RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT);
-		m_autoMode.addObject("Middle Position - Breach Left", RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT);
-		m_autoMode.addObject("Middle Position - Just Shoot", RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT);
-		m_autoMode.addObject("Middle Position - Do Nothing", RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING);
-		SmartDashboard.putData("Autonomous - Script", m_autoMode);
-
+		
+		if (order == 12789){
+			m_autoMode.addDefault("Left Position",RobotConstants.Auto.LEFT_POSITION);
+			m_autoMode.addObject("Right Position", RobotConstants.Auto.RIGHT_POSITION);
+			m_autoMode.addObject("Breach - No Shoot", RobotConstants.Auto.BREACH_NO_SHOOT);
+			m_autoMode.addObject("Middle Position - Breach & Shoot", RobotConstants.Auto.MIDDLE_POSITION_BREACH_SHOOT);
+			m_autoMode.addObject("Middle Position - Breach Left", RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT);
+			m_autoMode.addObject("Middle Position - Breach Left", RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT);
+			m_autoMode.addObject("Middle Position - Do Nothing", RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING);
+			SmartDashboard.putData("Autonomous Script - Gear First", m_autoMode);
+		}
+		else if (order ==1289){
+			m_autoMode.addObject("Middle Position - Just Shoot", RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT);
+		}
 		
 		driveSubsystem.calibrateGyroscope();
 	}
@@ -88,8 +100,15 @@ public class Robot extends IterativeRobot {
 
 		boolean isRed = DriverStation.getInstance().getAlliance() == Alliance.Red;
 		int autoMode = m_autoMode.getSelected();
+		int order = m_gearOrShoot.getSelected();
 
-		auto = new AutonomousWrapperTurningFromBack(autoMode, isRed);
+		if (order == RobotConstants.Auto.IF_GEAR_FIRST){
+			auto = new AutonomousWrapperGearFirst(autoMode, isRed);
+		}
+		else if (order == RobotConstants.Auto.IF_SHOOT_FIRST){
+			auto = new AutonomousWrapperShootFirst(autoMode, isRed);
+		}
+		//auto = new AutonomousWrapperTurningFromBack(autoMode, isRed);
 		auto.start();
 
 	}
