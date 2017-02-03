@@ -4,8 +4,11 @@ import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperGearF
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperShootFirst;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperTurningFromBack;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
+import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
+import org.usfirst.frc.team4946.robot.subsystems.Winch;
+import org.usfirst.frc.team4946.robot.util.RateCounter;
+import org.usfirst.frc.team4946.robot.util.SimplePIFController;
 import org.usfirst.frc.team4946.robot.subsystems.GearDropper;
-
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -26,6 +29,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+
+	public static Winch winchSubsystem;
+	public static ShooterMotor shooterSubsystem;
 	public static GearDropper gearPusher;
 	public static BallIntake ballSubsystem;
 	public static DriveTrain driveSubsystem;
@@ -42,6 +48,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
+    winchSubsystem = new Winch();
+    shooterSubsystem = new ShooterMotor();
     gearPusher = new GearDropper();
 		ballSubsystem = new BallIntake();
 		driveSubsystem = new DriveTrain();
@@ -149,9 +157,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+
+		SmartDashboard.putNumber("RPM", shooterSubsystem.getRPM());
+		SmartDashboard.putNumber("Set", shooterSubsystem.getSetRPM());
 		SmartDashboard.putNumber("Encoder Distance: ",
 				driveSubsystem.getEncoderDistance());
 		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());
+
 
 	}
 

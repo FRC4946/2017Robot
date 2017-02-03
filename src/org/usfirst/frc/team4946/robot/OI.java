@@ -1,6 +1,9 @@
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.commands.AddRpm;
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
+import org.usfirst.frc.team4946.robot.commands.SpinWinchUntilSwitch;
+import org.usfirst.frc.team4946.robot.commands.SubtractRpm;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.StopPushingGear;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.ToggleDoor;
@@ -24,6 +27,10 @@ public class OI {
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
 
+	Button spinButton = new JoystickButton(operatorStick, 1);
+	Button winchButton = new JoystickButton (operatorStick,2);
+	Button addRpmTest = new JoystickButton (operatorStick, 5);
+	Button subtractRpmTest = new JoystickButton (operatorStick, 6);
 
 
 
@@ -38,7 +45,6 @@ public class OI {
   
   Button gearDoorButton = new JoystickButton(operatorStick, 1);
 	Button gearPusherButton = new JoystickButton(operatorStick, 2);
-
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
@@ -60,7 +66,10 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 
 	public OI() {
-
+		spinButton.whileHeld(new IntakeForward());
+		winchButton.whileHeld(new SpinWinchUntilSwitch());
+		addRpmTest.whenPressed(new AddRpm());
+		subtractRpmTest.whenPressed(new SubtractRpm());
 		gearDoorButton.whenPressed(new ToggleDoor());
 		gearPusherButton.whileHeld(new PushGear());
 		gearPusherButton.whenReleased(new StopPushingGear());
