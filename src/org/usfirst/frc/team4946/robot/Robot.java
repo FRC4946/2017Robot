@@ -1,10 +1,13 @@
-
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperGearFirst;
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperShootFirst;
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperTurningFromBack;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
-import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -21,12 +24,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static final BallIntake ballSubsystem = new BallIntake(); 
+	public static BallIntake ballSubsystem;
+	public static DriveTrain driveSubsystem;
 	public static OI oi;
 
-	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	Command auto;
+	SendableChooser<Integer> m_autoMode;
+	SendableChooser<Integer> m_gearOrShoot; 
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -34,10 +38,35 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+
+		ballSubsystem = new BallIntake();
+		driveSubsystem = new DriveTrain();
+
 		oi = new OI();
-		chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+		
+		m_gearOrShoot = new SendableChooser<Integer>();
+		m_gearOrShoot.addObject("Gear First", RobotConstants.Auto.IF_GEAR_FIRST); 
+		m_gearOrShoot.addObject("Shoot First", RobotConstants.Auto.IF_SHOOT_FIRST); 
+		SmartDashboard.putData("Auto Order", m_gearOrShoot);
+		
+		int order = m_gearOrShoot.getSelected();
+		m_autoMode = new SendableChooser<Integer>();
+		
+		if (order == 12789){
+			m_autoMode.addDefault("Left Position",RobotConstants.Auto.LEFT_POSITION);
+			m_autoMode.addObject("Right Position", RobotConstants.Auto.RIGHT_POSITION);
+			m_autoMode.addObject("Breach - No Shoot", RobotConstants.Auto.BREACH_NO_SHOOT);
+			m_autoMode.addObject("Middle Position - Breach & Shoot", RobotConstants.Auto.MIDDLE_POSITION_BREACH_SHOOT);
+			m_autoMode.addObject("Middle Position - Breach Left", RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT);
+			m_autoMode.addObject("Middle Position - Breach Left", RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT);
+			m_autoMode.addObject("Middle Position - Do Nothing", RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING);
+			SmartDashboard.putData("Autonomous Script - Gear First", m_autoMode);
+		}
+		else if (order ==1289){
+			m_autoMode.addObject("Middle Position - Just Shoot", RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT);
+		}
+		
+		driveSubsystem.calibrateGyroscope();
 	}
 
 	/**
@@ -68,18 +97,20 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		boolean isRed = DriverStation.getInstance().getAlliance() == Alliance.Red;
+		int autoMode = m_autoMode.getSelected();
+		int order = m_gearOrShoot.getSelected();
 
-		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
-			autonomousCommand.start();
+		if (order == RobotConstants.Auto.IF_GEAR_FIRST){
+			auto = new AutonomousWrapperGearFirst(autoMode, isRed);
+		}
+		else if (order == RobotConstants.Auto.IF_SHOOT_FIRST){
+			auto = new AutonomousWrapperShootFirst(autoMode, isRed);
+		}
+		//auto = new AutonomousWrapperTurningFromBack(autoMode, isRed);
+		auto.start();
+
 	}
 
 	/**
@@ -88,6 +119,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+
+		SmartDashboard.putNumber("Encoder Distance: ",
+				driveSubsystem.getEncoderDistance());
+		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());
 	}
 
 	@Override
@@ -96,8 +131,12 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+
+		driveSubsystem.resetEncoders();
+		driveSubsystem.resetGyro();
+
+		if (auto != null)
+			auto.cancel();
 	}
 
 	/**
@@ -106,6 +145,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Encoder Distance: ",
+				driveSubsystem.getEncoderDistance());
+		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());
+
 	}
 
 	/**
