@@ -4,6 +4,8 @@ import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperGearF
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperShootFirst;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperTurningFromBack;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
+import org.usfirst.frc.team4946.robot.subsystems.GearDropper;
+
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -24,6 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	public static GearDropper gearPusher;
 	public static BallIntake ballSubsystem;
 	public static DriveTrain driveSubsystem;
 	public static OI oi;
@@ -39,6 +42,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
+    gearPusher = new GearDropper();
 		ballSubsystem = new BallIntake();
 		driveSubsystem = new DriveTrain();
 

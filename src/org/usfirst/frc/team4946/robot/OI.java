@@ -1,6 +1,9 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.StopPushingGear;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.ToggleDoor;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
 
@@ -21,6 +24,9 @@ public class OI {
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
 
+
+
+
 	private Joystick operatorStick = new Joystick(0);
 	private Joystick driveStick = new Joystick(1);
 
@@ -29,7 +35,9 @@ public class OI {
 //	Button spinButton = new JoystickButton(operatorStick, 5);
 	Button drive48in = new JoystickButton(driveStick, 4);
 	Button maintain0deg = new JoystickButton(driveStick, 1);
-
+  
+  Button gearDoorButton = new JoystickButton(operatorStick, 1);
+	Button gearPusherButton = new JoystickButton(operatorStick, 2);
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
@@ -52,6 +60,10 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 
 	public OI() {
+
+		gearDoorButton.whenPressed(new ToggleDoor());
+		gearPusherButton.whileHeld(new PushGear());
+		gearPusherButton.whenReleased(new StopPushingGear());
 //		spinButton.whileHeld(new IntakeForward());
 		drive48in.whenPressed(new AutoDriveDistancePID(48, 0.6));
 		turn0Button.whenPressed(new TurnPID(0.0));
