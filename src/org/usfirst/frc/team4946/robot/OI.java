@@ -2,7 +2,6 @@ package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
-import org.usfirst.frc.team4946.robot.commands.gearpusher.StopPushingGear;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.ToggleDoor;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -51,7 +50,6 @@ public class OI {
 		spinButton.whileHeld(new IntakeForward());
 		gearDoorButton.whenPressed(new ToggleDoor());
 		gearPusherButton.whileHeld(new PushGear());
-		gearPusherButton.whenReleased(new StopPushingGear());
 	}
 
 }
