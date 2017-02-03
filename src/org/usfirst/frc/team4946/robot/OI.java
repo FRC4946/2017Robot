@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4946.robot;
 
+import org.usfirst.frc.team4946.robot.commands.IndexerCommand;
 import org.usfirst.frc.team4946.robot.commands.AddRpm;
 import org.usfirst.frc.team4946.robot.commands.IntakeForward;
 import org.usfirst.frc.team4946.robot.commands.SpinWinchUntilSwitch;
@@ -26,6 +27,8 @@ public class OI {
 	// number it is.
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
+
+	Button spinIndexer = new JoystickButton(robotJoystick, 3);
 
 	Button spinButton = new JoystickButton(operatorStick, 1);
 	Button winchButton = new JoystickButton (operatorStick,2);
@@ -67,6 +70,7 @@ public class OI {
 
 	public OI() {
 		spinButton.whileHeld(new IntakeForward());
+		spinIndexer.whileHeld(new IndexerCommand());
 		winchButton.whileHeld(new SpinWinchUntilSwitch());
 		addRpmTest.whenPressed(new AddRpm());
 		subtractRpmTest.whenPressed(new SubtractRpm());

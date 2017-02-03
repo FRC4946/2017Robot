@@ -4,6 +4,8 @@ import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperGearF
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperShootFirst;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperTurningFromBack;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
+import org.usfirst.frc.team4946.robot.subsystems.Indexer;
+
 import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
 import org.usfirst.frc.team4946.robot.subsystems.Winch;
 import org.usfirst.frc.team4946.robot.util.RateCounter;
@@ -13,6 +15,7 @@ import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -36,6 +39,7 @@ public class Robot extends IterativeRobot {
 	public static BallIntake ballSubsystem;
 	public static DriveTrain driveSubsystem;
 	public static OI oi;
+	public static final Indexer indexerSubsystem = new Indexer();
 
 	Command auto;
 	SendableChooser<Integer> m_autoMode;
