@@ -6,7 +6,6 @@ import org.usfirst.frc.team4946.robot.commands.IntakeForward;
 import org.usfirst.frc.team4946.robot.commands.SpinWinchUntilSwitch;
 import org.usfirst.frc.team4946.robot.commands.SubtractRpm;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
-import org.usfirst.frc.team4946.robot.commands.gearpusher.StopPushingGear;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.ToggleDoor;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
@@ -76,7 +75,6 @@ public class OI {
 		subtractRpmTest.whenPressed(new SubtractRpm());
 		gearDoorButton.whenPressed(new ToggleDoor());
 		gearPusherButton.whileHeld(new PushGear());
-		gearPusherButton.whenReleased(new StopPushingGear());
 //		spinButton.whileHeld(new IntakeForward());
 		drive48in.whenPressed(new AutoDriveDistancePID(48, 0.6));
 		turn0Button.whenPressed(new TurnPID(0.0));

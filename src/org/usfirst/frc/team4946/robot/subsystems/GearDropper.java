@@ -29,13 +29,10 @@ public class GearDropper extends Subsystem {
 		
 	}
 	
-	public void pushGear(){
-		m_gearPusher.set(true);
+	public void toggleGear(){
+		m_gearPusher.set(!m_gearPusher.get());
 	}
 	
-	public void stopPushingGear(){
-		m_gearPusher.set(false);
-	}
 	
 }
 
