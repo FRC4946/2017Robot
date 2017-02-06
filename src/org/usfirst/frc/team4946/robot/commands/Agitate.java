@@ -23,6 +23,7 @@ public class Agitate extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.agitatorSubsystem.setSpeed(1.0);
+    	Robot.agitatorSubsystem.set(false);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -33,8 +34,10 @@ public class Agitate extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.agitatorSubsystem.setSpeed(0.0);
+    	Robot.agitatorSubsystem.set(true);
     }
 
+    
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
