@@ -2,13 +2,10 @@ package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.SpinShooter;
-import org.usfirst.frc.team4946.robot.util.RateCounter;
-import org.usfirst.frc.team4946.robot.util.SimplePIFController;
+import org.usfirst.frc.team4946.robot.util.SimplePIController;
 
-import com.ctre.CANTalon;
-import com.ctre.CANTalon.FeedbackDevice;
-import com.ctre.CANTalon.TalonControlMode;
-
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -17,10 +14,31 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ShooterMotor extends Subsystem {
 
-	VictorSP shooterMotor = new VictorSP(RobotMap.CAN_TALON_SHOOTER);
+	VictorSP shooterMotor = new VictorSP(7);
 
-	RateCounter rateCount = new RateCounter(RobotMap.DIO_SHOOTER_SENSOR);
-	SimplePIFController pifController;
+	//RateCounter rateCount = new RateCounter(RobotMap.DIO_SHOOTER_SENSOR);
+	PIDSource rateCount = new PIDSource() {
+		
+		@Override
+		public void setPIDSourceType(PIDSourceType pidSource) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public double pidGet() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+		@Override
+		public PIDSourceType getPIDSourceType() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	};
+//	SimplePIFController pifController;
+	SimplePIController pifController;
 	int rpm = 0;
 
 	double kP = 0;
@@ -40,7 +58,7 @@ public class ShooterMotor extends Subsystem {
 
 	public ShooterMotor() {
 
-		pifController = new SimplePIFController(kP, kI, kF, kFOff, rateCount);
+		pifController = new SimplePIController(kP, kI, /*kF, kFOff,*/ rateCount);
 		pifController.setInputRange(0, 10000);
 		
 		
@@ -68,7 +86,8 @@ public class ShooterMotor extends Subsystem {
 	}
 
 	public double getRPM() {
-		return rateCount.getRPM();
+//		return rateCount.getRPM();
+		return rateCount.pidGet();
 	}
 
 	public int getSetRPM() {
