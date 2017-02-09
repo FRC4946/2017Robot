@@ -1,8 +1,10 @@
 package org.usfirst.frc.team4946.robot.commands.autonomous;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
+import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistance;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -36,16 +38,38 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 
     	final double MIDDLE_DIST = 70.6; //PLS ME
     	
+    	final double HOPPER_DIST_A = 195.0;
+    	final double HOPPER_DIST_B = 16.0; //CHANGE LATER
+    	
+    	
     	if (isRed) {
     		switch (autoMode) {
 			    case RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT:
-			    	addSequential(new AutoDriveDistancePID(20));
-					addSequential(new TurnPID(-90));
-					addSequential(new AutoDriveDistancePID(50));
-					addSequential(new TurnPID(-20));
-					// shoot
+			    case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT:
+			    case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT:
+			    	
+			    	addSequential(new TurnPID(-90));
+			    	//SHOOT
+			    	addSequential(new TurnPID(90));
+			    	addSequential(new AutoDriveDistancePID(MIDDLE_DIST));
+					addSequential(new PushGear());
+					addSequential(new AutoDriveDistancePID(-20.0));
+					
+			    	switch(autoMode) {
+			    		case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT:
+			    			addSequential(new TurnPID(-90));
+							addSequential(new AutoDriveDistance(35, 1.0));
+							addSequential(new TurnPID(90));
+							addSequential(new AutoDriveDistance(35, 1.0));
+			    		case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT:
+							addSequential(new TurnPID(90));
+							addSequential(new AutoDriveDistance(35, 1.0));
+							addSequential(new TurnPID(-90));
+							addSequential(new AutoDriveDistance(35, 1.0));
+			    	}
 					break;
 			    case RobotConstants.Auto.LEFT_POSITION: 
+			    	//The robot starts at the left position, shoots, breaches on the right and then drops the gear
 			    	addSequential(new AutoDriveDistancePID(20));
 			    	addSequential(new TurnPID (90));
 			    	//travel some distance 
@@ -54,10 +78,11 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 			    	addSequential(new AutoDriveDistancePID(BOILER_DIST_A - 20));
 			    	addSequential(new TurnPID(-60));
 			    	addSequential(new AutoDriveDistancePID(BOILER_DIST_B));
-			    	//drop gear
+			    	addSequential(new PushGear());
 			    	addSequential(new AutoDriveDistancePID(-20));
 			    	break;
 			    case RobotConstants.Auto.RIGHT_POSITION:
+			    	//The robot starts at the right position, shoots, breaches on the right and then drops the gear
 			    	addSequential(new AutoDriveDistancePID(20));
 			    	addSequential(new TurnPID(90));
 			    	//addSequential(new AutoDriveDistancePID(somedistance)); 
@@ -72,12 +97,14 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
     	} else {
     		switch (autoMode) {
 			    case RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT:
+			    	//The robot does not breach, it just shoots.
 					addSequential(new TurnPID(-90));
 					addSequential(new AutoDriveDistancePID(50));
 					addSequential(new TurnPID(-20));
 					// shoot
 					break;
 			    case RobotConstants.Auto.LEFT_POSITION: 
+			    	//The robot starts at the left position, shoots, breaches on the left and then drops the gear
 			    	addSequential(new AutoDriveDistancePID(20));
 			    	addSequential(new TurnPID (-90));
 			    	// shoot
@@ -85,10 +112,11 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 			    	addSequential(new AutoDriveDistancePID(FEEDER_DIST_A - 20));
 			    	addSequential(new TurnPID(60));
 			    	addSequential(new AutoDriveDistancePID(FEEDER_DIST_B));
-			    	//drop gear
+			    	addSequential(new PushGear());
 			    	addSequential(new AutoDriveDistancePID(-20));
 			    	break;
 			    case RobotConstants.Auto.RIGHT_POSITION:
+			    	//The robot starts at the right position, shoots, breaches on the left and then drops the gear
 			    	addSequential(new AutoDriveDistancePID(20));
 			    	addSequential(new TurnPID(-90));
 			    	//addSequential(new AutoDriveDistancePID(somedistance)); 

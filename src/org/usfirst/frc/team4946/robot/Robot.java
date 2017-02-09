@@ -34,8 +34,8 @@ public class Robot extends IterativeRobot {
 
 
 	public static Winch winchSubsystem;
-	public static ShooterMotor shooterSubsystem;
-	public static GearDropper gearPusher;
+	public static ShooterMotor shooterSubsystem; // MERGE SUBSYSTEM
+	public static GearDropper gearSubsystem;
 	public static BallIntake ballSubsystem;
 	public static DriveTrain driveSubsystem;
 	public static OI oi;
@@ -167,8 +167,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Encoder Distance: ",
 				driveSubsystem.getEncoderDistance());
 		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());
-
-
 	}
 
 	/**

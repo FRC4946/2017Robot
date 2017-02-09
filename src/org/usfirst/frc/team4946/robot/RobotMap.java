@@ -14,7 +14,7 @@ public class RobotMap {
 	public static final int PWM_DRIVETRAIN_FRMOTOR = 2;
 	public static final int PWM_DRIVETRAIN_BRMOTOR = 3;
 	public static final int PWM_INTAKE_MOTOR = 4;
-  public static final int PWM_INDEX_MOTOR = 5;
+    public static final int PWM_INDEX_MOTOR = 5;
   
 	public static final int DIO_SHOOTER_SENSOR = 4;
 	public static final int DIO_LIMIT_SWITCH_WINCH = 5;

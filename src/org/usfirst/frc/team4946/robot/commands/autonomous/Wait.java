@@ -18,6 +18,10 @@ public class Wait extends Command {
         // eg. requires(chassis);
     	requires(Robot.ballSubsystem);
     	requires(Robot.driveSubsystem);
+    	requires(Robot.indexerSubsystem);
+    	requires(Robot.winchSubsystem);
+    	requires(Robot.gearSubsystem);
+    	requires(Robot.shooterSubsystem);
     	m_timeToWait = waitTime;
     }
 

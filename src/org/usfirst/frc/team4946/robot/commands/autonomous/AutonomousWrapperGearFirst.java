@@ -6,6 +6,7 @@ import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistance;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.ResetEncAndGyro;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -31,12 +32,13 @@ public class AutonomousWrapperGearFirst extends CommandGroup {
 
 			// The right on the red alliance is FEEDER
 			case RobotConstants.Auto.RIGHT_POSITION:
+				//The robot starts at the right position, breaches on the right and drops the gear
 				addSequential(new AutoDriveDistancePID(FEEDER_DIST_A));
 				addSequential(new Wait(1));
 				addSequential(new TurnPID(300.0));
 				addSequential(new Wait(1));
 				addSequential(new AutoDriveDistancePID(FEEDER_DIST_B));
-				// drop gear
+				addSequential(new PushGear());
 				// addSequential(new AutoDriveDistancePID(96));
 				break;
 
@@ -44,13 +46,14 @@ public class AutonomousWrapperGearFirst extends CommandGroup {
 			case RobotConstants.Auto.LEFT_POSITION:
 			case RobotConstants.Auto.SIDE_GEAR_AND_SHOOT:
 				// ^ Intentional fall through
+				// The robot starts at the left positioon, breaches on the left and drops the gear
 
 				addSequential(new AutoDriveDistancePID(BOILER_DIST_A));
 				addSequential(new Wait(1));
 				addSequential(new TurnPID(60.0));
 				addSequential(new Wait(1));
 				addSequential(new AutoDriveDistancePID(BOILER_DIST_B));
-				// drop gear
+				addSequential(new PushGear());
 				// addSequential(new AutoDriveDistancePID(30));
 
 				if (mode == RobotConstants.Auto.SIDE_GEAR_AND_SHOOT) {
@@ -73,7 +76,7 @@ public class AutonomousWrapperGearFirst extends CommandGroup {
 			case RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT:
 
 				addSequential(new AutoDriveDistancePID(MIDDLE_DIST));
-				// drop gear
+				addSequential(new PushGear());
 				addSequential(new AutoDriveDistancePID(-20));
 
 				// For all modes other than Do_Nothing...
@@ -113,7 +116,16 @@ public class AutonomousWrapperGearFirst extends CommandGroup {
 					// shoot
 					break;
 				}
-				break;
+		    case RobotConstants.Auto.HOPPER_LEFT:
+		    	addSequential(new AutoDriveDistancePID(195));
+		    	addSequential(new TurnPID(-90));
+		    	addSequential(new AutoDriveDistancePID(16));
+		    	break;
+		    case RobotConstants.Auto.HOPPER_RIGHT:
+		    	addSequential(new AutoDriveDistancePID(123));
+		    	addSequential(new TurnPID(90));
+		    	addSequential(new AutoDriveDistancePID(16));
+		    	break;
 			}
 		} else {
 			switch (mode) {
@@ -121,7 +133,7 @@ public class AutonomousWrapperGearFirst extends CommandGroup {
 				addSequential(new AutoDriveDistancePID(FEEDER_DIST_A));
 				addSequential(new TurnPID(60.0));
 				addSequential(new AutoDriveDistancePID(FEEDER_DIST_B));
-				// drop gear
+				addSequential(new PushGear());
 				// addSequential(new AutoDriveDistance(30));
 				break;
 			case RobotConstants.Auto.BREACH_NO_SHOOT:
@@ -150,7 +162,7 @@ public class AutonomousWrapperGearFirst extends CommandGroup {
 			case RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING:
 				
 				addSequential(new AutoDriveDistancePID(MIDDLE_DIST));
-				// drop gear
+				addSequential(new PushGear());
 				addSequential(new AutoDriveDistancePID(-20.0));
 				
 				switch (mode) {
@@ -175,8 +187,17 @@ public class AutonomousWrapperGearFirst extends CommandGroup {
 					addSequential(new AutoDriveDistance(35, 1.0));
 			    case RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING:
 					break;
-			// 2 dairy ave, L4E4X5 Richmond Hill
-			// (647) 274-3148
+			    case RobotConstants.Auto.HOPPER_LEFT:
+			    	addSequential(new AutoDriveDistancePID(123));
+			    	addSequential(new TurnPID(-90));
+			    	addSequential(new AutoDriveDistancePID(16));
+			    	break;
+			    case RobotConstants.Auto.HOPPER_RIGHT:
+			    	addSequential(new AutoDriveDistancePID(195));
+			    	addSequential(new TurnPID(90));
+			    	addSequential(new AutoDriveDistancePID(16));
+			    	break; 
+			    	
 				}
 			}
 		}			

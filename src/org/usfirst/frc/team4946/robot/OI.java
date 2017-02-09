@@ -1,14 +1,12 @@
 package org.usfirst.frc.team4946.robot;
 
-import org.usfirst.frc.team4946.robot.commands.IndexerCommand;
-import org.usfirst.frc.team4946.robot.commands.AddRpm;
-import org.usfirst.frc.team4946.robot.commands.IntakeForward;
-import org.usfirst.frc.team4946.robot.commands.SpinWinchUntilSwitch;
-import org.usfirst.frc.team4946.robot.commands.SubtractRpm;
-import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
-import org.usfirst.frc.team4946.robot.commands.gearpusher.ToggleDoor;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.ToggleDoor;
+import org.usfirst.frc.team4946.robot.commands.indexer.IndexerCommand;
+import org.usfirst.frc.team4946.robot.commands.indexer.IntakeForward;
+import org.usfirst.frc.team4946.robot.commands.winch.SpinWinchUntilSwitch;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -27,26 +25,23 @@ public class OI {
 	// Joystick stick = new Joystick(port);
 	// Button button = new JoystickButton(stick, buttonNumber);
 
-	Button spinIndexer = new JoystickButton(robotJoystick, 3);
-
-	Button spinButton = new JoystickButton(operatorStick, 1);
-	Button winchButton = new JoystickButton (operatorStick,2);
-	Button addRpmTest = new JoystickButton (operatorStick, 5);
-	Button subtractRpmTest = new JoystickButton (operatorStick, 6);
-
-
-
 	private Joystick operatorStick = new Joystick(0);
 	private Joystick driveStick = new Joystick(1);
 
+	Button spinButton = new JoystickButton(operatorStick, 1);
+	Button winchButton = new JoystickButton(operatorStick, 2);
+	Button spinIndexer = new JoystickButton(operatorStick, 3);
+	Button gearDoorButton = new JoystickButton(operatorStick, 4);
+	Button gearPusherButton = new JoystickButton(operatorStick, 5);
+	// Button addRpmTest = new JoystickButton(operatorStick, 5);
+	// Button subtractRpmTest = new JoystickButton(operatorStick, 6);
+	// Button spinButton = new JoystickButton(operatorStick, 5);
+	
+	Button maintain0deg = new JoystickButton(driveStick, 1);
+	Button drive48in = new JoystickButton(driveStick, 4);
 	Button turn0Button = new JoystickButton(driveStick, 6);
 	Button turn90Button = new JoystickButton(driveStick, 7);
-//	Button spinButton = new JoystickButton(operatorStick, 5);
-	Button drive48in = new JoystickButton(driveStick, 4);
-	Button maintain0deg = new JoystickButton(driveStick, 1);
-  
-  Button gearDoorButton = new JoystickButton(operatorStick, 1);
-	Button gearPusherButton = new JoystickButton(operatorStick, 2);
+
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
@@ -71,11 +66,9 @@ public class OI {
 		spinButton.whileHeld(new IntakeForward());
 		spinIndexer.whileHeld(new IndexerCommand());
 		winchButton.whileHeld(new SpinWinchUntilSwitch());
-		addRpmTest.whenPressed(new AddRpm());
-		subtractRpmTest.whenPressed(new SubtractRpm());
 		gearDoorButton.whenPressed(new ToggleDoor());
 		gearPusherButton.whileHeld(new PushGear());
-//		spinButton.whileHeld(new IntakeForward());
+		// spinButton.whileHeld(new IntakeForward());
 		drive48in.whenPressed(new AutoDriveDistancePID(48, 0.6));
 		turn0Button.whenPressed(new TurnPID(0.0));
 		turn90Button.whenPressed(new TurnPID(90.0));

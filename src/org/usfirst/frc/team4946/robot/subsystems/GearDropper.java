@@ -12,9 +12,9 @@ public class GearDropper extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	Solenoid m_doorOpener1 = new Solenoid(RobotMap.PWM_DOOR_OPENER_1); // <- change later
-	Solenoid m_doorOpener2 = new Solenoid(RobotMap.PWM_DOOR_OPENER_2); // change later 
-	Solenoid m_gearPusher = new Solenoid(RobotMap.PWM_GEAR_PUSHER); //change later
+	Solenoid m_doorOpener1 = new Solenoid(RobotMap.PCM_DOOR_OPENER_1); // <- change later
+	Solenoid m_doorOpener2 = new Solenoid(RobotMap.PCM_DOOR_OPENER_2); // change later 
+	Solenoid m_gearPusher = new Solenoid(RobotMap.PCM_GEAR_PUSHER); //change later
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

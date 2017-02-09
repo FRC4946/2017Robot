@@ -30,7 +30,7 @@ public class TurnPID extends Command {
     protected void execute() {
     	SmartDashboard.putNumber("Input", Robot.driveSubsystem.getGyroPIDInput());
     	SmartDashboard.putNumber("Setpoint", Robot.driveSubsystem.getGyroSetpoint());
-    	SmartDashboard.putNumber("asdf", Math.random());
+    	// SmartDashboard.putNumber("asdf", Math.random());
     	Robot.driveSubsystem.drive(0.0, Robot.driveSubsystem.getGyroOutput());
     }
 
@@ -49,8 +49,6 @@ public class TurnPID extends Command {
 			m_onTargetCounter = 0;
 
 		return false;
-		
-		
     }
 
     // Called once after isFinished returns true

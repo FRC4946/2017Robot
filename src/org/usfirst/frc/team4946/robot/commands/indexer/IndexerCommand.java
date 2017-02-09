@@ -1,5 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands;
-
+package org.usfirst.frc.team4946.robot.commands.indexer;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -8,12 +7,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SpinWinchAlways extends Command {
+public class IndexerCommand extends Command {
+	
 
-    public SpinWinchAlways() {
+    public IndexerCommand() {
+    	requires(Robot.indexerSubsystem);
+ 
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.winchSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +23,7 @@ public class SpinWinchAlways extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.winchSubsystem.setSpeed(1.0);
+    	Robot.indexerSubsystem.spinIndexer(0.8);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,12 +33,11 @@ public class SpinWinchAlways extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.winchSubsystem.setSpeed(0.0);
+    	Robot.indexerSubsystem.spinIndexer(0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }
