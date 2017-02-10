@@ -1,4 +1,9 @@
 package org.usfirst.frc.team4946.robot;
+import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4946.robot.subsystems.Agitator;
+import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.LEDlights;
+
 
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperGearFirst;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperShootFirst;
@@ -27,6 +32,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	public static final BallIntake ballSubsystem = new BallIntake();
+	public static final Agitator agitatorSubsystem = new Agitator();
+	public static final LEDlights LEDlightsSubsystem = new LEDlights();
 	public static Winch winchSubsystem;
 	public static ShooterMotor shooterSubsystem; // MERGE SUBSYSTEM
 	public static GearDropper gearSubsystem;
