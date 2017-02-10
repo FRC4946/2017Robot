@@ -2,13 +2,12 @@ package org.usfirst.frc.team4946.robot;
 
 
 import org.usfirst.frc.team4946.robot.commands.Agitate;
-import org.usfirst.frc.team4946.robot.commands.IntakeForward;
+import org.usfirst.frc.team4946.robot.commands.indexer.IntakeForward;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.ToggleDoor;
 import org.usfirst.frc.team4946.robot.commands.indexer.IndexerCommand;
-import org.usfirst.frc.team4946.robot.commands.indexer.IntakeForward;
 import org.usfirst.frc.team4946.robot.commands.winch.SpinWinchUntilSwitch;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,7 +35,7 @@ public class OI {
 	Button spinIndexer = new JoystickButton(operatorStick, 3);
 	Button gearDoorButton = new JoystickButton(operatorStick, 4);
 	Button gearPusherButton = new JoystickButton(operatorStick, 5);
-	Button agitatorButton = new JoystickButton(operatorJoystick, 6);
+	Button agitatorButton = new JoystickButton(operatorStick, 6);
 
   // Button addRpmTest = new JoystickButton(operatorStick, 5);
 	// Button subtractRpmTest = new JoystickButton(operatorStick, 6);

@@ -23,7 +23,7 @@ public class RobotMap {
 	public static final int PWM_DRIVETRAIN_FRMOTOR = 2;
 	public static final int PWM_DRIVETRAIN_BRMOTOR = 3;
 	public static final int PWM_INTAKE_MOTOR = 4;
-  public static final int PWM_INDEX_MOTOR = 5;
+    public static final int PWM_INDEX_MOTOR = 5;
   
 	public static final int DIO_SHOOTER_SENSOR = 0;
 	public static final int DIO_LIMIT_SWITCH_WINCH = 1;
@@ -39,5 +39,5 @@ public class RobotMap {
 	public static final int PCM_DOOR_OPENER_1 = 1;
 	public static final int PCM_DOOR_OPENER_2 = 2; 
 	public static final int PCM_GEAR_PUSHER = 3;
-  public static final int PCM_SHOOTER_HOOD = 4; 
+    public static final int PCM_SHOOTER_HOOD = 4; 
 }

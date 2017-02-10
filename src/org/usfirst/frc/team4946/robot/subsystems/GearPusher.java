@@ -11,7 +11,6 @@ public class GearPusher extends Subsystem {
 	Solenoid fillValve = new Solenoid(5);
 
 	public void push() {
-		
 		fillValve.set(true);
 	}
     // Put methods for controlling this subsystem

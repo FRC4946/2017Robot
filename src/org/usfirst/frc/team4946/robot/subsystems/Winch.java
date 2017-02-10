@@ -16,6 +16,7 @@ public class Winch extends Subsystem {
 	VictorSP winchTalon=new VictorSP(8);
 	VictorSP winchTalon1=new VictorSP(9);
 	DigitalInput winchSwitch=new DigitalInput(RobotMap.DIO_LIMIT_SWITCH_WINCH);
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand())
@@ -29,9 +30,5 @@ public class Winch extends Subsystem {
     public boolean getWinchSwitch(){
     	return winchSwitch.get();
     }
-    
-    
-    
-    
 }
 
