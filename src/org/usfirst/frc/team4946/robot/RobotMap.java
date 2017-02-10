@@ -10,6 +10,8 @@ public class RobotMap {
 	public static final int PWM_INTAKE_MOTOR = 17;
 	public static final int PWM_VICTORSP_AGITATOR= 17;
 	public static final int PCM_SOLENOID_BLOCKER = 6;
+	public static final int RELAY_GEAR_LED = 5;
+	public static final int RELAY_SHOOTER_LED = 4;
 	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.

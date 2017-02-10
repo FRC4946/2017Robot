@@ -5,6 +5,7 @@ import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4946.robot.subsystems.Agitator;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
 import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.LEDlights;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,8 +26,9 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static final BallIntake ballSubsystem = new BallIntake();
 	public static final Agitator agitatorSubsystem = new Agitator();
+	public static final LEDlights LEDlightsSubsystem = new LEDlights();
 	public static OI oi;
-
+	
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
