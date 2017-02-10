@@ -2,20 +2,15 @@ package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperGearFirst;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperShootFirst;
-import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperTurningFromBack;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
+import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4946.robot.subsystems.GearDropper;
 import org.usfirst.frc.team4946.robot.subsystems.Indexer;
-
 import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
 import org.usfirst.frc.team4946.robot.subsystems.Winch;
-import org.usfirst.frc.team4946.robot.util.RateCounter;
-import org.usfirst.frc.team4946.robot.util.SimplePIFController;
-import org.usfirst.frc.team4946.robot.subsystems.GearDropper;
-import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -37,10 +32,11 @@ public class Robot extends IterativeRobot {
 	public static ShooterMotor shooterSubsystem;
 	public static GearDropper gearPusher;
 	public static BallIntake ballSubsystem;
+	public static shooterHood shooterHoodSubsystem;
 	public static DriveTrain driveSubsystem;
 	public static OI oi;
-	public static final Indexer indexerSubsystem = new Indexer();
-
+	public static final Indexer indexerSubsystem = new Indexer(); 
+	
 	Command auto;
 	SendableChooser<Integer> m_autoMode;
 	SendableChooser<Integer> m_gearOrShoot; 
@@ -54,6 +50,7 @@ public class Robot extends IterativeRobot {
 
     winchSubsystem = new Winch();
     shooterSubsystem = new ShooterMotor();
+    shooterHoodSubsystem = new shooterHood();
     gearPusher = new GearDropper();
 		ballSubsystem = new BallIntake();
 		driveSubsystem = new DriveTrain();
