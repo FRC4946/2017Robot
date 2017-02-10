@@ -1,4 +1,9 @@
 package org.usfirst.frc.team4946.robot;
+import org.usfirst.frc.team4946.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4946.robot.subsystems.Agitator;
+import org.usfirst.frc.team4946.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4946.robot.subsystems.LEDlights;
+
 
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperGearFirst;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperShootFirst;
@@ -28,46 +33,47 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-
+	public static ExampleSubsystem exampleSubsystem;
+	public static BallIntake ballSubsystem;
+	public static Agitator agitatorSubsystem;
+	public static LEDlights LEDlightsSubsystem;
 	public static Winch winchSubsystem;
-	public static ShooterMotor shooterSubsystem;
-	public static GearDropper gearPusher;
+	public static ShooterMotor shooterSubsystem; // MERGE SUBSYSTEM
+	public static GearDropper gearSubsystem;
 	public static BallIntake ballSubsystem;
 	public static ShooterHood shooterHoodSubsystem;
 	public static DriveTrain driveSubsystem;
 	public static OI oi;
-	public static final Indexer indexerSubsystem = new Indexer(); 
-	
+	public static Indexer indexerSubsystem;
+
 	Command auto;
 	SendableChooser<Integer> m_autoMode;
-	SendableChooser<Integer> m_gearOrShoot; 
-
+	SendableChooser<Integer> m_autoModeShootFirst;
+	SendableChooser<Integer> m_orderMode;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-
-    winchSubsystem = new Winch();
-    shooterSubsystem = new ShooterMotor();
+    
     shooterHoodSubsystem = new ShooterHood();
-    gearPusher = new GearDropper();
+		winchSubsystem = new Winch();
+		shooterSubsystem = new ShooterMotor();
+		gearSubsystem = new GearDropper();
 		ballSubsystem = new BallIntake();
 		driveSubsystem = new DriveTrain();
+		indexerSubsystem = new Indexer();
+    ballSubsystem = new BallIntake();
+    agitatorSubsystem = new Agitator();
+    LEDlights = new LEDlightsSubsystem();
 
 		oi = new OI();
-		
-		m_gearOrShoot = new SendableChooser<Integer>();
-		m_gearOrShoot.addObject("Gear First", RobotConstants.Auto.IF_GEAR_FIRST); 
-		m_gearOrShoot.addObject("Shoot First", RobotConstants.Auto.IF_SHOOT_FIRST); 
-		SmartDashboard.putData("Auto Order", m_gearOrShoot);
-		
-		int order = m_gearOrShoot.getSelected();
+
 		m_autoMode = new SendableChooser<Integer>();
-		
-		if (order == 12789){
-			m_autoMode.addDefault("Left Position",RobotConstants.Auto.LEFT_POSITION);
+		driveSubsystem.calibrateGyroscope();
+		  
+			m_autoMode.addDefault("Left Position - Gear First", RobotConstants.Auto.LEFT_POSITION);
 			m_autoMode.addObject("Right Position", RobotConstants.Auto.RIGHT_POSITION);
 			m_autoMode.addObject("Breach - No Shoot", RobotConstants.Auto.BREACH_NO_SHOOT);
 			m_autoMode.addObject("Middle Position - Breach & Shoot", RobotConstants.Auto.MIDDLE_POSITION_BREACH_SHOOT);
@@ -75,12 +81,20 @@ public class Robot extends IterativeRobot {
 			m_autoMode.addObject("Middle Position - Breach Left", RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT);
 			m_autoMode.addObject("Middle Position - Do Nothing", RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING);
 			SmartDashboard.putData("Autonomous Script - Gear First", m_autoMode);
-		}
-		else if (order ==1289){
-			m_autoMode.addObject("Middle Position - Just Shoot", RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT);
-		}
-		
-		driveSubsystem.calibrateGyroscope();
+			
+			m_autoModeShootFirst = new SendableChooser<Integer>();
+			m_autoModeShootFirst.addObject("Middle Position - Just Shoot - Shoot First", RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT);
+			m_autoModeShootFirst.addObject("Middle Position - Breach Right", RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT);
+			m_autoModeShootFirst.addObject("Middle Position - Breach Left", RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT);
+			m_autoModeShootFirst.addObject("Left Position", RobotConstants.Auto.LEFT_POSITION);
+			m_autoModeShootFirst.addObject("Right Position", RobotConstants.Auto.RIGHT_POSITION);
+			SmartDashboard.putData("Autonomous Script - Shoot First", m_autoModeShootFirst);
+			
+			m_orderMode = new SendableChooser<Integer>();
+			m_orderMode.addDefault("Gear First", RobotConstants.Auto.GEAR_FIRST);
+			m_orderMode.addObject("Shoot First", RobotConstants.Auto.SHOOT_FIRST);
+			SmartDashboard.putData("Auto Order", m_orderMode);
+			
 	}
 
 	/**
@@ -95,6 +109,27 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledPeriodic() {
+	/*	
+		if(m_gearOrShoot.getSelected()==RobotConstants.Auto.IF_GEAR_FIRST){
+			m_autoMode = new SendableChooser<Integer>();
+			m_autoMode.addDefault("Left Position", RobotConstants.Auto.LEFT_POSITION);
+			m_autoMode.addObject("Right Position", RobotConstants.Auto.RIGHT_POSITION);
+			m_autoMode.addObject("Breach - No Shoot", RobotConstants.Auto.BREACH_NO_SHOOT);
+			m_autoMode.addObject("Middle Position - Breach & Shoot", RobotConstants.Auto.MIDDLE_POSITION_BREACH_SHOOT);
+			m_autoMode.addObject("Middle Position - Breach Left", RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT);
+			m_autoMode.addObject("Middle Position - Breach Left", RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT);
+			m_autoMode.addObject("Middle Position - Do Nothing", RobotConstants.Auto.MIDDLE_POSITION_DO_NOTHING);
+			SmartDashboard.putData("Autonomous Script - Gear First", m_autoMode);
+		} else {
+			m_autoMode = new SendableChooser<Integer>();
+			m_autoMode.addObject("Middle Position - Just Shoot", RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT);
+			SmartDashboard.putData("Autonomous Script - Shoot First", m_autoMode);
+
+		}
+		
+		*/
+
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -113,16 +148,15 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 
 		boolean isRed = DriverStation.getInstance().getAlliance() == Alliance.Red;
-		int autoMode = m_autoMode.getSelected();
-		int order = m_gearOrShoot.getSelected();
+		int autoMode =0;
+		int order = m_orderMode.getSelected();
 
-		if (order == RobotConstants.Auto.IF_GEAR_FIRST){
+		if (order == RobotConstants.Auto.IF_GEAR_FIRST) {
 			auto = new AutonomousWrapperGearFirst(autoMode, isRed);
-		}
-		else if (order == RobotConstants.Auto.IF_SHOOT_FIRST){
+		} else if (order == RobotConstants.Auto.IF_SHOOT_FIRST) {
 			auto = new AutonomousWrapperShootFirst(autoMode, isRed);
 		}
-		//auto = new AutonomousWrapperTurningFromBack(autoMode, isRed);
+		// auto = new AutonomousWrapperTurningFromBack(autoMode, isRed);
 		auto.start();
 
 	}
@@ -134,8 +168,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 
-		SmartDashboard.putNumber("Encoder Distance: ",
-				driveSubsystem.getEncoderDistance());
+		SmartDashboard.putNumber("Encoder Distance: ", driveSubsystem.getEncoderDistance());
 		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());
 	}
 
@@ -162,11 +195,8 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putNumber("RPM", shooterSubsystem.getRPM());
 		SmartDashboard.putNumber("Set", shooterSubsystem.getSetRPM());
-		SmartDashboard.putNumber("Encoder Distance: ",
-				driveSubsystem.getEncoderDistance());
+		SmartDashboard.putNumber("Encoder Distance: ", driveSubsystem.getEncoderDistance());
 		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());
-
-
 	}
 
 	/**

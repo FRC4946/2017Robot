@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands.gearpusher;
+package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -7,31 +7,32 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class PushGear extends Command {
+public class DeactivateGearLED extends Command {
 
-    public PushGear() {
+    public DeactivateGearLED() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.gearSubsystem);
+    	
+    	requires(Robot.LEDlightsSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.gearSubsystem.toggleGear();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	Robot.LEDlightsSubsystem.setGearLedIsEnabled(false);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.gearSubsystem.toggleGear();
     }
 
     // Called when another command which requires one or more of the same

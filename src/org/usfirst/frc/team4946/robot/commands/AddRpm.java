@@ -1,37 +1,37 @@
-package org.usfirst.frc.team4946.robot.commands.gearpusher;
+package org.usfirst.frc.team4946.robot.commands;
 
 import org.usfirst.frc.team4946.robot.Robot;
+import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
-public class PushGear extends Command {
+public class AddRpm extends Command {
 
-    public PushGear() {
+    public AddRpm() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.gearSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.gearSubsystem.toggleGear();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.shooterSubsystem.addRPM();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.gearSubsystem.toggleGear();
     }
 
     // Called when another command which requires one or more of the same

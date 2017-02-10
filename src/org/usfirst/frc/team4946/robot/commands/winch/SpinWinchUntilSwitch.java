@@ -1,16 +1,16 @@
-package org.usfirst.frc.team4946.robot.commands;
-
+package org.usfirst.frc.team4946.robot.commands.winch;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+
 /**
  *
  */
-public class SpinWinchAlways extends Command {
+public class SpinWinchUntilSwitch extends Command {
 
-    public SpinWinchAlways() {
+    public SpinWinchUntilSwitch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.winchSubsystem);
@@ -26,8 +26,8 @@ public class SpinWinchAlways extends Command {
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
+    protected boolean isFinished () {
+        return Robot.winchSubsystem.getWinchSwitch();
     }
 
     // Called once after isFinished returns true

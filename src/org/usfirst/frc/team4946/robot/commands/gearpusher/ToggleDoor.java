@@ -12,12 +12,12 @@ public class ToggleDoor extends Command {
     public ToggleDoor() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.gearPusher);
+    	requires(Robot.gearSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.gearPusher.doorToggle();
+    	Robot.gearSubsystem.doorToggle();
     }
 
     // Called repeatedly when this Command is scheduled to run

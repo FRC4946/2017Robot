@@ -7,12 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IndexerCommand extends Command {
-	
+public class SubtractRpm extends Command {
 
-    public IndexerCommand() {
-    	requires(Robot.indexerSubsystem);
- 
+    public SubtractRpm() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -23,17 +20,16 @@ public class IndexerCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.indexerSubsystem.spinIndexer(0.8);
+    	Robot.shooterSubsystem.subtractRPM();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.indexerSubsystem.spinIndexer(0.0);
     }
 
     // Called when another command which requires one or more of the same

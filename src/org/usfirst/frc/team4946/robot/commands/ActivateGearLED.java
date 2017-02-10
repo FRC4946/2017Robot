@@ -1,19 +1,20 @@
 package org.usfirst.frc.team4946.robot.commands;
 
+
 import org.usfirst.frc.team4946.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-
 /**
  *
  */
-public class SpinWinchUntilSwitch extends Command {
+public class ActivateGearLED extends Command {
 
-    public SpinWinchUntilSwitch() {
+    public ActivateGearLED() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.winchSubsystem);
+    	
+    	requires(Robot.LEDlightsSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -22,22 +23,21 @@ public class SpinWinchUntilSwitch extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.winchSubsystem.setSpeed(1.0);
+    	
+    	Robot.LEDlightsSubsystem.setGearLedIsEnabled(true);
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished () {
-        return Robot.winchSubsystem.getWinchSwitch();
+    protected boolean isFinished() {
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.winchSubsystem.setSpeed(0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

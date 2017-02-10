@@ -27,9 +27,9 @@ public class DriveRobot extends Command {
     	Joystick stick = Robot.oi.getDriveJoystick();
     	double drive = stick.getRawAxis(1);
     	double curve = stick.getRawAxis(0);
-    	double throttle = stick.getRawAxis(3);
+    	//double throttle = stick.getRawAxis(3);
     	
-    	throttle = 1;
+    	double throttle = 1;
     	
     	Robot.driveSubsystem.drive(drive, curve, throttle);
     }
