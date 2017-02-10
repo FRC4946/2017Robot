@@ -11,6 +11,7 @@ import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4946.robot.subsystems.GearDropper;
 import org.usfirst.frc.team4946.robot.subsystems.Indexer;
+import org.usfirst.frc.team4946.robot.subsystems.ShooterHood;
 import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
 import org.usfirst.frc.team4946.robot.subsystems.Winch;
 
@@ -32,14 +33,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static final BallIntake ballSubsystem = new BallIntake();
-	public static final Agitator agitatorSubsystem = new Agitator();
-	public static final LEDlights LEDlightsSubsystem = new LEDlights();
+	public static ExampleSubsystem exampleSubsystem;
+	public static BallIntake ballSubsystem;
+	public static Agitator agitatorSubsystem;
+	public static LEDlights LEDlightsSubsystem;
 	public static Winch winchSubsystem;
 	public static ShooterMotor shooterSubsystem; // MERGE SUBSYSTEM
 	public static GearDropper gearSubsystem;
 	public static BallIntake ballSubsystem;
+	public static ShooterHood shooterHoodSubsystem;
 	public static DriveTrain driveSubsystem;
 	public static OI oi;
 	public static Indexer indexerSubsystem;
@@ -54,13 +56,17 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-
+    
+    shooterHoodSubsystem = new ShooterHood();
 		winchSubsystem = new Winch();
 		shooterSubsystem = new ShooterMotor();
 		gearSubsystem = new GearDropper();
 		ballSubsystem = new BallIntake();
 		driveSubsystem = new DriveTrain();
 		indexerSubsystem = new Indexer();
+    ballSubsystem = new BallIntake();
+    agitatorSubsystem = new Agitator();
+    LEDlights = new LEDlightsSubsystem();
 
 		oi = new OI();
 
