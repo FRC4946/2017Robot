@@ -11,6 +11,8 @@ public class RobotConstants {
 	public static final double AUTO_MAX_SPEED = 0.6;
 
 	public static final class Auto {
+		public static final int GEAR_FIRST = -1;
+		public static final int SHOOT_FIRST = 0;
 		public static final int LEFT_POSITION = 1;
 		public static final int RIGHT_POSITION = 2;
 		public static final int SIDE_GEAR_AND_SHOOT = 3;
