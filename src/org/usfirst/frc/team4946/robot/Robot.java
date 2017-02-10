@@ -6,6 +6,7 @@ import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4946.robot.subsystems.GearDropper;
 import org.usfirst.frc.team4946.robot.subsystems.Indexer;
+import org.usfirst.frc.team4946.robot.subsystems.ShooterHood;
 import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
 import org.usfirst.frc.team4946.robot.subsystems.Winch;
 
@@ -32,7 +33,7 @@ public class Robot extends IterativeRobot {
 	public static ShooterMotor shooterSubsystem;
 	public static GearDropper gearPusher;
 	public static BallIntake ballSubsystem;
-	public static shooterHood shooterHoodSubsystem;
+	public static ShooterHood shooterHoodSubsystem;
 	public static DriveTrain driveSubsystem;
 	public static OI oi;
 	public static final Indexer indexerSubsystem = new Indexer(); 
@@ -50,7 +51,7 @@ public class Robot extends IterativeRobot {
 
     winchSubsystem = new Winch();
     shooterSubsystem = new ShooterMotor();
-    shooterHoodSubsystem = new shooterHood();
+    shooterHoodSubsystem = new ShooterHood();
     gearPusher = new GearDropper();
 		ballSubsystem = new BallIntake();
 		driveSubsystem = new DriveTrain();
