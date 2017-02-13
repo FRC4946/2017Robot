@@ -61,7 +61,6 @@ public class Robot extends IterativeRobot {
 		ballSubsystem = new BallIntake();
 		driveSubsystem = new DriveTrain();
 		indexerSubsystem = new Indexer();
-		ballSubsystem = new BallIntake();
 		agitatorSubsystem = new Agitator();
 		LEDlightsSubsystem = new LEDlights();
 

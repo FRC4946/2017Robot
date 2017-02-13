@@ -13,8 +13,8 @@ public class Winch extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	VictorSP winchTalon=new VictorSP(8);
-	VictorSP winchTalon1=new VictorSP(9);
+	VictorSP winchTalon=new VictorSP(RobotMap.PWM_WINCH_A);
+	VictorSP winchTalon1=new VictorSP(RobotMap.PWM_WINCH_B);
 	DigitalInput winchSwitch=new DigitalInput(RobotMap.DIO_LIMIT_SWITCH_WINCH);
 	
     public void initDefaultCommand() {

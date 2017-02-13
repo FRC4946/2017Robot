@@ -6,6 +6,8 @@ import org.usfirst.frc.team4946.robot.commands.driveTrain.DriveRobot;
 import org.usfirst.frc.team4946.robot.util.AvgPIDSource;
 import org.usfirst.frc.team4946.robot.util.SimplePIController;
 
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -18,9 +20,9 @@ public class DriveTrain extends Subsystem {
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	RobotDrive m_driveTrain = new RobotDrive(RobotMap.PWM_DRIVETRAIN_FLMOTOR,
-			RobotMap.PWM_DRIVETRAIN_BLMOTOR, RobotMap.PWM_DRIVETRAIN_FRMOTOR,
-			RobotMap.PWM_DRIVETRAIN_BRMOTOR);
+	RobotDrive m_driveTrain = new RobotDrive(new CANTalon(RobotMap.CAN_DRIVETRAIN_FLMOTOR),
+			new CANTalon(RobotMap.CAN_DRIVETRAIN_BLMOTOR), new CANTalon(RobotMap.CAN_DRIVETRAIN_FRMOTOR),
+					new CANTalon(RobotMap.CAN_DRIVETRAIN_BRMOTOR));
 
 	Encoder m_driveEncoderLeft = new Encoder(RobotMap.DIO_DRIVETRAIN_LEFTENCA,
 			RobotMap.DIO_DRIVETRAIN_LEFTENCB);
