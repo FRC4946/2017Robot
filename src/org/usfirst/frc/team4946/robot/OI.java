@@ -2,12 +2,14 @@ package org.usfirst.frc.team4946.robot;
 
 
 import org.usfirst.frc.team4946.robot.commands.Agitate;
-import org.usfirst.frc.team4946.robot.commands.indexer.IntakeForward;
+import org.usfirst.frc.team4946.robot.commands.Minus5Percent;
+import org.usfirst.frc.team4946.robot.commands.Plus5Percent;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.ToggleDoor;
 import org.usfirst.frc.team4946.robot.commands.indexer.IndexerCommand;
+import org.usfirst.frc.team4946.robot.commands.indexer.IntakeForward;
 import org.usfirst.frc.team4946.robot.commands.winch.SpinWinchUntilSwitch;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,7 +38,8 @@ public class OI {
 	Button gearDoorButton = new JoystickButton(operatorStick, 4);
 	Button gearPusherButton = new JoystickButton(operatorStick, 5);
 	Button agitatorButton = new JoystickButton(operatorStick, 6);
-
+	Button plus5PercentButton = new JoystickButton(operatorStick, 7);
+	Button minus5PercentButton = new JoystickButton(operatorStick, 8);
   // Button addRpmTest = new JoystickButton(operatorStick, 5);
 	// Button subtractRpmTest = new JoystickButton(operatorStick, 6);
 	// Button spinButton = new JoystickButton(operatorStick, 5);
@@ -77,6 +80,8 @@ public class OI {
 		drive48in.whenPressed(new AutoDriveDistancePID(48, 0.6));
 		turn0Button.whenPressed(new TurnPID(0.0));
 		turn90Button.whenPressed(new TurnPID(90.0));
+		plus5PercentButton.whenPressed(new Plus5Percent());
+		minus5PercentButton.whenPressed(new Minus5Percent());
 	}
 
 	public Joystick getOperatorJoystick() {
