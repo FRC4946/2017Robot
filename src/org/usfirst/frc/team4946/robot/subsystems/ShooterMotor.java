@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
-import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooter;
-import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooterStick;
+import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooterPID;
+import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooterPercent;
 import org.usfirst.frc.team4946.robot.util.RateCounter;
 import org.usfirst.frc.team4946.robot.util.SimplePIFController;
 
@@ -43,7 +43,7 @@ public class ShooterMotor extends Subsystem {
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		setDefaultCommand(new SpinShooterStick());
+		setDefaultCommand(new SpinShooterPercent());
 	}
 
 	public void setSpeed(double speed) {
@@ -56,6 +56,9 @@ public class ShooterMotor extends Subsystem {
 
 		this.rpm = rpm;
 		pifController.setSetpoint(this.rpm);
+	}
+	
+	public void feedPID(){
 		shooterMotor.set(pifController.getOutput());
 	}
 
