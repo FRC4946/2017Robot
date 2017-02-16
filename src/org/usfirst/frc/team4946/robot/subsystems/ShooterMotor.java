@@ -65,4 +65,11 @@ public class ShooterMotor extends Subsystem {
 		return rpm;
 	}
 
+	public void plusFivePercent(){
+		shooterMotor.set(shooterMotor.getSpeed()*1.05);
+	}
+	
+	public void minusFivePercent(){
+		shooterMotor.set(shooterMotor.getSpeed()*0.95);
+	}
 }
