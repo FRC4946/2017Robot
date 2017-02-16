@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4946.robot.commands;
+package org.usfirst.frc.team4946.robot.commands.LEDs;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
@@ -7,12 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SpinShooterStick extends Command {
+public class DeactivateShooterLED extends Command {
 
-    public SpinShooterStick() {
+    public DeactivateShooterLED() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.shooterSubsystem);
+    	
+    	requires(Robot.LEDlightsSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -21,12 +22,13 @@ public class SpinShooterStick extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooterSubsystem.setSpeed(Robot.oi.getOperatorJoystick().getRawAxis(0));
+    	
+    	Robot.LEDlightsSubsystem.setShooterLedIsEnabled(false);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

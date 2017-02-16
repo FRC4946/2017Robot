@@ -1,19 +1,20 @@
-package org.usfirst.frc.team4946.robot.commands;
+package org.usfirst.frc.team4946.robot.commands.LEDs;
+
 
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
-public class AddRpm extends Command {
+public class ActivateGearLED extends Command {
 
-    public AddRpm() {
+    public ActivateGearLED() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	
+    	requires(Robot.LEDlightsSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +23,8 @@ public class AddRpm extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooterSubsystem.addRPM();
+    	
+    	Robot.LEDlightsSubsystem.setGearLedIsEnabled(true);
     }
 
     // Make this return true when this Command no longer needs to run execute()

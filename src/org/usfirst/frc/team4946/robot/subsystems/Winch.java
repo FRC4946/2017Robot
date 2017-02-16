@@ -28,7 +28,8 @@ public class Winch extends Subsystem {
     }
     
     public boolean getWinchSwitch(){
-    	return winchSwitch.get();
+//    	return winchSwitch.get();
+    	return false;
     }
 }
 
