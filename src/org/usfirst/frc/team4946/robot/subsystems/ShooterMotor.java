@@ -1,11 +1,13 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
-import org.usfirst.frc.team4946.robot.commands.SpinShooter;
+import org.usfirst.frc.team4946.robot.RobotMap;
+import org.usfirst.frc.team4946.robot.commands.SpinShooterStick;
 import org.usfirst.frc.team4946.robot.util.SimplePIController;
+
+import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -13,7 +15,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ShooterMotor extends Subsystem {
 
-	VictorSP shooterMotor = new VictorSP(7);
+//	VictorSP shooterMotor = new VictorSP(7);
+	CANTalon shooterMotor = new CANTalon(RobotMap.CAN_TALON_SHOOTER);
 
 	//RateCounter rateCount = new RateCounter(RobotMap.DIO_SHOOTER_SENSOR);
 	PIDSource rateCount = new PIDSource() {
@@ -71,7 +74,7 @@ public class ShooterMotor extends Subsystem {
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		setDefaultCommand(new SpinShooter());
+		setDefaultCommand(new SpinShooterStick());
 	}
 
 	public void setSpeed(double speed) {

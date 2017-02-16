@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Agitator extends Subsystem {
-	VictorSP agitator = new VictorSP(RobotMap.PWM_VICTORSP_AGITATOR);
+	VictorSP agitator = new VictorSP(RobotMap.PWM_AGITATOR);
 	Solenoid blocker = new Solenoid(RobotMap.PCM_SOLENOID_BLOCKER);
 
 	// Put methods for controlling this subsystem
