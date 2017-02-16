@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4946.robot.commands.autonomous;
 
 import org.usfirst.frc.team4946.robot.RobotConstants;
+import org.usfirst.frc.team4946.robot.RobotConstants.Auto.AutoOptions;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistance;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
@@ -13,7 +14,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutonomousWrapperShootFirst extends CommandGroup {
 
-    public AutonomousWrapperShootFirst(int autoMode, boolean isRed) {
+    public AutonomousWrapperShootFirst(AutoOptions mode, boolean isRed) {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -43,10 +44,10 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
     	
     	
     	if (isRed) {
-    		switch (autoMode) {
-			    case RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT:
-			    case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT:
-			    case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT:
+    		switch (mode) {
+			    case kMiddleJustShoot:
+			    case kMiddleBreachRight:
+			    case kMiddleBreachLeft:
 			    	
 			    	addSequential(new TurnPID(-90));
 			    	//SHOOT
@@ -55,20 +56,20 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 					addSequential(new PushGear());
 					addSequential(new AutoDriveDistancePID(-20.0));
 					
-			    	switch(autoMode) {
-			    		case RobotConstants.Auto.MIDDLE_POSITION_BREACH_LEFT:
+			    	switch(mode) {
+			    		case kMiddleBreachLeft:
 			    			addSequential(new TurnPID(-90));
 							addSequential(new AutoDriveDistance(35, 1.0));
 							addSequential(new TurnPID(90));
 							addSequential(new AutoDriveDistance(35, 1.0));
-			    		case RobotConstants.Auto.MIDDLE_POSITION_BREACH_RIGHT:
+			    		case kMiddleBreachRight:
 							addSequential(new TurnPID(90));
 							addSequential(new AutoDriveDistance(35, 1.0));
 							addSequential(new TurnPID(-90));
 							addSequential(new AutoDriveDistance(35, 1.0));
 			    	}
 					break;
-			    case RobotConstants.Auto.LEFT_POSITION: 
+			    case kLeftPos: 
 			    	//The robot starts at the left position, shoots, breaches on the right and then drops the gear
 			    	addSequential(new AutoDriveDistancePID(20));
 			    	addSequential(new TurnPID (90));
@@ -81,7 +82,7 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 			    	addSequential(new PushGear());
 			    	addSequential(new AutoDriveDistancePID(-20));
 			    	break;
-			    case RobotConstants.Auto.RIGHT_POSITION:
+			    case kRightPos:
 			    	//The robot starts at the right position, shoots, breaches on the right and then drops the gear
 			    	addSequential(new AutoDriveDistancePID(20));
 			    	addSequential(new TurnPID(90));
@@ -95,15 +96,15 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 			    	
 	    		}
     	} else {
-    		switch (autoMode) {
-			    case RobotConstants.Auto.MIDDLE_POSITION_JUST_SHOOT:
+    		switch (mode) {
+			    case kMiddleJustShoot:
 			    	//The robot does not breach, it just shoots.
 					addSequential(new TurnPID(-90));
 					addSequential(new AutoDriveDistancePID(50));
 					addSequential(new TurnPID(-20));
 					// shoot
 					break;
-			    case RobotConstants.Auto.LEFT_POSITION: 
+			    case kLeftPos: 
 			    	//The robot starts at the left position, shoots, breaches on the left and then drops the gear
 			    	addSequential(new AutoDriveDistancePID(20));
 			    	addSequential(new TurnPID (-90));
@@ -115,7 +116,7 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 			    	addSequential(new PushGear());
 			    	addSequential(new AutoDriveDistancePID(-20));
 			    	break;
-			    case RobotConstants.Auto.RIGHT_POSITION:
+			    case kRightPos:
 			    	//The robot starts at the right position, shoots, breaches on the left and then drops the gear
 			    	addSequential(new AutoDriveDistancePID(20));
 			    	addSequential(new TurnPID(-90));
@@ -125,9 +126,7 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 			    	addSequential(new TurnPID(90));
 			    	addSequential(new AutoDriveDistancePID(FEEDER_DIST_A));
 			    	addSequential(new TurnPID(60));
-			    	addSequential(new AutoDriveDistancePID(FEEDER_DIST_B));
-			    	
-			    	
+			    	addSequential(new AutoDriveDistancePID(FEEDER_DIST_B));	    	
     		}
     	}
     }

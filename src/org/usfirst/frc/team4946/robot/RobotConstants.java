@@ -22,10 +22,12 @@ public class RobotConstants {
 		public enum AutoOptions {
 			kLeftPos,
 			kRightPos,
+			kJustBreach,
 			kMiddleNoBreachNoShoot,
 			kMiddleBreachAndShoot,
 			kMiddleBreachLeft,
-			kMiddleBreachRight
+			kMiddleBreachRight,
+			kMiddleJustShoot,
 		}
 
 

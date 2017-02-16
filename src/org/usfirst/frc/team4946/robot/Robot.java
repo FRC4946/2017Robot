@@ -3,6 +3,7 @@ package org.usfirst.frc.team4946.robot;
 import org.usfirst.frc.team4946.robot.RobotConstants.Auto.AutoOptions;
 import org.usfirst.frc.team4946.robot.RobotConstants.Auto.AutoScript;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperGearFirst;
+import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperHopper;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperShootFirst;
 import org.usfirst.frc.team4946.robot.subsystems.Agitator;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
@@ -126,19 +127,19 @@ public class Robot extends IterativeRobot {
 
 		switch (script) {
 		case GEAR_FIRST:
-			auto = new AutonomousWrapperGearFirst(0, isRed);
+			auto = new AutonomousWrapperGearFirst(options, isRed);
 			break;
 		case SHOOT_FIRST:
-			auto = new AutonomousWrapperShootFirst(0, isRed);
+			auto = new AutonomousWrapperShootFirst(options, isRed);
 			break;
 		case HOPPER_LEFT:
-			auto = new AutonomousWrapperShootFirst(0, isRed);
+			auto = new AutonomousWrapperHopper(script, isRed);
 			break;
 		case HOPPER_RIGHT:
-			auto = new AutonomousWrapperShootFirst(0, isRed);
+			auto = new AutonomousWrapperHopper(script, isRed);
 			break;
 		case BREACH:
-			auto = new AutonomousWrapperShootFirst(0, isRed);
+			auto = new AutonomousWrapperShootFirst(options, isRed);
 			break;
 		default:
 			auto = null;
