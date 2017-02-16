@@ -1,14 +1,18 @@
 package org.usfirst.frc.team4946.robot;
 
+import java.io.PushbackInputStream;
+
 import org.usfirst.frc.team4946.robot.commands.Agitate;
 import org.usfirst.frc.team4946.robot.commands.Minus5Percent;
 import org.usfirst.frc.team4946.robot.commands.Plus5Percent;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
 import org.usfirst.frc.team4946.robot.commands.indexer.IndexerCommand;
 import org.usfirst.frc.team4946.robot.commands.intake.IntakeBall;
 import org.usfirst.frc.team4946.robot.commands.shooter.DecrementRPM;
 import org.usfirst.frc.team4946.robot.commands.shooter.IncrementRPM;
 import org.usfirst.frc.team4946.robot.commands.winch.SpinWinchAlways;
+import org.usfirst.frc.team4946.robot.util.JoystickAxisButton;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -25,40 +29,25 @@ public class OI {
 
 	Button intakeButton = new JoystickButton(operatorStick, 1);
 	Button winchButton = new JoystickButton(operatorStick, 2);
-	Button spinIndexer = new JoystickButton(operatorStick, 3);
-	// Button gearDoorButton = new JoystickButton(operatorStick, 4);
-	// Button gearPusherButton = new JoystickButton(operatorStick, 5);
-	Button gearDoorButton = new JoystickButton(operatorStick, 4);
-	Button gearPusherButton = new JoystickButton(operatorStick, 5);
-	Button agitatorButton = new JoystickButton(operatorStick, 6);
+	
+	// Driver Buttons
+	Button gearButton = new JoystickAxisButton(driveStick, 2);
+	Button agitatorButton = new JoystickAxisButton(driveStick, 3);
+	
+	// Operator Buttons
 	Button plus5PercentButton = new JoystickButton(operatorStick, 7);
 	Button minus5PercentButton = new JoystickButton(operatorStick, 8);
-	// Button addRpmTest = new JoystickButton(operatorStick, 5);
-	// Button subtractRpmTest = new JoystickButton(operatorStick, 6);
-	// Button spinButton = new JoystickButton(operatorStick, 5);
-
 	Button down = new JoystickButton(operatorStick, 5);
 	Button up = new JoystickButton(operatorStick, 6);
-
-	Button maintain0deg = new JoystickButton(driveStick, 1);
-	Button drive48in = new JoystickButton(driveStick, 4);
-	Button turn0Button = new JoystickButton(driveStick, 6);
-	Button turn90Button = new JoystickButton(driveStick, 7);
 
 	public OI() {
 		intakeButton.whileHeld(new IntakeBall());
 		agitatorButton.whileHeld(new Agitate());
-		spinIndexer.whileHeld(new IndexerCommand());
 		winchButton.whileHeld(new SpinWinchAlways());
-		// gearDoorButton.whenPressed(new ToggleDoor());
-		// gearPusherButton.whileHeld(new PushGear());
-		// drive48in.whenPressed(new AutoDriveDistancePID(48, 0.6));
-		turn0Button.whenPressed(new TurnPID(0.0));
-		turn90Button.whenPressed(new TurnPID(90.0));
+		gearButton.whenPressed(new PushGear());
 
 		up.whileHeld(new IncrementRPM());
 		down.whileHeld(new DecrementRPM());
-
 		plus5PercentButton.whenPressed(new Plus5Percent());
 		minus5PercentButton.whenPressed(new Minus5Percent());
 	}

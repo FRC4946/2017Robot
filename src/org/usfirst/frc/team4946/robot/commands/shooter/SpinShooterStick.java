@@ -21,7 +21,7 @@ public class SpinShooterStick extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooterSubsystem.setSpeed(Robot.oi.getOperatorJoystick().getRawAxis(0));
+    	Robot.shooterSubsystem.setSpeed(Robot.shooterSubsystem.percentSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

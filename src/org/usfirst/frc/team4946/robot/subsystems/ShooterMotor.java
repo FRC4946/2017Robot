@@ -2,6 +2,7 @@ package org.usfirst.frc.team4946.robot.subsystems;
 
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooter;
+import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooterStick;
 import org.usfirst.frc.team4946.robot.util.RateCounter;
 import org.usfirst.frc.team4946.robot.util.SimplePIFController;
 
@@ -17,8 +18,10 @@ public class ShooterMotor extends Subsystem {
 	CANTalon shooterMotor = new CANTalon(RobotMap.CAN_TALON_SHOOTER);
 	RateCounter rateCount = new RateCounter(RobotMap.DIO_SHOOTER_SENSOR);
 	SimplePIFController pifController;
-	
+
 	int rpm = 0;
+	public double percentSpeed = 0;
+
 
 	double kP = 0;
 	double kI = 0;
@@ -40,7 +43,7 @@ public class ShooterMotor extends Subsystem {
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		setDefaultCommand(new SpinShooter());
+		setDefaultCommand(new SpinShooterStick());
 	}
 
 	public void setSpeed(double speed) {
@@ -48,9 +51,9 @@ public class ShooterMotor extends Subsystem {
 	}
 
 	public void setRPM(int rpm) {
-		if(rpm < 0)
+		if (rpm < 0)
 			return;
-		
+
 		this.rpm = rpm;
 		pifController.setSetpoint(this.rpm);
 		shooterMotor.set(pifController.getOutput());
@@ -65,11 +68,15 @@ public class ShooterMotor extends Subsystem {
 		return rpm;
 	}
 
-	public void plusFivePercent(){
-		shooterMotor.set(shooterMotor.getSpeed()*1.05);
+	public void plusFivePercent() {
+		percentSpeed += 0.05;
+		if(percentSpeed > 1.0)
+			percentSpeed = 1.0;
 	}
-	
-	public void minusFivePercent(){
-		shooterMotor.set(shooterMotor.getSpeed()*0.95);
+
+	public void minusFivePercent() {
+		percentSpeed -= 0.05;
+		if(percentSpeed < -1.0)
+			percentSpeed = -1.0;
 	}
 }

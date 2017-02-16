@@ -29,10 +29,10 @@ public class RobotMap {
 	public static final int DIO_SHOOTER_SENSOR = 9;
 	public static final int DIO_LIMIT_SWITCH_WINCH = 8; // Not Needed
 
-	public static final int PCM_DOOR_OPENER_1 = 1;
-	public static final int PCM_DOOR_OPENER_2 = 2; 
-	public static final int PCM_GEAR_PUSHER = 3;
-    public static final int PCM_SHOOTER_HOOD = 4; 
-	public static final int PCM_SOLENOID_BLOCKER = 6;
+	public static final int PCM_DOOR_OPENER_1 = 2; // Not Needed
+	public static final int PCM_DOOR_OPENER_2 = 3;  // Not Needed
+	public static final int PCM_GEAR_PUSHER = 1;
+    public static final int PCM_SHOOTER_HOOD = 0; 
+	public static final int PCM_SOLENOID_BLOCKER = 6; // Not Needed
 
 }
