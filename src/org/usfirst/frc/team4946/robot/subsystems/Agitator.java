@@ -27,7 +27,7 @@ public class Agitator extends Subsystem {
 		blocker.set(false);
 	}
 
-	public void set(boolean b) {
+	public void setDoor(boolean b) {
 		// TODO Auto-generated method stub
 		//?????
 	}

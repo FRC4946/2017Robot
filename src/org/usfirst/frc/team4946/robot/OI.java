@@ -5,6 +5,10 @@ import java.io.PushbackInputStream;
 import org.usfirst.frc.team4946.robot.commands.Agitate;
 import org.usfirst.frc.team4946.robot.commands.Minus5Percent;
 import org.usfirst.frc.team4946.robot.commands.Plus5Percent;
+import org.usfirst.frc.team4946.robot.commands.LEDs.ActivateGearLED;
+import org.usfirst.frc.team4946.robot.commands.LEDs.ActivateShooterLED;
+import org.usfirst.frc.team4946.robot.commands.LEDs.DeactivateGearLED;
+import org.usfirst.frc.team4946.robot.commands.LEDs.DeactivateShooterLED;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
 import org.usfirst.frc.team4946.robot.commands.indexer.IndexerCommand;
@@ -32,7 +36,10 @@ public class OI {
 	
 	// Driver Buttons
 	Button gearButton = new JoystickAxisButton(driveStick, 2);
+	Button gearLEDButton = new JoystickButton(driveStick, 5);
 	Button agitatorButton = new JoystickAxisButton(driveStick, 3);
+	Button shootLEDButton = new JoystickButton(driveStick, 6);
+
 	
 	// Operator Buttons
 	Button plus5PercentButton = new JoystickButton(operatorStick, 7);
@@ -44,7 +51,12 @@ public class OI {
 		intakeButton.whileHeld(new IntakeBall());
 		agitatorButton.whileHeld(new Agitate());
 		winchButton.whileHeld(new SpinWinchAlways());
-		gearButton.whenPressed(new PushGear());
+		gearButton.whileHeld(new PushGear());
+		gearLEDButton.whenPressed(new ActivateGearLED());
+		gearLEDButton.whenReleased(new DeactivateGearLED());
+		shootLEDButton.whenPressed(new ActivateShooterLED());
+		shootLEDButton.whenReleased(new DeactivateShooterLED());
+
 
 		up.whileHeld(new IncrementRPM());
 		down.whileHeld(new DecrementRPM());

@@ -47,7 +47,7 @@ public class JoystickAxisButton extends Button {
 		if(m_isInverted)
 			axis *= -1.;
 		
-		return  axis < m_activationPercent;
+		return  axis > m_activationPercent;
 	}
 
 }

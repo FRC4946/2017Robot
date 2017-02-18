@@ -14,6 +14,7 @@ import org.usfirst.frc.team4946.robot.subsystems.ShooterHood;
 import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
 import org.usfirst.frc.team4946.robot.subsystems.Winch;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -71,7 +72,7 @@ public class Robot extends IterativeRobot {
 		m_autoOptions = new SendableChooser<AutoOptions>();
 		m_autoOptions.addDefault("Left", AutoOptions.kLeftPos);
 		m_autoOptions.addObject("Right", AutoOptions.kRightPos);
-		m_autoOptions.addObject("Middle - Breach & Shoot **GEAR FIRST ONLY**",
+		m_autoOptions.addObject("Middle - Breach & Shoot **GEAR FIRST MODE ONLY**",
 				AutoOptions.kMiddleBreachAndShoot);
 		m_autoOptions.addObject("Middle - Breach Left",
 				AutoOptions.kMiddleBreachLeft);
@@ -82,12 +83,13 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Autonomous Options", m_autoOptions);
 
 		m_autoScript = new SendableChooser<AutoScript>();
-		m_autoScript.addDefault("Gear First", AutoScript.GEAR_FIRST);
-		m_autoScript.addObject("Shoot First", AutoScript.SHOOT_FIRST);
+		m_autoScript.addDefault("Gear First **More Options", AutoScript.GEAR_FIRST);
+		m_autoScript.addObject("Shoot First **More Options", AutoScript.SHOOT_FIRST);
 		m_autoScript.addObject("Just Breach", AutoScript.BREACH);
 		m_autoScript.addObject("Hopper Left", AutoScript.HOPPER_LEFT);
 		m_autoScript.addObject("Hopper Right", AutoScript.HOPPER_RIGHT);
 		SmartDashboard.putData("Auto Script", m_autoScript);
+		CameraServer.getInstance().startAutomaticCapture();
 
 	}
 
@@ -120,6 +122,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 
+		
+		
+		
 		boolean isRed = DriverStation.getInstance().getAlliance() == Alliance.Red;
 		AutoScript script = m_autoScript.getSelected();
 		AutoOptions options = m_autoOptions.getSelected();
@@ -182,6 +187,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+
+		SmartDashboard.putNumber("%", shooterSubsystem.percentSpeed);
 
 		SmartDashboard.putNumber("RPM", shooterSubsystem.getRPM());
 		SmartDashboard.putNumber("Set", shooterSubsystem.getSetRPM());

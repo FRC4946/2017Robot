@@ -75,7 +75,7 @@ public class DriveTrain extends Subsystem {
 		drive *= (0.5 + (0.5 * throttle));
 		curve *= (0.5 + (0.5 * throttle));
 
-		m_driveTrain.arcadeDrive(drive, curve);
+		m_driveTrain.arcadeDrive(drive, curve, true);
 
 	}
 

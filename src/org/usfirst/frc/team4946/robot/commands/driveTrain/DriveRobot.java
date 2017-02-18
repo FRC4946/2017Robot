@@ -26,7 +26,7 @@ public class DriveRobot extends Command {
     protected void execute() {
     	Joystick stick = Robot.oi.getDriveJoystick();
     	double drive = stick.getRawAxis(1);
-    	double curve = stick.getRawAxis(0);
+    	double curve = stick.getRawAxis(0) * 0.8;
     	//double throttle = stick.getRawAxis(3);
     	
     	double throttle = 1;
