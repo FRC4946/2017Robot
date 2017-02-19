@@ -10,39 +10,25 @@ public class HoodDisengaged extends Command{
 		requires(Robot.shooterHoodSubsystem);
 	}
 
-	private void requires(Class<Robot> class1) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
-		
+	protected void initialize() {		
 	}
 
 	@Override
 	protected void execute() {
 		Robot.shooterHoodSubsystem.shooterHood(false);
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
-		Robot.shooterHoodSubsystem.shooterHood(false);	
 	}
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-		
 	}
 }

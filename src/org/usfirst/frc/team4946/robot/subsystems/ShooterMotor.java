@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4946.robot.subsystems;
 
+import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooterPID;
-import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooterPercent;
 import org.usfirst.frc.team4946.robot.util.RateCounter;
 import org.usfirst.frc.team4946.robot.util.SimplePIFController;
 
@@ -23,17 +23,21 @@ public class ShooterMotor extends Subsystem {
 	int rpm = 0;
 	public double percentSpeed = 0;
 
-	double kP = 0; // TODO: TUNE
-	double kI = 0;
-	// double kF = 0.00010316;
-	double kF = 0.00012899;
-	// double kFOff = 0.18;
-	double kFOff = 0.052882;
+	// double kP = 0; // TODO: TUNE
+	// double kI = 0;
+	// // double kF = 0.00010316;
+	// double kF = 0.00012899;
+	// // double kFOff = 0.18;
+	// double kFOff = 0.052882;
 
 	public ShooterMotor() {
 
-		pifController = new SimplePIFController(kP, kI, kF, kFOff, rateCount);
+		pifController = new SimplePIFController(RobotConstants.shootP,
+				RobotConstants.shootI, RobotConstants.shootF,
+				RobotConstants.shootFOff, rateCount);
 		pifController.setInputRange(0, 8500);
+		pifController.setOutputRange(0, 1);
+		rateCount.setMaxVal(8500);
 
 	}
 
@@ -64,8 +68,7 @@ public class ShooterMotor extends Subsystem {
 	}
 
 	public double getRPM() {
-		// return rateCount.getRPM();
-		return rateCount.pidGet();
+		return rateCount.getRPM();
 	}
 
 	public int getSetRPM() {

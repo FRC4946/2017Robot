@@ -35,11 +35,9 @@ public class RateCounter extends Counter implements PIDSource {
 		// Reset the average
 		double avg = 0;
 		// Calculate the average
-		for (int i = 0; i < m_history.length; i++) {
-			avg += m_history[i];
-		}
+		for (int i = 0; i < m_history.length; i++)
+			avg += m_history[i] / (double) m_history.length;
 
-		avg /= m_history.length;
 		// Update the last average
 		m_lastAvg = avg;
 
@@ -57,6 +55,11 @@ public class RateCounter extends Counter implements PIDSource {
 		for (int i = 0; i < m_history.length - 1; i++)
 			m_history[i] = m_history[i + 1];
 
+		if (rate > m_maxVal) {
+			m_isGarbage = true;
+			return m_lastAvg;
+		}
+
 		m_history[m_history.length - 1] = rate;
 		m_isGarbage = true;
 
@@ -71,12 +74,11 @@ public class RateCounter extends Counter implements PIDSource {
 
 		// If the for loop finishes, isGarbage must be false
 		m_isGarbage = false;
-
 		return rate;
 	}
 
 	public double pidGet() {
-		return getRPM() / m_maxVal;
+		return getRPM();// / m_maxVal;
 	}
 
 	@Override

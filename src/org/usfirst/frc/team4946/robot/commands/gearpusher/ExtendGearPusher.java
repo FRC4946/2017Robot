@@ -1,52 +1,41 @@
-package org.usfirst.frc.team4946.robot.commands.driveTrain;
+package org.usfirst.frc.team4946.robot.commands.gearpusher;
 
 import org.usfirst.frc.team4946.robot.Robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class DriveRobot extends Command {
+public class ExtendGearPusher extends Command {
 
-    public DriveRobot() {
+    public ExtendGearPusher() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveSubsystem);
-    	
+    	requires(Robot.gearSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-
+    	Robot.gearSubsystem.setGearIsExtended(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Joystick stick = Robot.oi.getDriveJoystick();
-    	double drive = stick.getRawAxis(1);
-    	double curve = stick.getRawAxis(0) * 0.8;
-    	//double throttle = stick.getRawAxis(3);
-    	
-    	double throttle = 1;
-    	
-    	Robot.driveSubsystem.drive(drive, curve, throttle);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
-    
 
     // Called once after isFinished returns true
     protected void end() {
-    	end();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

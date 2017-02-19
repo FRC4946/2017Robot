@@ -49,12 +49,16 @@ public class AutoDriveDistancePID extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+		
+		
 		SmartDashboard.putBoolean("on Target",
 				Robot.driveSubsystem.getDrivePIDIsOnTarget());
 		if (Robot.driveSubsystem.getDrivePIDIsOnTarget()) {
 			m_onTargetCounter++;
-			if (m_onTargetCounter > 20)
+			if (m_onTargetCounter > 20){
+				System.out.println("DONEEEE");
 				return true;
+			}
 		} else
 			m_onTargetCounter = 0;
 

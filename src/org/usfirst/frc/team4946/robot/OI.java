@@ -1,17 +1,12 @@
 package org.usfirst.frc.team4946.robot;
 
-import java.io.PushbackInputStream;
-
 import org.usfirst.frc.team4946.robot.commands.Agitate;
-import org.usfirst.frc.team4946.robot.commands.Minus5Percent;
-import org.usfirst.frc.team4946.robot.commands.Plus5Percent;
 import org.usfirst.frc.team4946.robot.commands.LEDs.ActivateGearLED;
 import org.usfirst.frc.team4946.robot.commands.LEDs.ActivateShooterLED;
 import org.usfirst.frc.team4946.robot.commands.LEDs.DeactivateGearLED;
 import org.usfirst.frc.team4946.robot.commands.LEDs.DeactivateShooterLED;
-import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
-import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
-import org.usfirst.frc.team4946.robot.commands.indexer.IndexerCommand;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.ExtendGearPusher;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.RetractGearPusher;
 import org.usfirst.frc.team4946.robot.commands.intake.IntakeBall;
 import org.usfirst.frc.team4946.robot.commands.shooter.DecrementRPM;
 import org.usfirst.frc.team4946.robot.commands.shooter.IncrementRPM;
@@ -35,6 +30,7 @@ public class OI {
 	Button winchButton = new JoystickButton(operatorStick, 2);
 	
 	// Driver Buttons
+	Button turn90 = new JoystickButton(driveStick, 1);
 	Button gearButton = new JoystickAxisButton(driveStick, 2);
 	Button gearLEDButton = new JoystickButton(driveStick, 5);
 	Button agitatorButton = new JoystickAxisButton(driveStick, 3);
@@ -51,17 +47,20 @@ public class OI {
 		intakeButton.whileHeld(new IntakeBall());
 		agitatorButton.whileHeld(new Agitate());
 		winchButton.whileHeld(new SpinWinchAlways());
-		gearButton.whileHeld(new PushGear());
+		gearButton.whenPressed(new ExtendGearPusher());
+		gearButton.whenReleased(new RetractGearPusher());
 		gearLEDButton.whenPressed(new ActivateGearLED());
 		gearLEDButton.whenReleased(new DeactivateGearLED());
 		shootLEDButton.whenPressed(new ActivateShooterLED());
 		shootLEDButton.whenReleased(new DeactivateShooterLED());
+		
+//		turn90.whileHeld(new TurnPID(90));
 
 
 		up.whileHeld(new IncrementRPM());
 		down.whileHeld(new DecrementRPM());
-		plus5PercentButton.whenPressed(new Plus5Percent());
-		minus5PercentButton.whenPressed(new Minus5Percent());
+//		plus5PercentButton.whenPressed(new Plus5Percent());
+//		minus5PercentButton.whenPressed(new Minus5Percent());
 	}
 
 	public Joystick getOperatorJoystick() {

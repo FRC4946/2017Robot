@@ -5,12 +5,12 @@ import org.usfirst.frc.team4946.robot.RobotConstants.Auto.AutoOptions;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistance;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
-import org.usfirst.frc.team4946.robot.commands.gearpusher.PushGear;
+import org.usfirst.frc.team4946.robot.commands.gearpusher.ExtendGearPusher;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ *O
  */
 public class AutonomousWrapperShootFirst extends CommandGroup {
 
@@ -53,7 +53,7 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 			    	//SHOOT
 			    	addSequential(new TurnPID(90));
 			    	addSequential(new AutoDriveDistancePID(MIDDLE_DIST));
-					addSequential(new PushGear());
+					addSequential(new ExtendGearPusher(), 1);
 					addSequential(new AutoDriveDistancePID(-20.0));
 					
 			    	switch(mode) {
@@ -79,7 +79,7 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 			    	addSequential(new AutoDriveDistancePID(BOILER_DIST_A - 20));
 			    	addSequential(new TurnPID(-60));
 			    	addSequential(new AutoDriveDistancePID(BOILER_DIST_B));
-			    	addSequential(new PushGear());
+			    	addSequential(new ExtendGearPusher(), 1);
 			    	addSequential(new AutoDriveDistancePID(-20));
 			    	break;
 			    case kRightPos:
@@ -113,7 +113,7 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 			    	addSequential(new AutoDriveDistancePID(FEEDER_DIST_A - 20));
 			    	addSequential(new TurnPID(60));
 			    	addSequential(new AutoDriveDistancePID(FEEDER_DIST_B));
-			    	addSequential(new PushGear());
+			    	addSequential(new ExtendGearPusher(), 1);
 			    	addSequential(new AutoDriveDistancePID(-20));
 			    	break;
 			    case kRightPos:

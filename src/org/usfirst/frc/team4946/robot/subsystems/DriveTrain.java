@@ -51,20 +51,27 @@ public class DriveTrain extends Subsystem {
 		m_driveEncoderLeft.reset();
 		m_driveGyro.calibrate();
 
-		m_drivePID = new SimplePIController(0.1, 0.0000000000000/*1*/, new AvgPIDSource(
+		m_drivePID = new SimplePIController(RobotConstants.driveP, RobotConstants.driveI, new AvgPIDSource(
 				m_driveEncoderLeft, m_driveEncoderRight)); 
 		m_drivePID.setContinuous(false);
 		m_drivePID.setDirection(false);
-		m_drivePID.setTolerence(1.5);
-		m_drivePID.setOutputRange(-0.6, 0.6);
+		m_drivePID.setTolerence(3);
+		m_drivePID.setOutputRange(-RobotConstants.driveOutput, RobotConstants.driveOutput);
 		
-		m_gyroPID = new SimplePIController(0.05, 0.00, m_driveGyro);
+		m_gyroPID = new SimplePIController(RobotConstants.turnP, RobotConstants.turnI, m_driveGyro);
 		m_gyroPID.setContinuous(true);
+		m_gyroPID.setDirection(false);
 		m_gyroPID.setInputRange(0, 360);
 		m_gyroPID.setTolerence(3.0);
-		m_gyroPID.setOutputRange(-0.475, 0.475);
+		m_gyroPID.setOutputRange(-RobotConstants.turnOutput, RobotConstants.turnOutput);
 	}
 
+	
+	public void setSafety(boolean isSafe){
+		m_driveTrain.setSafetyEnabled(isSafe);
+	}
+	
+	
 	public void drive(double drive, double curve) {
 		drive(drive, curve, 1.0);
 	}
