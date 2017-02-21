@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4946.robot;
 
 import org.usfirst.frc.team4946.robot.commands.Agitate;
+import org.usfirst.frc.team4946.robot.commands.Playback;
+import org.usfirst.frc.team4946.robot.commands.Record;
 import org.usfirst.frc.team4946.robot.commands.LEDs.ActivateGearLED;
 import org.usfirst.frc.team4946.robot.commands.LEDs.ActivateShooterLED;
 import org.usfirst.frc.team4946.robot.commands.LEDs.DeactivateGearLED;
@@ -8,6 +10,7 @@ import org.usfirst.frc.team4946.robot.commands.LEDs.DeactivateShooterLED;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.ExtendGearPusher;
 import org.usfirst.frc.team4946.robot.commands.gearpusher.RetractGearPusher;
 import org.usfirst.frc.team4946.robot.commands.intake.IntakeBall;
+import org.usfirst.frc.team4946.robot.commands.intake.ReverseIntake;
 import org.usfirst.frc.team4946.robot.commands.shooter.DecrementRPM;
 import org.usfirst.frc.team4946.robot.commands.shooter.IncrementRPM;
 import org.usfirst.frc.team4946.robot.commands.winch.SpinWinchAlways;
@@ -26,11 +29,13 @@ public class OI {
 	private Joystick operatorStick = new Joystick(0);
 	private Joystick driveStick = new Joystick(1);
 
-	Button intakeButton = new JoystickButton(operatorStick, 1);
+	JoystickAxisButton intakeForwardsButton = new JoystickAxisButton(operatorStick, 3);
+	JoystickAxisButton intakeBackwardsButton = new JoystickAxisButton(operatorStick, 2);
 	Button winchButton = new JoystickButton(operatorStick, 2);
 	
 	// Driver Buttons
-	Button turn90 = new JoystickButton(driveStick, 1);
+	Button record = new JoystickButton(driveStick, 1);
+	Button play = new JoystickButton(driveStick, 2);
 	Button gearButton = new JoystickAxisButton(driveStick, 2);
 	Button gearLEDButton = new JoystickButton(driveStick, 5);
 	Button agitatorButton = new JoystickAxisButton(driveStick, 3);
@@ -38,14 +43,18 @@ public class OI {
 
 	
 	// Operator Buttons
-	Button plus5PercentButton = new JoystickButton(operatorStick, 7);
-	Button minus5PercentButton = new JoystickButton(operatorStick, 8);
+	Button up10 = new JoystickButton(operatorStick, 7);
+	Button down10 = new JoystickButton(operatorStick, 8);
 	Button down = new JoystickButton(operatorStick, 5);
 	Button up = new JoystickButton(operatorStick, 6);
 
 	public OI() {
-		intakeButton.whileHeld(new IntakeBall());
-		agitatorButton.whileHeld(new Agitate());
+		intakeForwardsButton.whileHeld(new IntakeBall());
+		intakeForwardsButton.setActivationPercent(0.1);
+		intakeBackwardsButton.whileHeld(new ReverseIntake());
+		intakeBackwardsButton.setActivationPercent(0.1);
+		
+		agitatorButton.whileHeld(new Agitate(0.5));
 		winchButton.whileHeld(new SpinWinchAlways());
 		gearButton.whenPressed(new ExtendGearPusher());
 		gearButton.whenReleased(new RetractGearPusher());
@@ -54,13 +63,14 @@ public class OI {
 		shootLEDButton.whenPressed(new ActivateShooterLED());
 		shootLEDButton.whenReleased(new DeactivateShooterLED());
 		
-//		turn90.whileHeld(new TurnPID(90));
 
+		record.whileHeld(new Record("Shoot"));
+		play.whileHeld(new Playback("Shoot"));
 
-		up.whileHeld(new IncrementRPM());
-		down.whileHeld(new DecrementRPM());
-//		plus5PercentButton.whenPressed(new Plus5Percent());
-//		minus5PercentButton.whenPressed(new Minus5Percent());
+		up.whileHeld(new IncrementRPM(50));
+		down.whileHeld(new DecrementRPM(50));
+		up10.whenPressed(new IncrementRPM(10));
+		down10.whenPressed(new DecrementRPM(10));
 	}
 
 	public Joystick getOperatorJoystick() {

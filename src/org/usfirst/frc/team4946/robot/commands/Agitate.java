@@ -9,11 +9,17 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Agitate extends Command {
 
-    public Agitate() {
+	double m_speed;
+	
+    public Agitate(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	
+    	m_speed = speed;
     	requires(Robot.agitatorSubsystem);
+    }
+	
+    public Agitate() {
+        this(0.4);
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +28,7 @@ public class Agitate extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.agitatorSubsystem.setSpeed(0.8);
+    	Robot.agitatorSubsystem.setSpeed(0.4);
     	Robot.agitatorSubsystem.setDoor(false);
     }
 

@@ -1,5 +1,8 @@
 package org.usfirst.frc.team4946.robot.commands.vision;
 
+import org.usfirst.frc.team4946.robot.Robot;
+import org.usfirst.frc.team4946.robot.subsystems.Vision;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -17,7 +20,7 @@ public class FetchZMQ extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
+		System.out.println(Robot.visionSubsystem.);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

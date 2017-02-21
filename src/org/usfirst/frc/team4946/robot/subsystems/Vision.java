@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-//import org.zeromq.ZMQ;
-
+import org.zeromq.ZMQ;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -13,12 +12,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Vision extends Subsystem {
 
-//	ZMQ.Context context;
-//	ZMQ.Socket subscriber;
-//	ZMQ.Socket publisher;
+	ZMQ.Context context;
+	ZMQ.Socket subscriber;
+	ZMQ.Socket publisher;
 
 
-	double m_distInches = -1;
+	public double m_distInches = -1;
 	double m_rpm = -1;
 	double m_horizAngle = 0;
 
@@ -33,27 +32,28 @@ public class Vision extends Subsystem {
 	}
 
 	public Vision() {
-//		context = ZMQ.context(1);
-//		subscriber = context.socket(ZMQ.SUB);
-//		subscriber.connect("tcp://5800");
-//		
-//		publisher = context.socket(ZMQ.PUB);
-//		publisher.connect("tcp://5801");
-//		publisher.setSndHWM(1);
+		context = ZMQ.context(1);
+		subscriber = context.socket(ZMQ.SUB);
+		subscriber.connect("tcp://*5800");
+		
+		publisher = context.socket(ZMQ.PUB);
+		publisher.connect("tcp://*5801");
+		publisher.setSndHWM(1);
 	}
 
 	public void send() {
-//		String send = "camIsGear" + (m_camIsGear ? "true" : "false");
+//		String send = "camIsGear=" + (m_camIsGear ? "true" : "false");
 //		publisher.send(send.getBytes(), ZMQ.NOBLOCK);
 
 	}
 
 	public void fetch() {
-//		byte[] reply = subscriber.recv();
-//		Map<String, Double> data = parseData(new String(reply));
-//		processData(data);
+		byte[] reply = subscriber.recv();
+		Map<String, Double> data = parseData(new String(reply));
+		processData(data);
 	}
 
+	@SuppressWarnings("unused")
 	private Map<String, Double> parseData(String recieve) {
 
 		Map<String, Double> data = new HashMap<String, Double>();
@@ -71,6 +71,7 @@ public class Vision extends Subsystem {
 		return data;
 	}
 
+	@SuppressWarnings("unused")
 	private void processData(Map<String, Double> data) {
 		if (data.containsKey("distInches"))
 			m_distInches = data.get("distInches");

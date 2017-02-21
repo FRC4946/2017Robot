@@ -5,6 +5,7 @@ import org.usfirst.frc.team4946.robot.RobotConstants.Auto.AutoScript;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperGearFirst;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperHopper;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperShootFirst;
+import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.subsystems.Agitator;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
@@ -13,6 +14,7 @@ import org.usfirst.frc.team4946.robot.subsystems.Indexer;
 import org.usfirst.frc.team4946.robot.subsystems.LEDlights;
 import org.usfirst.frc.team4946.robot.subsystems.ShooterHood;
 import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
+import org.usfirst.frc.team4946.robot.subsystems.Vision;
 import org.usfirst.frc.team4946.robot.subsystems.Winch;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -44,6 +46,7 @@ public class Robot extends IterativeRobot {
 	public static ShooterHood shooterHoodSubsystem;
 	public static DriveTrain driveSubsystem;
 	public static Indexer indexerSubsystem;
+	public static Vision visionSubsystem;
 	public static OI oi;
 
 	Command auto;
@@ -71,23 +74,27 @@ public class Robot extends IterativeRobot {
 		indexerSubsystem = new Indexer();
 		agitatorSubsystem = new Agitator();
 		LEDlightsSubsystem = new LEDlights();
+		visionSubsystem = new Vision();
 
 		oi = new OI();
 
 		driveSubsystem.calibrateGyroscope();
 
 		m_autoOptions = new SendableChooser<AutoOptions>();
-		m_autoOptions.addDefault("Left", AutoOptions.kLeftPos);
-		m_autoOptions.addObject("Right", AutoOptions.kRightPos);
+		m_autoOptions.addDefault("Left", AutoOptions.LEFT_POS);
+		m_autoOptions.addObject("Right", AutoOptions.RIGHT_POS);
+		m_autoOptions.addObject("Right Then Shoot", AutoOptions.RIGHT_POS_THEN_SHOOT);
 		m_autoOptions.addObject(
 				"Middle - Breach & Shoot **GEAR FIRST MODE ONLY**",
-				AutoOptions.kMiddleBreachAndShoot);
+				AutoOptions.MIDDLE_BREACH_AND_SHOOT);
 		m_autoOptions.addObject("Middle - Breach Left",
-				AutoOptions.kMiddleBreachLeft);
+				AutoOptions.MIDDLE_BREACH_LEFT);
 		m_autoOptions.addObject("Middle - Breach Right",
-				AutoOptions.kMiddleBreachRight);
+				AutoOptions.MIDDLE_BREACH_RIGHT);
 		m_autoOptions.addObject("Middle - No Breach",
-				AutoOptions.kMiddleNoBreachNoShoot);
+				AutoOptions.MIDDLE_NO_BREACH);
+		m_autoOptions.addObject("Middle - Shoot, No Breach",
+				AutoOptions.MIDDLE_JUST_SHOOT);
 		SmartDashboard.putData("Autonomous Options", m_autoOptions);
 
 		m_autoScript = new SendableChooser<AutoScript>();
@@ -146,18 +153,17 @@ public class Robot extends IterativeRobot {
 			auto = new AutonomousWrapperShootFirst(options, isRed);
 			break;
 		case HOPPER_LEFT:
-			auto = new AutonomousWrapperHopper(script, isRed);
+			auto = new AutonomousWrapperHopper(true, isRed);
 			break;
 		case HOPPER_RIGHT:
-			auto = new AutonomousWrapperHopper(script, isRed);
+			auto = new AutonomousWrapperHopper(false, isRed);
 			break;
 		case BREACH:
-			auto = new AutonomousWrapperShootFirst(options, isRed);
+			auto = new AutoDriveDistancePID(8*12);
 			break;
 		default:
 			auto = null;
 		}
-		// auto = new AutonomousWrapperTurningFromBack(autoMode, isRed);
 
 		if (auto != null)
 			auto.start();
@@ -171,6 +177,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 
+		SmartDashboard.putNumber("RPM", shooterSubsystem.getRPM());
 		SmartDashboard.putNumber("Encoder Distance: ",
 				driveSubsystem.getEncoderDistance());
 		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());

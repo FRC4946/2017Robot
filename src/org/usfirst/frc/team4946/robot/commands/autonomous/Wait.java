@@ -18,7 +18,7 @@ public class Wait extends Command {
         // eg. requires(chassis);
     	requires(Robot.ballSubsystem);
     	requires(Robot.driveSubsystem);
-    	requires(Robot.indexerSubsystem);
+//    	requires(Robot.indexerSubsystem);
     	requires(Robot.winchSubsystem);
     	requires(Robot.gearSubsystem);
     	requires(Robot.shooterSubsystem);
@@ -33,6 +33,7 @@ public class Wait extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.shooterSubsystem.feedPID();
     }
 
     // Make this return true when this Command no longer needs to run execute()

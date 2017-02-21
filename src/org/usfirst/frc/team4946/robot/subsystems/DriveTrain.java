@@ -33,7 +33,7 @@ public class DriveTrain extends Subsystem {
 	ADXRS450_Gyro m_driveGyro = new ADXRS450_Gyro();
 	SimplePIController m_drivePID;
 	SimplePIController m_gyroPID;
-
+	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
@@ -55,7 +55,7 @@ public class DriveTrain extends Subsystem {
 				m_driveEncoderLeft, m_driveEncoderRight)); 
 		m_drivePID.setContinuous(false);
 		m_drivePID.setDirection(false);
-		m_drivePID.setTolerence(3);
+		m_drivePID.setTolerence(2);
 		m_drivePID.setOutputRange(-RobotConstants.driveOutput, RobotConstants.driveOutput);
 		
 		m_gyroPID = new SimplePIController(RobotConstants.turnP, RobotConstants.turnI, m_driveGyro);
