@@ -1,31 +1,32 @@
-package org.usfirst.frc.team4946.robot.commands.vision;
+package org.usfirst.frc.team4946.robot.commands.shooter;
 
 import org.usfirst.frc.team4946.robot.Robot;
-import org.usfirst.frc.team4946.robot.subsystems.Vision;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class FetchZMQ extends Command {
+public class ZeroSpeed extends Command {
 
-	public FetchZMQ() {
-//		requires(Robot.visionSubsystem);
+	public ZeroSpeed() {
+		requires(Robot.shooterSubsystem);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.shooterSubsystem.setBrakeMode(false);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		System.out.println(Robot.visionSubsystem.);
+		Robot.shooterSubsystem.setSpeed(0);
+		Robot.shooterSubsystem.setRPM(0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 	// Called once after isFinished returns true

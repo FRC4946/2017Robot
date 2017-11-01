@@ -18,7 +18,10 @@ public class SetShooterSpeed extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.shooterSubsystem.setBrakeMode(true);
 		Robot.shooterSubsystem.setRPM(rpm);
+		Robot.shooterSubsystem.feedPID();
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run

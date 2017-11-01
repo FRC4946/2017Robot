@@ -12,6 +12,10 @@ public class IncrementRPM extends Command {
 	int m_step;
 	
 	public IncrementRPM(int step) {
+		this(step, false);
+	}
+	
+	public IncrementRPM(int step, boolean shouldJump) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.shooterSubsystem);
 		m_step = step;
@@ -19,6 +23,7 @@ public class IncrementRPM extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.shooterSubsystem.setBrakeMode(true);
 		Robot.shooterSubsystem.setRPM(Robot.shooterSubsystem.getSetRPM() + m_step);
 	}
 

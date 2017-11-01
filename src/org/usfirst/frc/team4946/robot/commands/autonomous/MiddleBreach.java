@@ -2,6 +2,7 @@ package org.usfirst.frc.team4946.robot.commands.autonomous;
 
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
+import org.usfirst.frc.team4946.robot.commands.flipper.ExtendFlippers;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -15,6 +16,8 @@ public class MiddleBreach extends CommandGroup {
 
 	
 	public MiddleBreach(boolean shouldBreachLeft) {
+		addSequential(new ExtendFlippers());
+		
 		if (shouldBreachLeft) {
 			addSequential(new TurnPID(90));
 			addSequential(new AutoDriveDistancePID(80));

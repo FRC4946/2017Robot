@@ -9,15 +9,15 @@ import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.subsystems.Agitator;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
 import org.usfirst.frc.team4946.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4946.robot.subsystems.Flippers;
 import org.usfirst.frc.team4946.robot.subsystems.GearDropper;
-import org.usfirst.frc.team4946.robot.subsystems.Indexer;
 import org.usfirst.frc.team4946.robot.subsystems.LEDlights;
-import org.usfirst.frc.team4946.robot.subsystems.ShooterHood;
+import org.usfirst.frc.team4946.robot.subsystems.PadPusher;
+import org.usfirst.frc.team4946.robot.subsystems.ShooterCover;
 import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
 import org.usfirst.frc.team4946.robot.subsystems.Vision;
 import org.usfirst.frc.team4946.robot.subsystems.Winch;
 
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -37,19 +37,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	public static PadPusher padPusherSubsystem;
+	public static Flippers flipperSubsystem;
 	public static Agitator agitatorSubsystem;
 	public static LEDlights LEDlightsSubsystem;
 	public static Winch winchSubsystem;
 	public static ShooterMotor shooterSubsystem;
 	public static GearDropper gearSubsystem;
 	public static BallIntake ballSubsystem;
-	public static ShooterHood shooterHoodSubsystem;
+	public static ShooterCover shooterCoverSubsystem;
 	public static DriveTrain driveSubsystem;
-	public static Indexer indexerSubsystem;
 	public static Vision visionSubsystem;
 	public static OI oi;
 
-	Command auto;
+	public static Command auto;
 	SendableChooser<AutoOptions> m_autoOptions;
 	SendableChooser<AutoScript> m_autoScript;
 
@@ -63,15 +64,15 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		prefs = Preferences.getInstance();
 		RobotConstants.loadPrefs(prefs);
-		RobotConstants.repopulatePrefs(prefs);
-
-		shooterHoodSubsystem = new ShooterHood();
+		RobotConstants.repopulatePrefs(prefs);		
+		
+		flipperSubsystem = new Flippers();
+		shooterCoverSubsystem = new ShooterCover();
 		winchSubsystem = new Winch();
 		shooterSubsystem = new ShooterMotor();
 		gearSubsystem = new GearDropper();
 		ballSubsystem = new BallIntake();
 		driveSubsystem = new DriveTrain();
-		indexerSubsystem = new Indexer();
 		agitatorSubsystem = new Agitator();
 		LEDlightsSubsystem = new LEDlights();
 		visionSubsystem = new Vision();
@@ -81,32 +82,27 @@ public class Robot extends IterativeRobot {
 		driveSubsystem.calibrateGyroscope();
 
 		m_autoOptions = new SendableChooser<AutoOptions>();
-		m_autoOptions.addDefault("Left", AutoOptions.LEFT_POS);
-		m_autoOptions.addObject("Right", AutoOptions.RIGHT_POS);
-		m_autoOptions.addObject("Right Then Shoot", AutoOptions.RIGHT_POS_THEN_SHOOT);
-		m_autoOptions.addObject(
-				"Middle - Breach & Shoot **GEAR FIRST MODE ONLY**",
-				AutoOptions.MIDDLE_BREACH_AND_SHOOT);
-		m_autoOptions.addObject("Middle - Breach Left",
-				AutoOptions.MIDDLE_BREACH_LEFT);
-		m_autoOptions.addObject("Middle - Breach Right",
-				AutoOptions.MIDDLE_BREACH_RIGHT);
-		m_autoOptions.addObject("Middle - No Breach",
-				AutoOptions.MIDDLE_NO_BREACH);
-		m_autoOptions.addObject("Middle - Shoot, No Breach",
-				AutoOptions.MIDDLE_JUST_SHOOT);
-		SmartDashboard.putData("Autonomous Options", m_autoOptions);
+		m_autoOptions.addDefault("Middle & No Shoot",
+				AutoOptions.MIDDLE_NO_SHOOT);
+		m_autoOptions.addObject("Middle & Shoot", AutoOptions.MIDDLE_SHOOT);
+		m_autoOptions.addObject("BoilerSide & Shoot",
+				AutoOptions.BOILER_SIDE_SHOOT);
+		m_autoOptions.addObject("BoilerSide & No Shoot",
+				AutoOptions.BOILER_SIDE_NO_SHOOT);
+		m_autoOptions.addObject("NotBoilerSide & No Shoot",
+				AutoOptions.FEEDER_SIDE_NO_SHOOT);
+		SmartDashboard.putData("Auto Options", m_autoOptions);
 
 		m_autoScript = new SendableChooser<AutoScript>();
-		m_autoScript.addDefault("Gear First **More Options",
+		m_autoScript.addDefault("Just Breach", AutoScript.BREACH);
+		m_autoScript.addObject("Gear First **More Options",
 				AutoScript.GEAR_FIRST);
-		m_autoScript.addObject("Shoot First **More Options",
-				AutoScript.SHOOT_FIRST);
-		m_autoScript.addObject("Just Breach", AutoScript.BREACH);
-		m_autoScript.addObject("Hopper Left", AutoScript.HOPPER_LEFT);
-		m_autoScript.addObject("Hopper Right", AutoScript.HOPPER_RIGHT);
+		m_autoScript.addObject("Shoot First", AutoScript.SHOOT_FIRST);
+		m_autoScript.addObject("Hopper", AutoScript.HOPPER);
 		SmartDashboard.putData("Auto Script", m_autoScript);
-		CameraServer.getInstance().startAutomaticCapture();
+
+		visionSubsystem.startSimpleVision();
+		visionSubsystem.startZMQThread();
 
 	}
 
@@ -117,12 +113,19 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
+		shooterSubsystem.setBrakeMode(false);
+
+		shooterSubsystem.setSpeed(0);
 		shooterSubsystem.setRPM(0);
+
+		// gearSubsystem.setGearIsExtended(false);
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
+		shooterSubsystem.setBrakeMode(false);
 	}
 
 	/**
@@ -138,6 +141,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		gearSubsystem.setGearIsExtended(false);
+
+		shooterCoverSubsystem.setShooterIsCovered(false);
+		shooterSubsystem.setBrakeMode(true);
 
 		driveSubsystem.setSafety(false);
 
@@ -152,14 +159,11 @@ public class Robot extends IterativeRobot {
 		case SHOOT_FIRST:
 			auto = new AutonomousWrapperShootFirst(options, isRed);
 			break;
-		case HOPPER_LEFT:
+		case HOPPER:
 			auto = new AutonomousWrapperHopper(true, isRed);
 			break;
-		case HOPPER_RIGHT:
-			auto = new AutonomousWrapperHopper(false, isRed);
-			break;
 		case BREACH:
-			auto = new AutoDriveDistancePID(8*12);
+			auto = new AutoDriveDistancePID(10 * 12);
 			break;
 		default:
 			auto = null;
@@ -167,7 +171,6 @@ public class Robot extends IterativeRobot {
 
 		if (auto != null)
 			auto.start();
-
 	}
 
 	/**
@@ -177,10 +180,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 
-		SmartDashboard.putNumber("RPM", shooterSubsystem.getRPM());
-		SmartDashboard.putNumber("Encoder Distance: ",
-				driveSubsystem.getEncoderDistance());
-		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());
+		updateSmartDashboard();
 	}
 
 	@Override
@@ -197,6 +197,13 @@ public class Robot extends IterativeRobot {
 
 		if (auto != null)
 			auto.cancel();
+
+		RobotConstants.loadPrefs(prefs);
+		RobotConstants.repopulatePrefs(prefs);
+		shooterSubsystem.updatePID();
+		shooterSubsystem.setBrakeMode(true);
+
+		shooterCoverSubsystem.setShooterIsCovered(false);
 	}
 
 	/**
@@ -205,14 +212,36 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
+	}
+
+	public void updateSmartDashboard() {
+		SmartDashboard.putBoolean("Jetson Connected",
+				Robot.visionSubsystem.jetsonIsConnected());
+		SmartDashboard.putBoolean("Jetson Has Value",
+				Robot.visionSubsystem.jetsonHasFreshValidValue());
 
 		SmartDashboard.putNumber("%", shooterSubsystem.percentSpeed);
 
-		SmartDashboard.putNumber("RPM", shooterSubsystem.getRPM());
-		SmartDashboard.putNumber("Set", shooterSubsystem.getSetRPM());
-		SmartDashboard.putNumber("Encoder Distance: ",
+		double rpm = shooterSubsystem.getRPM();
+		double rpm2 = rpm;
+
+		SmartDashboard.putNumber("RPM2", rpm);
+		SmartDashboard.putNumber("Set RPM", shooterSubsystem.getSetRPM());
+		SmartDashboard.putNumber("RPM", rpm2);
+		SmartDashboard.putNumber("Encoder Distance",
 				driveSubsystem.getEncoderDistance());
-		SmartDashboard.putNumber("Gyro: ", driveSubsystem.getGyroValue());
+
+		SmartDashboard.putNumber("Gyro", driveSubsystem.getGyroValue());
+		SmartDashboard.putNumber("Gyro Setpoint",
+				Robot.driveSubsystem.getGyroSetpoint());
+
+		SmartDashboard
+				.putNumber("Dist", visionSubsystem.getShooterDistInches());
+		double angle = -visionSubsystem.getShooterAngle();
+		SmartDashboard.putNumber("Angle", angle);
+		SmartDashboard.putNumber("Angle2", angle);
+		SmartDashboard.putNumber("VisionRPM", visionSubsystem.getShooterRPM());
 	}
 
 	/**

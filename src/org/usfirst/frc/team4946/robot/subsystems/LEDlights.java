@@ -14,8 +14,6 @@ public class LEDlights extends Subsystem {
 
 	Relay gearLED = new Relay(RobotMap.RELAY_GEAR_LED);
 	Relay shooterLED = new Relay(RobotMap.RELAY_SHOOTER_LED);
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
 
 	public LEDlights() {
 		gearLED.setDirection(Direction.kForward);
@@ -23,8 +21,6 @@ public class LEDlights extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
 	}
 
 	public void setGearLedIsEnabled(boolean gearLedOn) {
@@ -38,7 +34,6 @@ public class LEDlights extends Subsystem {
 	}
 
 	public void setShooterLedIsEnabled(boolean shooterLedOn) {
-
 		if (shooterLedOn == true) {
 			shooterLED.set(Value.kOn);
 		} else {

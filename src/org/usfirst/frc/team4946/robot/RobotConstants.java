@@ -6,7 +6,7 @@ public class RobotConstants {
 	// For Constants that don't have to do with port numbers
 	public static final int ENCODER_PPR = 128;
 	public static final double WHEEL_DIA = 4;// 3.97; // rip not even 4"
-	public static final double GEARBOX_REDUCTION = 24.0 / 50.0;
+	public static final double GEARBOX_REDUCTION = 1;//24.0 / 50.0;
 	public static final double ENCODER_DISTANCE_PER_PULSE = WHEEL_DIA * Math.PI
 			/ ENCODER_PPR * GEARBOX_REDUCTION;
 	public static final double AUTO_MAX_SPEED = 0.6;
@@ -16,20 +16,17 @@ public class RobotConstants {
 		public enum AutoScript {
 			GEAR_FIRST,
 			SHOOT_FIRST,
-			HOPPER_LEFT,
+			HOPPER,
 			HOPPER_RIGHT,
 			BREACH
 		}
 
 		public enum AutoOptions {
-			LEFT_POS,
-			RIGHT_POS,
-			RIGHT_POS_THEN_SHOOT,
-			MIDDLE_NO_BREACH,
-			MIDDLE_BREACH_AND_SHOOT,
-			MIDDLE_BREACH_LEFT,
-			MIDDLE_BREACH_RIGHT,
-			MIDDLE_JUST_SHOOT,
+			MIDDLE_NO_SHOOT,
+			MIDDLE_SHOOT,
+			BOILER_SIDE_NO_SHOOT,
+			BOILER_SIDE_SHOOT,
+			FEEDER_SIDE_NO_SHOOT,
 		}
 	}
 
@@ -43,6 +40,9 @@ public class RobotConstants {
 	public static double shootI;
 	public static double shootF;
 	public static double shootFOff;
+	public static double cameraOffset;
+	public static double rpm_M;
+	public static int rpm_B;
 
 	public static void loadPrefs(Preferences prefs) {
 		driveP = prefs.getDouble("driveP", 0.3);
@@ -53,8 +53,11 @@ public class RobotConstants {
 		turnOutput = prefs.getDouble("turnOutput", 0.8);
 		shootP = prefs.getDouble("shootP", 0.0015);
 		shootI = prefs.getDouble("shootI", 0.0);
-		shootF = prefs.getDouble("shootF", 0.00012899);
-		shootFOff = prefs.getDouble("shootFOff", 0.052882);
+		shootF = prefs.getDouble("shootF", 0.00012091);
+		shootFOff = prefs.getDouble("shootFOff", 0.73851);
+		cameraOffset = prefs.getDouble("camOffset", 4.0);
+		rpm_M = prefs.getDouble("rpm_M", 11.667);
+		rpm_B = prefs.getInt("rpm_B", 1650);
 	}
 
 	public static void repopulatePrefs(Preferences prefs) {
@@ -68,6 +71,9 @@ public class RobotConstants {
 		prefs.putDouble("shootI", shootI);
 		prefs.putDouble("shootF", shootF);
 		prefs.putDouble("shootFOff", shootFOff);
+		prefs.putDouble("camOffset", cameraOffset);
+		prefs.putDouble("rpm_M", rpm_M);
+		prefs.putInt("rpm_B", rpm_B);
 	}
 
 }

@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ExtendGearPusher extends Command {
+public class ExtendPusher extends Command {
 
-    public ExtendGearPusher() {
+    public ExtendPusher() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.gearSubsystem);

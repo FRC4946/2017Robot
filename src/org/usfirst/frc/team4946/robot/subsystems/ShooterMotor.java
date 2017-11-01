@@ -3,22 +3,29 @@ package org.usfirst.frc.team4946.robot.subsystems;
 import org.usfirst.frc.team4946.robot.RobotConstants;
 import org.usfirst.frc.team4946.robot.RobotMap;
 import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooterPID;
+import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooterPercent;
 import org.usfirst.frc.team4946.robot.util.RateCounter;
 import org.usfirst.frc.team4946.robot.util.SimplePIFController;
 
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class ShooterMotor extends Subsystem {
 
-	CANTalon shooterMotor = new CANTalon(RobotMap.CAN_TALON_SHOOTER);
+	CANTalon shooterMotorA = new CANTalon(RobotMap.CAN_TALON_SHOOTER_A);
+	CANTalon shooterMotorB = new CANTalon(RobotMap.CAN_TALON_SHOOTER_B);
+
 	RateCounter rateCount = new RateCounter(RobotMap.DIO_SHOOTER_SENSOR);
 	SimplePIFController pifController;
+
+	public void setBrakeMode(boolean isBreak) {
+		shooterMotorA.enableBrakeMode(isBreak);
+		shooterMotorB.enableBrakeMode(isBreak);
+	}
 
 	int rpm = 0;
 	public double percentSpeed = 0;
@@ -37,17 +44,34 @@ public class ShooterMotor extends Subsystem {
 				RobotConstants.shootFOff, rateCount);
 		pifController.setInputRange(0, 8500);
 		pifController.setOutputRange(0, 1);
+		pifController.reverseError(false);
+		pifController.setContinuous(false);
 		rateCount.setMaxVal(8500);
 
 	}
 
+	public void updatePID() {
+		updatePID(RobotConstants.shootP, RobotConstants.shootI,
+				RobotConstants.shootF, RobotConstants.shootFOff);
+	}
+
+	public void updatePID(double p, double i, double f, double fOff) {
+		pifController.setTunings(p, i, f, fOff);
+	}
+
+	// 1.1879E-4
+	// 0.064873
+
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		setDefaultCommand(new SpinShooterPID());
+		// setDefaultCommand(new SpinShooterPercent());
 	}
 
 	public void setSpeed(double speed) {
-		shooterMotor.set(speed);
+		percentSpeed = speed;
+		shooterMotorA.set(-percentSpeed);
+		shooterMotorB.set(-percentSpeed);
 	}
 
 	public void setRPM(int rpm) {
@@ -59,12 +83,23 @@ public class ShooterMotor extends Subsystem {
 	}
 
 	public void feedPID() {
-		SmartDashboard.putNumber("asdfa", pifController.getOutput());
 		double out = pifController.getOutput();
-		if (Math.abs(out) > 0.05)
-			shooterMotor.set(out);
-		else
-			shooterMotor.set(0);
+
+		if (pifController.getSetpoint() > 1000 && out <= 0.21) {
+			shooterMotorA.set(-0.2);
+			shooterMotorB.set(-0.2);
+			return;
+		}
+
+		if (Math.abs(out) > 0.05) {
+			shooterMotorA.set(-out);
+			shooterMotorB.set(-out);
+
+		} else {
+			shooterMotorA.set(0);
+			shooterMotorB.set(0);
+
+		}
 	}
 
 	public double getRPM() {

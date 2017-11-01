@@ -14,9 +14,10 @@ public class SimplePIFController {
 	private PIDSource m_inputSource;
 	private boolean m_isContinuous = false;
 	private double m_tolerance = 0.0;
+	private boolean m_reverseError = false;
 
-	public SimplePIFController(double newKP, double newKI, double newKF, double newKFOff,
-			PIDSource inputSource) {
+	public SimplePIFController(double newKP, double newKI, double newKF,
+			double newKFOff, PIDSource inputSource) {
 		kp = Math.abs(newKP);
 		ki = Math.abs(newKI);
 		kf = Math.abs(newKF);
@@ -24,12 +25,15 @@ public class SimplePIFController {
 		m_inputSource = inputSource;
 	}
 
+	public void reverseError(boolean shouldReverse) {
+		m_reverseError = shouldReverse;
+	}
+
 	public void setTunings(double Kp, double Ki, double Kf, double KFOff) {
 		kp = Math.abs(Kp);
 		ki = Math.abs(Ki);
 		kf = Math.abs(Kf);
 		kFOff = Math.abs(KFOff);
-
 
 	}
 
@@ -101,6 +105,9 @@ public class SimplePIFController {
 
 		// Compute all the working error variables
 		double error = m_setpoint - m_inputVal;
+		if (m_reverseError)
+			error *= -1;
+
 		integralTerm += ki * (error * timeChange);
 
 		if (m_isContinuous) {
@@ -122,21 +129,18 @@ public class SimplePIFController {
 
 		// Compute the output, limiting it to the boundaries
 		m_output = (kp * error) + integralTerm;
+		m_output += (kf * m_setpoint) + kFOff;
+
 		if (m_output > m_maximumOutput)
 			m_output = m_maximumOutput;
 		else if (m_output < m_minimumOutput)
 			m_output = m_minimumOutput;
-		
-		m_output += kf*m_setpoint + kFOff;
 	}
 
-	
-	
 	public double getOutput() {
 		this.compute(); // Make sure that the output is up-to-date
 		return m_output;
 	}
-
 
 	public void setSetpoint(double newSetpoint) {
 

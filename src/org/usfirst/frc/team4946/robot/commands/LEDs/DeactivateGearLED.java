@@ -24,6 +24,7 @@ public class DeactivateGearLED extends Command {
     protected void execute() {
     	
     	Robot.LEDlightsSubsystem.setGearLedIsEnabled(false);
+//    	Robot.visionSubsystem.setGearIsActive(false);
     }
 
     // Make this return true when this Command no longer needs to run execute()

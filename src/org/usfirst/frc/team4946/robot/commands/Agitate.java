@@ -19,7 +19,7 @@ public class Agitate extends Command {
     }
 	
     public Agitate() {
-        this(0.4);
+        this(0.2);
     }
 
     // Called just before this Command runs the first time
@@ -28,8 +28,8 @@ public class Agitate extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.agitatorSubsystem.setSpeed(0.4);
-    	Robot.agitatorSubsystem.setDoor(false);
+    	Robot.agitatorSubsystem.setSpeed(m_speed);
+//    	Robot.agitatorSubsystem.setDoor(false);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,7 +40,7 @@ public class Agitate extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.agitatorSubsystem.setSpeed(0.0);
-    	Robot.agitatorSubsystem.setDoor(true);
+//    	Robot.agitatorSubsystem.setDoor(true);
     }
 
     

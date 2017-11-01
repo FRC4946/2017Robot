@@ -14,19 +14,11 @@ public class AutoDriveDistance extends Command {
 	double m_distanceTraveled = 0;
 	double m_maxSpeed;
 
-	public AutoDriveDistance(double distInches, double maxSpeed, double curve) {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
-		requires(Robot.driveSubsystem);
-		m_distanceToDrive = distInches;
-		m_maxSpeed = -maxSpeed;
-
-	}
-
 	public AutoDriveDistance(double distInches, double maxSpeed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.driveSubsystem);
+
 		m_distanceToDrive = distInches;
 		m_maxSpeed = -maxSpeed;
 
@@ -40,13 +32,16 @@ public class AutoDriveDistance extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		System.out.println("Driving");
-		Robot.driveSubsystem.drive(m_maxSpeed, 0.0, 1.0);
+
+		Robot.driveSubsystem.drive(m_maxSpeed, 0.0);
+
 		m_distanceTraveled = Robot.driveSubsystem.getEncoderDistance()
 				- m_startingDistance;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+		// return false;
 		if (m_distanceToDrive > 0)
 			return (m_distanceTraveled >= m_distanceToDrive);
 		else
@@ -56,12 +51,12 @@ public class AutoDriveDistance extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		System.out.println("Donezo");
-		Robot.driveSubsystem.drive(0.0, 0.0, 0.0);
+		Robot.driveSubsystem.drive(0.0, 0.0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.driveSubsystem.drive(0.0, 0.0, 0.0);
+		end();
 	}
 }

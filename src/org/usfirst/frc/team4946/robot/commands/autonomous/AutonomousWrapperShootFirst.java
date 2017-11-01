@@ -2,10 +2,11 @@ package org.usfirst.frc.team4946.robot.commands.autonomous;
 
 import org.usfirst.frc.team4946.robot.RobotConstants.Auto.AutoOptions;
 import org.usfirst.frc.team4946.robot.commands.Agitate;
+import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDrive;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.ResetEncAndGyro;
-import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnAbsolutePID;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
+import org.usfirst.frc.team4946.robot.commands.flipper.ExtendFlippers;
 import org.usfirst.frc.team4946.robot.commands.shooter.SetShooterSpeed;
 import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooterPID;
 
@@ -29,18 +30,47 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 	final double HOPPER_DIST_B = 16.0; // CHANGE LATER
 
 	public AutonomousWrapperShootFirst(AutoOptions mode, boolean isRed) {
+		addSequential(new ExtendFlippers());
+		// addSequential(new SetShooterSpeed(3575));
+		// addParallel(new SpinShooterPID());
 
-		// Shoot from the left
-		addSequential(new ResetEncAndGyro());
-		addSequential(new SetShooterSpeed(3600));
-		addParallel(new SpinShooterPID());
-		addSequential(new Wait(2));
-		addSequential(new Agitate(), 2);
-		addSequential(new TurnPID(-110), 2);
-		addSequential(new AutoDriveDistancePID(70));
-		addSequential(new TurnPID(-60));
-		addSequential(new AutoDriveDistancePID(30));
-		addSequential(new PlaceGearAndBackup());
+		if (isRed) {
+			addSequential(new ResetEncAndGyro());
+			addSequential(new SetShooterSpeed(3225)); // Actually 3400
+			addParallel(new SpinShooterPID());
+			// addSequential(new Wait(3));
+			addSequential(new Wait(0.75));
+			addSequential(new Agitate(0.45), 5);
+
+			// addSequential(new AutoDrive(-0.6, -0.7, 0.5));
+			// addSequential(new TurnPID(40), 2);
+			// addSequential(new AutoDriveDistancePID(100));
+
+			// addSequential(new AutoDrive(-0.6, -0.7, 0.5));
+			// addSequential(new TurnPID(40), 2);
+			addSequential(new AutoDriveDistancePID(-48));
+			addSequential(new AutoDrive(-0.6, 0.9, 0.5));
+			addSequential(new TurnPID(-50), 2);
+			addSequential(new AutoDriveDistancePID(-25*12));
+			// win ONNOB
+		} else {
+
+			// Shoot from the left
+			addSequential(new ResetEncAndGyro());
+			addSequential(new SetShooterSpeed(3225)); // Actually 3400
+			addParallel(new SpinShooterPID());
+			addSequential(new Wait(0.75));
+			addSequential(new Agitate(0.45), 5);
+			addSequential(new AutoDriveDistancePID(-48));
+//			addSequential(new AutoDrive(-0.6, 0.7, 0.5));
+			addSequential(new TurnPID(50), 2);
+			addSequential(new AutoDriveDistancePID(-25*12));
+		}
+		// addSequential(new TurnPID(-110), 2);
+		// addSequential(new AutoDriveDistancePID(70));
+		// addSequential(new TurnPID(-60));
+		// addSequential(new AutoDriveDistancePID(30));
+		// addSequential(new PlaceGearAndBackup());
 
 		//
 		// if (isRed) {
@@ -48,7 +78,7 @@ public class AutonomousWrapperShootFirst extends CommandGroup {
 		// switch (mode) {
 		// case MIDDLE_NO_BREACH:
 		// case MIDDLE_JUST_SHOOT:
-		// case MIDDLE_BREACH_RIGHT:
+		// case MIDD LE_BREACH_RIGHT:
 		// case MIDDLE_BREACH_LEFT:
 		// case MIDDLE_BREACH_AND_SHOOT:
 		// // SHOOT

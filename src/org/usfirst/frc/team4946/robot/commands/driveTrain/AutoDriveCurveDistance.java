@@ -15,29 +15,27 @@ public class AutoDriveCurveDistance extends Command {
 	double m_gyroAngle;
 	double m_maxSpeed;
 	final double k_p = 0.02;
-	double m_setAngle;
+	double m_curve;
 
 	public AutoDriveCurveDistance(double distInches, double maxSpeed,
-			double angle) {
+			double curve) {
 		requires(Robot.driveSubsystem);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		m_distanceToDrive = distInches;
 		m_maxSpeed = -maxSpeed;
-		m_setAngle = angle;
+		m_curve = curve;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.driveSubsystem.resetGyro();
 		m_startingDistance = Robot.driveSubsystem.getEncoderDistance();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		m_gyroAngle = Robot.driveSubsystem.getGyroValue();
 		Robot.driveSubsystem.drive(m_maxSpeed,
-				m_gyroAngle - m_setAngle * k_p);
+				m_curve);
 		m_distanceTraveled = Robot.driveSubsystem.getEncoderDistance()
 				- m_startingDistance;
 	}

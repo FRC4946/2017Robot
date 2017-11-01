@@ -19,6 +19,7 @@ public class DecrementRPM extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.shooterSubsystem.setBrakeMode(true);
 		Robot.shooterSubsystem.setRPM(Robot.shooterSubsystem.getSetRPM()
 				- m_step);
 	}

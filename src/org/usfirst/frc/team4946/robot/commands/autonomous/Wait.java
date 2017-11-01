@@ -16,12 +16,12 @@ public class Wait extends Command {
     public Wait(double waitTime) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.ballSubsystem);
-    	requires(Robot.driveSubsystem);
-//    	requires(Robot.indexerSubsystem);
-    	requires(Robot.winchSubsystem);
-    	requires(Robot.gearSubsystem);
-    	requires(Robot.shooterSubsystem);
+//    	requires(Robot.ballSubsystem);
+//    	requires(Robot.driveSubsystem);
+////    	requires(Robot.indexerSubsystem);
+//    	requires(Robot.winchSubsystem);
+//    	requires(Robot.gearSubsystem);
+//    	requires(Robot.shooterSubsystem);
     	m_timeToWait = waitTime;
     }
 

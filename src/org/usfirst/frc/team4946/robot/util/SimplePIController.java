@@ -133,7 +133,7 @@ public class SimplePIController {
 			double range = (m_maximumInput - m_minimumInput);
 
 			if (newSetpoint > m_maximumInput) {
-				m_setpoint = newSetpoint%range;
+				m_setpoint = newSetpoint % range;
 				// m_setpoint = m_maximumInput;
 			} else if (newSetpoint < m_minimumInput) {
 				while (newSetpoint < m_minimumInput)
@@ -171,9 +171,10 @@ public class SimplePIController {
 
 	public boolean onTarget() {
 		this.updateInputVal();
-		if (m_isContinuous)
-			return (Math.abs(m_setpoint - m_inputVal) < m_tolerance / 100
-					* (m_maximumInput - m_minimumInput));
+//		if (m_isContinuous)
+//			return (Math.abs(m_setpoint - m_inputVal) < m_tolerance / 100
+//					* Math.abs(m_maximumInput - m_minimumInput));
+		// return Math.abs(m_setpoint - m_inputVal) < m_tolerance;
 
 		return (Math.abs(m_setpoint - m_inputVal) < m_tolerance); // If the
 																	// setpoint
