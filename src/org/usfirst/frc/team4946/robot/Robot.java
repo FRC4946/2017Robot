@@ -5,6 +5,8 @@ import org.usfirst.frc.team4946.robot.RobotConstants.Auto.AutoScript;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperGearFirst;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperHopper;
 import org.usfirst.frc.team4946.robot.commands.autonomous.AutonomousWrapperShootFirst;
+import org.usfirst.frc.team4946.robot.commands.autonomous.TestingForward;
+import org.usfirst.frc.team4946.robot.commands.autonomous.TestingTurnLeft;
 import org.usfirst.frc.team4946.robot.commands.driveTrain.AutoDriveDistancePID;
 import org.usfirst.frc.team4946.robot.subsystems.Agitator;
 import org.usfirst.frc.team4946.robot.subsystems.BallIntake;
@@ -91,6 +93,9 @@ public class Robot extends IterativeRobot {
 				AutoOptions.BOILER_SIDE_NO_SHOOT);
 		m_autoOptions.addObject("NotBoilerSide & No Shoot",
 				AutoOptions.FEEDER_SIDE_NO_SHOOT);
+		m_autoOptions.addObject("Testing Types of Turns", 
+				AutoOptions.TURNING_LEFT_RIGHT);
+		//m_autoOptions.addObject("Testing Drive Forward", AutoOptions.TESTING_DRIVE_FORWARD);
 		SmartDashboard.putData("Auto Options", m_autoOptions);
 
 		m_autoScript = new SendableChooser<AutoScript>();
@@ -99,6 +104,8 @@ public class Robot extends IterativeRobot {
 				AutoScript.GEAR_FIRST);
 		m_autoScript.addObject("Shoot First", AutoScript.SHOOT_FIRST);
 		m_autoScript.addObject("Hopper", AutoScript.HOPPER);
+		m_autoScript.addObject("Testing Drive Turn",AutoScript.TURNING_LEFT_RIGHT);
+		m_autoScript.addObject("Test Drive Forward", AutoScript.TESTING_FORWARD);
 		SmartDashboard.putData("Auto Script", m_autoScript);
 
 		visionSubsystem.startSimpleVision();
@@ -165,8 +172,15 @@ public class Robot extends IterativeRobot {
 		case BREACH:
 			auto = new AutoDriveDistancePID(10 * 12);
 			break;
+		case TESTING_FORWARD:
+			auto = new TestingForward();
+			break;
+		case TURNING_LEFT_RIGHT:
+			auto = new TestingTurnLeft();
+			break;
 		default:
 			auto = null;
+			break;
 		}
 
 		if (auto != null)

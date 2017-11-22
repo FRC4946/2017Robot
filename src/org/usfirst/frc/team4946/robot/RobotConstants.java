@@ -18,7 +18,9 @@ public class RobotConstants {
 			SHOOT_FIRST,
 			HOPPER,
 			HOPPER_RIGHT,
-			BREACH
+			BREACH,
+			TESTING_FORWARD,
+			TURNING_LEFT_RIGHT,
 		}
 
 		public enum AutoOptions {
@@ -27,6 +29,8 @@ public class RobotConstants {
 			BOILER_SIDE_NO_SHOOT,
 			BOILER_SIDE_SHOOT,
 			FEEDER_SIDE_NO_SHOOT,
+			TESTING_DRIVE_FORWARD,
+			TURNING_LEFT_RIGHT,
 		}
 	}
 
