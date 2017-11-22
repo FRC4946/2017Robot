@@ -14,7 +14,7 @@ import org.usfirst.frc.team4946.robot.commands.shooter.IncrementRPM;
 import org.usfirst.frc.team4946.robot.commands.shooter.OpenShooter;
 import org.usfirst.frc.team4946.robot.commands.shooter.SetShooterSpeed;
 import org.usfirst.frc.team4946.robot.commands.shooter.ZeroSpeed;
-import org.usfirst.frc.team4946.robot.commands.vision.TurnToBoiler;
+//import org.usfirst.frc.team4946.robot.commands.vision.TurnToBoiler;
 import org.usfirst.frc.team4946.robot.commands.winch.SpinWinchFast;
 import org.usfirst.frc.team4946.robot.util.JoystickAxisButton;
 import org.usfirst.frc.team4946.robot.util.MultiButton;
@@ -89,7 +89,7 @@ public class OI {
 		// gearLEDButton.whileHeld(new TurnToGear());
 		gearLEDButton.whenPressed(new ActivateGearLED());
 		gearLEDButton.whenReleased(new DeactivateGearLED());
-		shootLEDButton.whileHeld(new TurnToBoiler());
+		//shootLEDButton.whileHeld(new TurnToBoiler());
 		reverseButton.whileHeld(new Agitate(-0.4));
 
 	}

@@ -5,10 +5,8 @@ import org.usfirst.frc.team4946.robot.RobotConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
-public class SetShooterSpeedVision extends Command {
+
+/*public class SetShooterSpeedVision extends Command {
 
 	public SetShooterSpeedVision() {
 		// Use requires() here to declare subsystem dependencies
@@ -54,4 +52,5 @@ public class SetShooterSpeedVision extends Command {
 	protected void interrupted() {
 		end();
 	}
-}
+} */
+

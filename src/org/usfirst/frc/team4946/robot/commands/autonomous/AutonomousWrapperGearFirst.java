@@ -9,7 +9,7 @@ import org.usfirst.frc.team4946.robot.commands.driveTrain.TurnPID;
 import org.usfirst.frc.team4946.robot.commands.flipper.ExtendFlippers;
 import org.usfirst.frc.team4946.robot.commands.shooter.IncrementRPM;
 import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooterPID;
-import org.usfirst.frc.team4946.robot.commands.vision.TurnToBoiler;
+//import org.usfirst.frc.team4946.robot.commands.vision.TurnToBoiler;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -57,7 +57,7 @@ public class AutonomousWrapperGearFirst extends CommandGroup {
 			if (mode == AutoOptions.BOILER_SIDE_SHOOT) {
 				addSequential(new TurnPID(turnToBoilerSide), 2);
 				addSequential(new Wait(0.6));
-				addSequential(new TurnToBoiler(3225), 2);
+				//addSequential(new TurnToBoiler(3225), 2);
 				addParallel(new SpinShooterPID());
 				// addSequential(new Wait(0.5));
 				addParallel(new Agitate(0.45), 15);
@@ -100,7 +100,7 @@ public class AutonomousWrapperGearFirst extends CommandGroup {
 			addSequential(new TurnPID(turnToBoilerMiddle), 1);
 			addSequential(new AutoDriveDistance(20, 0.8), 1);
 			addSequential(new Wait(0.5));
-			addSequential(new TurnToBoiler(3550), 2);
+			//addSequential(new TurnToBoiler(3550), 2);
 //			addSequential(new IncrementRPM(70));
 			addParallel(new SpinShooterPID());
 			addParallel(new Agitate(0.35), 15);

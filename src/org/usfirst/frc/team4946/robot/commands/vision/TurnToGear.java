@@ -1,12 +1,10 @@
 package org.usfirst.frc.team4946.robot.commands.vision;
-
+/*
 import org.usfirst.frc.team4946.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
+
 public class TurnToGear extends Command {
 
 	int m_onTargetCounter = 0;
@@ -73,4 +71,4 @@ public class TurnToGear extends Command {
 	protected void interrupted() {
 		end();
 	}
-}
+} */

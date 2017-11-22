@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class TestingTurnLeft extends CommandGroup {
 
     public TestingTurnLeft() {
-    	addSequential(new AutoDriveDistancePID(36,-0.2));
-    	addSequential(new Wait(2));
+    	//addSequential(new AutoDriveDistancePID(36,-0.2));
+    	//addSequential(new Wait(2));
     	addSequential(new TurnPID(90));
     	addSequential(new Wait(2));
     	addSequential(new TurnPID(-90));

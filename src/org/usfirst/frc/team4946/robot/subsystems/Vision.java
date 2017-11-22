@@ -1,5 +1,5 @@
 package org.usfirst.frc.team4946.robot.subsystems;
-
+/*
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -24,9 +24,7 @@ import edu.wpi.cscore.VideoMode;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
+
 public class Vision extends Subsystem {
 
 	public static final double H_FOV = 61.372724804;
@@ -71,7 +69,7 @@ public class Vision extends Subsystem {
 	 * 
 	 * @return {@code true} if the Jetson has issued a fresh value in the last
 	 *         0.2 seconds, otherwise {@code false}
-	 */
+	 
 	public boolean jetsonHasFreshValue() {
 
 		// Seconds * conversion
@@ -84,7 +82,7 @@ public class Vision extends Subsystem {
 	 * 
 	 * @return {@code true} if the Jetson has issued a fresh value in the last
 	 *         0.2 seconds, otherwise {@code false}
-	 */
+	 
 	public boolean jetsonHasFreshValidValue() {
 
 		// Seconds * conversion
@@ -110,7 +108,7 @@ public class Vision extends Subsystem {
 	/**
 	 * Try to fetch a message from the Jetson via ZMQ. This function will block
 	 * until a message is found.
-	 */
+	 
 	private void fetch() {
 		try {
 			String reply = m_subscriber.recvStr(ZMQ.NOBLOCK);
@@ -125,7 +123,7 @@ public class Vision extends Subsystem {
 				 * "Connection established, waiting for valid data..."); try {
 				 * Thread.sleep(100); } catch (InterruptedException e1) { } }
 				 * else
-				 */if (reply.trim().equalsIgnoreCase("Boiler Not Found"))
+				 if (reply.trim().equalsIgnoreCase("Boiler Not Found"))
 					System.out.println("Data valid. Boilder not found.");
 				else {
 					// System.out.println("aa");
@@ -147,7 +145,7 @@ public class Vision extends Subsystem {
 	 * @param recieve
 	 *            the message from the Jetson
 	 * @return a {@code HashMap} created from the key/value pairs
-	 */
+	 
 	private HashMap<String, Double> parseData(String recieve) {
 
 		HashMap<String, Double> data = new HashMap<String, Double>();
@@ -179,7 +177,7 @@ public class Vision extends Subsystem {
 	 * 
 	 * @param data
 	 *            the {@code Map} to process
-	 */
+	 
 	private void processData(Map<String, Double> data) {
 		if (data.containsKey("distInches"))
 			m_shooterDistInches = data.get("distInches");
@@ -406,4 +404,4 @@ public class Vision extends Subsystem {
 		return jetsonHasFreshValue();
 	}
 
-}
+} */

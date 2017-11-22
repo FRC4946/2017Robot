@@ -17,7 +17,7 @@ import org.usfirst.frc.team4946.robot.subsystems.LEDlights;
 import org.usfirst.frc.team4946.robot.subsystems.PadPusher;
 import org.usfirst.frc.team4946.robot.subsystems.ShooterCover;
 import org.usfirst.frc.team4946.robot.subsystems.ShooterMotor;
-import org.usfirst.frc.team4946.robot.subsystems.Vision;
+//import org.usfirst.frc.team4946.robot.subsystems.Vision;
 import org.usfirst.frc.team4946.robot.subsystems.Winch;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
 	public static BallIntake ballSubsystem;
 	public static ShooterCover shooterCoverSubsystem;
 	public static DriveTrain driveSubsystem;
-	public static Vision visionSubsystem;
+	//public static Vision visionSubsystem;
 	public static OI oi;
 
 	public static Command auto;
@@ -77,7 +77,7 @@ public class Robot extends IterativeRobot {
 		driveSubsystem = new DriveTrain();
 		agitatorSubsystem = new Agitator();
 		LEDlightsSubsystem = new LEDlights();
-		visionSubsystem = new Vision();
+		//visionSubsystem = new Vision();
 
 		oi = new OI();
 
@@ -108,8 +108,8 @@ public class Robot extends IterativeRobot {
 		m_autoScript.addObject("Test Drive Forward", AutoScript.TESTING_FORWARD);
 		SmartDashboard.putData("Auto Script", m_autoScript);
 
-		visionSubsystem.startSimpleVision();
-		visionSubsystem.startZMQThread();
+		//visionSubsystem.startSimpleVision();
+		//visionSubsystem.startZMQThread();
 
 	}
 
@@ -230,10 +230,10 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void updateSmartDashboard() {
-		SmartDashboard.putBoolean("Jetson Connected",
-				Robot.visionSubsystem.jetsonIsConnected());
-		SmartDashboard.putBoolean("Jetson Has Value",
-				Robot.visionSubsystem.jetsonHasFreshValidValue());
+		//SmartDashboard.putBoolean("Jetson Connected",
+		//		Robot.visionSubsystem.jetsonIsConnected());
+		//SmartDashboard.putBoolean("Jetson Has Value",
+		//		Robot.visionSubsystem.jetsonHasFreshValidValue());
 
 		SmartDashboard.putNumber("%", shooterSubsystem.percentSpeed);
 
@@ -250,12 +250,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Gyro Setpoint",
 				Robot.driveSubsystem.getGyroSetpoint());
 
-		SmartDashboard
-				.putNumber("Dist", visionSubsystem.getShooterDistInches());
-		double angle = -visionSubsystem.getShooterAngle();
-		SmartDashboard.putNumber("Angle", angle);
-		SmartDashboard.putNumber("Angle2", angle);
-		SmartDashboard.putNumber("VisionRPM", visionSubsystem.getShooterRPM());
+		//SmartDashboard
+		//		.putNumber("Dist", visionSubsystem.getShooterDistInches());
+		//double angle = -visionSubsystem.getShooterAngle();
+		//SmartDashboard.putNumber("Angle", angle);
+		//SmartDashboard.putNumber("Angle2", angle);
+		//SmartDashboard.putNumber("VisionRPM", visionSubsystem.getShooterRPM());
 	}
 
 	/**

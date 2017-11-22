@@ -9,7 +9,7 @@ import org.usfirst.frc.team4946.robot.commands.flipper.ExtendFlippers;
 import org.usfirst.frc.team4946.robot.commands.shooter.CoverShooter;
 import org.usfirst.frc.team4946.robot.commands.shooter.OpenShooter;
 import org.usfirst.frc.team4946.robot.commands.shooter.SpinShooterPID;
-import org.usfirst.frc.team4946.robot.commands.vision.TurnToBoiler;
+//import org.usfirst.frc.team4946.robot.commands.vision.TurnToBoiler;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -46,7 +46,7 @@ public class AutonomousWrapperHopper extends CommandGroup {
 
 			addSequential(new Wait(2));
 			addSequential(new AutoDrive(0.0, -0.9, 0.65));
-			addSequential(new TurnToBoiler(3530), 2);
+			//addSequential(new TurnToBoiler(3530), 2);
 			addParallel(new SpinShooterPID());
 
 			addParallel(new Agitate(0.45), 15);
@@ -60,7 +60,7 @@ public class AutonomousWrapperHopper extends CommandGroup {
 			addSequential(new AutoDrive(0.8, 0.0, 0.3));
 			addSequential(new Wait(1));
 			addSequential(new OpenShooter());
-			addSequential(new TurnToBoiler(3580), 2);
+			//addSequential(new TurnToBoiler(3580), 2);
 			// addSequential(new SetShooterSpeed(3530));
 			addParallel(new SpinShooterPID());
 			addSequential(new Wait(0.5));
