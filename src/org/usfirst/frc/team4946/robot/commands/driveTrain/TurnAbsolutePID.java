@@ -13,24 +13,18 @@ public class TurnAbsolutePID extends Command {
 	double m_setPoint = 0.0;
 
 	public TurnAbsolutePID(double turnAngle) {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 		requires(Robot.driveSubsystem);
 		m_setPoint = turnAngle;
 	}
 
-	// Called just before this Command runs the first time
 	protected void initialize() {
-		// Robot.driveSubsystem.resetGyro();
 		Robot.driveSubsystem.setGyroSetpoint(m_setPoint);
 	}
 
-	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		Robot.driveSubsystem.drive(0.0, Robot.driveSubsystem.getGyroOutput());
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 
 		if (Robot.driveSubsystem.getGyroPIDIsOnTarget()) {

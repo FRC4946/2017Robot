@@ -36,7 +36,7 @@ public class DriveTrain extends Subsystem {
 			RobotMap.DIO_DRIVETRAIN_RIGHTENCA,
 			RobotMap.DIO_DRIVETRAIN_RIGHTENCB);
 
-	// ADXRS450_Gyro m_driveGyro = new ADXRS450_Gyro();
+	 //ADXRS450_Gyro m_driveGyro = new ADXRS450_Gyro();
 	SensorBase m_driveGyro = new AHRS(SPI.Port.kMXP);
 	SimplePIController m_drivePID;
 	SimplePIController m_gyroPID;
